@@ -9,9 +9,8 @@
     </div>
 
 <ul class="menu-items-class">
-  <li><mat-icon>fact_check</mat-icon>Dashboard</li>
-  <li><mat-icon>person</mat-icon> User</li>
-
+  <li routerLink='/dashboard'><mat-icon>fact_check</mat-icon>Dashboard</li>
+  <li routerLink='/user'><mat-icon>person</mat-icon> User</li>
 </ul>
 
     
@@ -28,13 +27,25 @@
         
         
         <span>Simple CRM</span>
+
+
       </mat-toolbar-row>
     
     </mat-toolbar>
-    
 
 
-   
   </div>
 
+
+
+  <!-- ///Main Site Content -->
+   <div class="router-container-class">
+    <router-outlet></router-outlet>
+
+
+   </div>
+
+
+
 </mat-drawer-container>
+
