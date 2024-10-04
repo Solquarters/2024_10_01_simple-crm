@@ -20,6 +20,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getDatabase, provideDatabase } from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     FormsModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideFirebaseApp(() => initializeApp({"projectId":"simple-crm-ff044","appId":"1:583649478896:web:6c7a960cc7e6110a679a35","storageBucket":"simple-crm-ff044.appspot.com","apiKey":"AIzaSyCfRGjaARkIsUdQCDER5bCQmRuBcOVpvHI","authDomain":"simple-crm-ff044.firebaseapp.com","messagingSenderId":"583649478896"})),
+    provideFirestore(() => getFirestore()),
+    provideDatabase(() => getDatabase())
   ],
   bootstrap: [AppComponent]
 })
