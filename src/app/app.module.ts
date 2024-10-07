@@ -44,11 +44,16 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     provideAnimationsAsync(),
-    provideFirebaseApp(() => initializeApp({"projectId":"simple-crm-ff044","appId":"1:583649478896:web:6c7a960cc7e6110a679a35","storageBucket":"simple-crm-ff044.appspot.com","apiKey":"AIzaSyCfRGjaARkIsUdQCDER5bCQmRuBcOVpvHI","authDomain":"simple-crm-ff044.firebaseapp.com","messagingSenderId":"583649478896"})),
+    provideFirebaseApp(() => initializeApp({"projectId":"simple-crm-ff044",
+      "appId":"1:583649478896:web:6c7a960cc7e6110a679a35",
+      "storageBucket":"simple-crm-ff044.appspot.com",
+      "apiKey":"AIzaSyCfRGjaARkIsUdQCDER5bCQmRuBcOVpvHI",
+      "authDomain":"simple-crm-ff044.firebaseapp.com",
+      "messagingSenderId":"583649478896"})),
     provideFirestore(() => getFirestore()),
     provideDatabase(() => getDatabase())
   ],
