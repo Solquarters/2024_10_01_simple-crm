@@ -1,3 +1,23 @@
+
+
+mat-dialog-content{
+    position: relative;
+}
+
+
+.progressBarDiv{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-mdc-progress-bar {
+    --mdc-linear-progress-active-indicator-color: #5f7cff;
+    --mdc-linear-progress-track-color: rgba(255, 247, 250, 0.25);
+}
+
+
 .inputFormFieldDivClass{
     display: flex;
     gap: 16px;
@@ -11,4 +31,10 @@ padding: 16px 24px;
 
 .mdc-dialog__actions{
 gap: 16px;
+}
+
+h2 {
+    font: 500 20px / 32px Roboto, sans-serif;
+    letter-spacing: .0125em;
+    margin: 0;
 }
