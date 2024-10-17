@@ -3,3 +3,62 @@
     bottom: 48px;
     right: 48px;
 }
+
+table{
+    width: 100%;
+    border-radius: 8px;
+    border-collapse: collapse;
+    
+
+    th{
+        color: rgba(0,0,0, 0.4);
+        text-align: start;
+        border-bottom: 1px solid rgb(0, 0, 0);
+        padding: 0px 0px 8px 0px;
+
+        &:first-child{
+            padding: 0px 0px 8px 8px;
+        }
+    }
+
+    td{
+        border-bottom: 1px solid black;
+        height: 32px;
+
+        &:first-child{
+            padding: 0px 0px 0px 8px;
+        }
+    }
+
+    tr{
+        cursor: pointer;
+
+        &:first-child{
+            cursor: unset;
+            &:hover{
+                background-color: unset;
+            }
+        }
+        &:last-child > td{
+            border-bottom: 0;
+        }
+
+        &:hover{
+            background-color: rgb(110, 110, 110);
+        }
+    }
+  
+   
+}
+
+mat-card-content{
+    background-color: rgb(161, 161, 161);
+    padding: 0px 0px;
+  
+}
+.mat-mdc-card-content:last-child {
+    padding-bottom: 0px;
+}
+.mat-mdc-card-content:first-child {
+    padding-top: 8px;
+}

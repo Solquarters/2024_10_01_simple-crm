@@ -26,6 +26,8 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
 
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 
+import {MatCardModule} from '@angular/material/card';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +49,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatDatepickerModule,
     MatNativeDateModule,
     FormsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatCardModule
   ],
   providers: [
     provideAnimationsAsync(),
