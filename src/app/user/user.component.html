@@ -8,19 +8,15 @@
         <th>City</th>
       </tr>
 
+      @for (user of usersArray; track user) {
       <tr>
-        <td>ABABA</td>
-        <td>ABABA</td>
-        <td>ABABA</td>
-
+          <td> {{ user.firstName }} {{ user.lastName }}</td>
+          <td> {{ user.id }}</td>
+          <td> {{ user.city }}</td>
       </tr>
+    }
 
-      <tr>
-        <td>ABABA</td>
-        <td>ABABA</td>
-        <td>ABABA</td>
-
-      </tr>
+      
     </table>
 
   </mat-card-content>
@@ -32,3 +28,5 @@
 matTooltip="Add user" matTooltipPosition="above">
     <mat-icon>add</mat-icon>
   </button>
+
+  <button (click)="consoleOutputUsers()">CONSOLE USERS</button>
