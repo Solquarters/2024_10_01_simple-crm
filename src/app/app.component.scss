@@ -64,5 +64,19 @@ mat-toolbar-row{
 }
 
 .router-container-class{
-    padding: 32px 16px 16px 32px;
+    padding: 32px 32px 16px 32px;
+}
+
+.logo-container-class{
+    display: flex;
+    align-items: center;
+  
+    img{
+    
+       width: 160px;
+        padding: 8px 8px 0px 8px;
+        filter: invert(1);
+        
+       
+    }
 }
