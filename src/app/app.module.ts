@@ -30,6 +30,7 @@ import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
+     // Existing Components
     AppComponent,
     DashboardComponent,
     UserComponent,

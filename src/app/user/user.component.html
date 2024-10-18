@@ -8,7 +8,7 @@
         <th>City</th>
       </tr>
 
-      @for (user of usersArray; track user) {
+      @for (user of this.firestoreService.usersArray; track user) {
       <tr>
           <td> {{ user.firstName }} {{ user.lastName }}</td>
           <td> {{ user.id }}</td>
