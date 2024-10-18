@@ -57,8 +57,11 @@ export class FirestoreService {
     //unsubscribe is inhereting a unsubscribe function to stop the listener
     this.unsubscribe = onSnapshot(usersCollection, (querySnapshot) => {
       console.log('Received real-time update:', querySnapshot);
+      console.log('querySnapshot.docs:', querySnapshot.docs);
 
       this.usersArray = querySnapshot.docs.map(doc => {
+
+        console.log('querySnapshot.docs.map: Single doc.data()', doc.data);
         const data = doc.data();
         data['id'] = doc.id; // Add the id to the data object
         return new User(data); // Create a new User instance
