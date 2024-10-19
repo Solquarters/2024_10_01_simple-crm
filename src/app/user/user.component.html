@@ -9,7 +9,7 @@
       </tr>
 
       @for (user of this.firestoreService.usersArray; track user) {
-      <tr>
+      <tr [routerLink]="['/user/' + user.id]">
           <td> {{ user.firstName }} {{ user.lastName }}</td>
           <td> {{ user.email }}</td>
           <td> {{ user.city }}</td>
