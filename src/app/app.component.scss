@@ -24,15 +24,15 @@
 
 .logo-container-class{
     border-bottom: 1px solid rgba(121, 121, 121, 0.438);
-    min-height: 55px;
+    min-height: 64px;
     display: flex;
     align-items: center;
     padding: 0px 16px;
 }
 
 mat-toolbar, mat-toolbar-row{
-    min-height: 56px;
-    height: 56px;
+    min-height: 64px;
+    height: 64px;
 }
 
 mat-toolbar-row{
@@ -73,8 +73,8 @@ mat-toolbar-row{
   
     img{
     
-       width: 160px;
-        padding: 8px 8px 0px 8px;
+       width: 140px;
+        padding: 0px;
         filter: invert(1);
         
        

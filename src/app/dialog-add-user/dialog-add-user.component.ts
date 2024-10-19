@@ -35,4 +35,8 @@ export class DialogAddUserComponent {
         console.error('Error adding user to Firestore', error);
       });
   }
+
+  cancelDialog(){
+    this.dialogRef.close();
+  }
 }
