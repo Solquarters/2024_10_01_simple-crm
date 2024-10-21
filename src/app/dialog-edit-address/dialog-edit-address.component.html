@@ -1,1 +1,51 @@
-<p>dialog-edit-address works!</p>
+<div class="progressBarDiv">
+    @if(this.loading){
+      <mat-progress-bar  class="progressBarClass" mode="indeterminate"></mat-progress-bar>
+  
+    }
+   
+  </div>
+  
+  
+  <h2 mat-dialog-title>Edit Address</h2>
+ 
+  <mat-dialog-content class="matDialogContentClass">
+      
+    
+  <div class="inputFormFieldDivClass ">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Street Address</mat-label>
+      <input [disabled]=this.loading [(ngModel)]="user.street" matInput placeholder="Street address">
+      
+     
+    </mat-form-field>
+  </div>
+  
+  
+    <div class="inputFormFieldDivClass">
+    
+      
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Zip Code</mat-label>
+        <input [disabled]=this.loading [(ngModel)]="user.zipCode" matInput placeholder="Zip Code">
+        
+       
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>City</mat-label>
+        <input [disabled]=this.loading [(ngModel)]="user.city" matInput placeholder="City">
+    
+      </mat-form-field>
+    </div>
+  
+      
+      
+  
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button (click)="cancelDialog()" mat-button >Cancel</button>
+    <button [disabled]=this.loading mat-button  cdkFocusInitial (click)="saveUser()">Save</button>
+  </mat-dialog-actions>

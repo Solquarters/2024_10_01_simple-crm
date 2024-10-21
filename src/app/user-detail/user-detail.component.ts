@@ -90,7 +90,12 @@ export class UserDetailComponent implements OnInit{
 
 
   openAddressDialog(){
-    this.dialog.open(DialogEditAddressComponent);
+    ///Make the child dialog editAddress access the parent variable user: 
+    const editAddressDialog = this.dialog.open(DialogEditAddressComponent);
+
+    ///Pass on user Object to child dialog or component instance
+    editAddressDialog.componentInstance.user = this.user;
+    
   };
 
   openEmailDialog(){

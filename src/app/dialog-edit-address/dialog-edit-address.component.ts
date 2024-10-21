@@ -13,6 +13,7 @@
 import { Component } from '@angular/core';
 
 import { MatDialogRef } from '@angular/material/dialog';
+import { User } from '../../models/user.class';
 
 @Component({
   selector: 'app-dialog-edit-address',
@@ -21,6 +22,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class DialogEditAddressComponent {
 
+  user: User = new User();
 constructor(public dialogRef: MatDialogRef<DialogEditAddressComponent>){
 
 }
