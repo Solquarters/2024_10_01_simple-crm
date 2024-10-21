@@ -45,10 +45,14 @@
 // }
 
 import { Component, OnInit } from '@angular/core';
-import { Firestore, doc, collection } from '@angular/fire/firestore';
+import { Firestore, doc} from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user.class';
 import { docData } from '@angular/fire/firestore'; // Import docData for fetching document data
+import { MatDialog } from '@angular/material/dialog';
+import { DialogEditEmailComponent } from '../dialog-edit-email/dialog-edit-email.component';
+import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
+
 
 @Component({
   selector: 'app-user-detail',
@@ -60,7 +64,11 @@ export class UserDetailComponent implements OnInit{
   user: User = new User();
   userId: string | null = '';
 
-  constructor(private route: ActivatedRoute, private firestore: Firestore) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private firestore: Firestore,
+    public dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
@@ -79,4 +87,13 @@ export class UserDetailComponent implements OnInit{
       console.log('got user:', this.user);
     });
   }
+
+
+  openAddressDialog(){
+    this.dialog.open(DialogEditAddressComponent);
+  };
+
+  openEmailDialog(){
+    this.dialog.open(DialogEditEmailComponent);
+  };
 }
