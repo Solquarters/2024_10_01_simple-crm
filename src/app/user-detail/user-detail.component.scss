@@ -1,0 +1,34 @@
+mat-card{
+    
+}
+
+.user-detail-header{
+    min-height: 180px;
+    background-color: #758694;
+
+    display: flex;
+    flex-direction: unset;
+    align-items: flex-end;
+    
+
+    img{
+        width: 80px;
+        border-radius: 50%;
+    }
+
+    div{
+        margin: 0px 0px 0px 16px;
+        height: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    h2{
+        margin-bottom: 0px;
+    }
+}
+
+.singleInfoCardClass{
+    margin: 16px 0px 0px 0px;
+}
