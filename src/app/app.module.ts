@@ -28,6 +28,10 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import {MatCardModule} from '@angular/material/card';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import {MatMenuModule} from '@angular/material/menu';
+
+import { DialogEditAddressComponent } from './dialog-edit-address/dialog-edit-address.component';
+import { DialogEditEmailComponent } from './dialog-edit-email/dialog-edit-email.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,10 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     DashboardComponent,
     UserComponent,
     DialogAddUserComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    
+    DialogEditAddressComponent,
+    DialogEditEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +60,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     MatNativeDateModule,
     FormsModule,
     MatProgressBarModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule
   ],
   providers: [
     provideAnimationsAsync(),

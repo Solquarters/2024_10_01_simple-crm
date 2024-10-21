@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { FirestoreService } from '../firestore.service';
-import { User } from '../../models/user.class';
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
