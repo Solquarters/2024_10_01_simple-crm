@@ -22,7 +22,8 @@ import { User } from '../../models/user.class';
 })
 export class DialogEditAddressComponent {
 
-  user: User = new User();
+user: User = new User();
+
 constructor(public dialogRef: MatDialogRef<DialogEditAddressComponent>){
 
 }
