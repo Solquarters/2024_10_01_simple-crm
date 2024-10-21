@@ -52,7 +52,6 @@ export class FirestoreService {
 
   initializeUsersArray() {
     const usersCollection = collection(this.firestore, 'users');
-
     // Set up the real-time listener
     //unsubscribe is inhereting a unsubscribe function to stop the listener
     this.unsubscribe = onSnapshot(usersCollection, (querySnapshot) => {
@@ -70,6 +69,9 @@ export class FirestoreService {
       console.error('Error fetching users:', error);
     });
   }
+
+
+
 
 
   //unsubscribe is the function returned by Firestore's onSnapshot method, specific to Firestore's API.
