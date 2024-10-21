@@ -3,8 +3,8 @@
     <img src="./assets/img/icons8-male-user-96 (1).png" alt="">
 
     <div>
-        <h2>Max Mustermann</h2>
-        EmailATemail.de
+        <h2>{{this.user.firstName}} {{this.user.lastName}}</h2>
+        {{this.user.email}}
     </div>
 </mat-card>
 
@@ -14,8 +14,8 @@
     </mat-card-header>
 
     <mat-card-content>
-        Musterstrasse 23 <br>
-        12345 Stadt
+        {{this.user.street}} <br>
+        {{this.user.zipCode}} {{this.user.city}}
     </mat-card-content>
 
 </mat-card>
