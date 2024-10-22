@@ -15,7 +15,7 @@ export class User {
       this.email = obj?.email || '';
       this.birthDate = obj?.birthDate || 0;
       this.street = obj?.street || '';
-      this.zipCode = obj?.zipCode || 0;
+      this.zipCode = obj?.zipCode || '';
       this.city = obj?.city || '';
     }
   
