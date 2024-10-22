@@ -67,6 +67,8 @@ export class DialogAddUserComponent {
   //cinstructo input firestore: Firestore,
   constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>, public firestoreService: FirestoreService) {
     // this.firestore = firestore;
+    this.firestoreService.user = new User();
+    this.firestoreService.birthDate = new Date('');
   }
   
   // saveUser() {
