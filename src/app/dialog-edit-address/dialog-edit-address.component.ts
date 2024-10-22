@@ -11,10 +11,8 @@
 
 
 import { Component } from '@angular/core';
-
 import { MatDialogRef } from '@angular/material/dialog';
 import { User } from '../../models/user.class';
-
 import { FirestoreService } from '../firestore.service';
 
 @Component({
@@ -34,17 +32,18 @@ constructor(
 
 }
 
-
-
-
-
 cancelDialog(){
   this.dialogRef.close();
 }
 
 saveUser(){
   this.firestoreService.user = this.user;
-  this.firestoreService.saveUser(this.dialogRef);
+
+  if(this.user.id){
+    this.firestoreService.updateUser(this.dialogRef, this.user.id);
+  }
+  
+  // this.firestoreService.saveUser(this.dialogRef);
 }
 
 }
