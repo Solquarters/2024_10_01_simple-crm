@@ -37,6 +37,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, onSnapshot, addDoc, doc, docData } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
+import { updateDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +77,20 @@ saveUser(dialogRefInput:any) {
     .catch((error) => {
       console.error('Error adding user to Firestore', error);
     });
+}
+
+async updateUser(dialogRefInput:any, userIdInput: string){
+  this.loading = true;
+  const docRef = doc(this.firestore, 'users', userIdInput);
+  await updateDoc(docRef, this.user.toJSON())
+  .then((result: any) => {
+    console.log('Updated user, result:', result);
+    this.loading = false;
+    dialogRefInput.close();
+  })
+  .catch((error) => {
+    console.error('Error updating user to Firestore', error);
+  });
 }
 
 
