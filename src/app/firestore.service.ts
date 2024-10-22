@@ -35,7 +35,7 @@
 // }
 
 import { Injectable } from '@angular/core';
-import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, onSnapshot, addDoc } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
 
 @Injectable({
@@ -43,12 +43,42 @@ import { User } from '../models/user.class';
 })
 export class FirestoreService {
 
+////////////////////
+
+loading = false;
+user: User = new User();
+birthDate: Date | undefined;
+
+
+///////////////////////
+
   usersArray: User[] = [];
   unsubscribe: any;
 
   constructor(private firestore: Firestore) {
     this.initializeUsersArray();
   }
+
+
+saveUser(dialogRefInput:any) {
+  if (this.birthDate) {
+    this.user.birthDate = this.birthDate.getTime();
+  }
+  this.loading = true;
+  const userRef = collection(this.firestore, 'users');
+  addDoc(userRef, this.user.toJSON())
+    .then((result: any) => {
+      console.log('Added user to Firestore', result);
+      this.loading = false;
+      // this.dialogRef.close();
+      dialogRefInput.close();
+    })
+    .catch((error) => {
+      console.error('Error adding user to Firestore', error);
+    });
+}
+
+
 
   initializeUsersArray() {
     const usersCollection = collection(this.firestore, 'users');
@@ -69,10 +99,6 @@ export class FirestoreService {
       console.error('Error fetching users:', error);
     });
   }
-
-
-
-
 
   //unsubscribe is the function returned by Firestore's onSnapshot method, specific to Firestore's API.
   ngOnDestroy(){
