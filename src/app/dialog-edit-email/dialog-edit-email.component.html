@@ -1,5 +1,5 @@
 <div class="progressBarDiv">
-    @if(this.loading){
+    @if(this.firestoreService.loading){
       <mat-progress-bar  class="progressBarClass" mode="indeterminate"></mat-progress-bar>
   
     }
@@ -17,7 +17,7 @@
       <div class="inputFormFieldDivClass">
           <mat-form-field appearance="outline">
               <mat-label>First name</mat-label>
-              <input [disabled]=this.loading [(ngModel)]="user.firstName" matInput placeholder="First name">
+              <input [disabled]=this.firestoreService.loading [(ngModel)]="user.firstName" matInput placeholder="First name">
               
             </mat-form-field>
       
@@ -32,23 +32,23 @@
       <div class="inputFormFieldDivClass ">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Email</mat-label>
-          <input [disabled]=this.loading [(ngModel)]="user.email" matInput placeholder="Email">
+          <input [disabled]=this.firestoreService.loading [(ngModel)]="user.email" matInput placeholder="Email">
           
           
         </mat-form-field>
       </div>
   
-      <div class="inputFormFieldDivClass">
+      <!-- <div class="inputFormFieldDivClass">
   
           <mat-form-field appearance="outline" class="full-width">
               <mat-label>Birthday</mat-label>
   
-              <input [disabled]=this.loading [(ngModel)]="birthDate" matInput placeholder="Birthday" [matDatepicker]="picker1">
+              <input [disabled]=this.firestoreService.loading [(ngModel)]="this.birthDate" matInput placeholder="Birthday" [matDatepicker]="picker1">
               <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
               
             </mat-form-field>
-      </div>
+      </div> -->
      
 
   
@@ -58,5 +58,5 @@
   </mat-dialog-content>
   <mat-dialog-actions>
     <button (click)="cancelDialog()" mat-button >Cancel</button>
-    <button [disabled]=this.loading mat-button  cdkFocusInitial (click)="saveUser()">Save</button>
+    <button [disabled]=this.firestoreService.loading mat-button  cdkFocusInitial (click)="saveUser()">Save</button>
   </mat-dialog-actions>

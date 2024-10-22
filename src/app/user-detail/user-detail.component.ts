@@ -177,6 +177,7 @@ export class UserDetailComponent implements OnInit{
     //Implementing a copy of the user data without referencing its content through new object instantiation 
     //and turning it into a json object
     editAddressDialog.componentInstance.user = new User(this.firestoreService.user.toJSON()) ;
+  
     
   };
 
