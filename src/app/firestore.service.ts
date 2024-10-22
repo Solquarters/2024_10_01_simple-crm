@@ -35,7 +35,7 @@
 // }
 
 import { Injectable } from '@angular/core';
-import { Firestore, collection, onSnapshot, addDoc } from '@angular/fire/firestore';
+import { Firestore, collection, onSnapshot, addDoc, doc, docData } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
 
 @Injectable({
@@ -76,6 +76,15 @@ saveUser(dialogRefInput:any) {
     .catch((error) => {
       console.error('Error adding user to Firestore', error);
     });
+}
+
+
+getSingleUser(idInput: string) {
+  const userDocRef = doc(this.firestore, `users/${idInput}`);
+  docData(userDocRef).subscribe((user: any) => {
+    this.user = new User(user);
+    console.log('got user:', this.user);
+  });
 }
 
 

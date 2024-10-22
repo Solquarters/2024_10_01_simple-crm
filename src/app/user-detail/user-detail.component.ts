@@ -44,6 +44,76 @@
 
 // }
 
+// import { Component, OnInit } from '@angular/core';
+// import { Firestore, doc} from '@angular/fire/firestore';
+// import { ActivatedRoute } from '@angular/router';
+// import { User } from '../../models/user.class';
+// import { docData } from '@angular/fire/firestore'; // Import docData for fetching document data
+// import { MatDialog } from '@angular/material/dialog';
+// import { DialogEditEmailComponent } from '../dialog-edit-email/dialog-edit-email.component';
+// import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
+
+
+// @Component({
+//   selector: 'app-user-detail',
+//   templateUrl: './user-detail.component.html',
+//   styleUrl: './user-detail.component.scss'
+// })
+// export class UserDetailComponent implements OnInit{
+
+//   user: User = new User();
+//   userId: string | null = '';
+
+//   constructor(
+//     private route: ActivatedRoute, 
+//     private firestore: Firestore,
+//     public dialog: MatDialog,
+//   ) {}
+
+//   ngOnInit(): void {
+//     this.route.paramMap.subscribe(paramMap => {
+//       this.userId = paramMap.get('id');
+//       console.log('got id', this.userId);
+//       if (this.userId) {
+//         this.getSingleUser(this.userId);
+//       }
+//     });
+//   }
+
+//   getSingleUser(idInput: string) {
+//     const userDocRef = doc(this.firestore, `users/${idInput}`);
+//     docData(userDocRef).subscribe((user: any) => {
+//       this.user = new User(user);
+//       console.log('got user:', this.user);
+//     });
+//   }
+
+
+//   openAddressDialog(){
+//     ///Make the child dialog editAddress access the parent variable user: 
+//     const editAddressDialog = this.dialog.open(DialogEditAddressComponent);
+
+//     ///Pass on user Object to child dialog or component instance
+//     // editAddressDialog.componentInstance.user = this.user;
+
+//     //Implementing a copy of the user data without referencing its content through new object instantiation 
+//     //and turning it into a json object
+//     editAddressDialog.componentInstance.user = new User(this.user.toJSON()) ;
+    
+//   };
+
+//   openEmailDialog(){
+//     // this.dialog.open(DialogEditEmailComponent);
+
+
+//         ///Make the child dialog editAddress access the parent variable user: 
+//         const editEmailDialog = this.dialog.open(DialogEditEmailComponent);
+
+//         ///Pass on user Object to child dialog or component instance
+//         editEmailDialog.componentInstance.user = new User(this.user.toJSON());
+//   };
+// }
+
 import { Component, OnInit } from '@angular/core';
 import { Firestore, doc} from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
@@ -53,6 +123,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogEditEmailComponent } from '../dialog-edit-email/dialog-edit-email.component';
 import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
 
+import { FirestoreService } from '../firestore.service';
+
 
 @Component({
   selector: 'app-user-detail',
@@ -61,13 +133,14 @@ import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-a
 })
 export class UserDetailComponent implements OnInit{
 
-  user: User = new User();
+  // user: User = new User();
   userId: string | null = '';
 
   constructor(
     private route: ActivatedRoute, 
-    private firestore: Firestore,
+    // private firestore: Firestore,
     public dialog: MatDialog,
+    public firestoreService: FirestoreService
   ) {}
 
   ngOnInit(): void {
@@ -80,13 +153,18 @@ export class UserDetailComponent implements OnInit{
     });
   }
 
-  getSingleUser(idInput: string) {
-    const userDocRef = doc(this.firestore, `users/${idInput}`);
-    docData(userDocRef).subscribe((user: any) => {
-      this.user = new User(user);
-      console.log('got user:', this.user);
-    });
+
+  getSingleUser(idInput: string){
+    this.firestoreService.getSingleUser(idInput);
   }
+
+  // getSingleUser(idInput: string) {
+  //   const userDocRef = doc(this.firestore, `users/${idInput}`);
+  //   docData(userDocRef).subscribe((user: any) => {
+  //     this.user = new User(user);
+  //     console.log('got user:', this.user);
+  //   });
+  // }
 
 
   openAddressDialog(){
@@ -98,7 +176,7 @@ export class UserDetailComponent implements OnInit{
 
     //Implementing a copy of the user data without referencing its content through new object instantiation 
     //and turning it into a json object
-    editAddressDialog.componentInstance.user = new User(this.user.toJSON()) ;
+    editAddressDialog.componentInstance.user = new User(this.firestoreService.user.toJSON()) ;
     
   };
 
@@ -110,6 +188,6 @@ export class UserDetailComponent implements OnInit{
         const editEmailDialog = this.dialog.open(DialogEditEmailComponent);
 
         ///Pass on user Object to child dialog or component instance
-        editEmailDialog.componentInstance.user = new User(this.user.toJSON());
+        editEmailDialog.componentInstance.user = new User(this.firestoreService.user.toJSON());
   };
 }

@@ -12,8 +12,8 @@
     <img src="./assets/img/icons8-male-user-96 (1).png" alt="">
 
     <div>
-        <h2>{{this.user.firstName}} {{this.user.lastName}}</h2>
-        {{this.user.email}}
+        <h2>{{this.firestoreService.user.firstName}} {{this.firestoreService.user.lastName}}</h2>
+        {{this.firestoreService.user.email}}
     </div>
 </mat-card>
 
@@ -33,8 +33,8 @@
     </mat-card-header>
 
     <mat-card-content>
-        {{this.user.street}} <br>
-        {{this.user.zipCode}} {{this.user.city}}
+        {{this.firestoreService.user.street}} <br>
+        {{this.firestoreService.user.zipCode}} {{this.firestoreService.user.city}}
     </mat-card-content>
 
 </mat-card>
