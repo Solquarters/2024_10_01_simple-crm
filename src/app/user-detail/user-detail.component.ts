@@ -94,7 +94,8 @@ export class UserDetailComponent implements OnInit{
     const editAddressDialog = this.dialog.open(DialogEditAddressComponent);
 
     ///Pass on user Object to child dialog or component instance
-    editAddressDialog.componentInstance.user = this.user;
+    // editAddressDialog.componentInstance.user = this.user;
+    editAddressDialog.componentInstance.user = new User(this.user.toJSON()) ;
     
   };
 
@@ -106,6 +107,6 @@ export class UserDetailComponent implements OnInit{
         const editEmailDialog = this.dialog.open(DialogEditEmailComponent);
 
         ///Pass on user Object to child dialog or component instance
-        editEmailDialog.componentInstance.user = this.user;
+        editEmailDialog.componentInstance.user = new User(this.user.toJSON());
   };
 }
