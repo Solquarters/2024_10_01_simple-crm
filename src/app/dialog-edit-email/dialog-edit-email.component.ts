@@ -28,7 +28,9 @@ export class DialogEditEmailComponent {
   
   saveUser(){
     this.firestoreService.user = this.user;
-    this.firestoreService.saveUser(this.dialogRef);
+    if(this.user.id){
+      this.firestoreService.updateUser(this.dialogRef, this.user.id);
+    }
   }
 
   
