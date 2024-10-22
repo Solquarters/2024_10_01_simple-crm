@@ -95,6 +95,9 @@ export class UserDetailComponent implements OnInit{
 
     ///Pass on user Object to child dialog or component instance
     // editAddressDialog.componentInstance.user = this.user;
+
+    //Implementing a copy of the user data without referencing its content through new object instantiation 
+    //and turning it into a json object
     editAddressDialog.componentInstance.user = new User(this.user.toJSON()) ;
     
   };
