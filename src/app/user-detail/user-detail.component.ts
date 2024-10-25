@@ -18,12 +18,10 @@ import { AddLicenceDialogComponent } from '../add-licence-dialog/add-licence-dia
 export class UserDetailComponent implements OnInit{
 
   Object = Object;
-  // user: User = new User();
   userId: string | null = '';
 
   constructor(
     private route: ActivatedRoute, 
-    // private firestore: Firestore,
     public dialog: MatDialog,
     public firestoreService: FirestoreService
   ) {}
@@ -34,12 +32,25 @@ export class UserDetailComponent implements OnInit{
       console.log('got id', this.userId);
       if (this.userId) {
         this.getSingleUser(this.userId);
+        this.firestoreService.user.id = this.userId;
       }
     });
   }
 
-  getSingleUser(idInput: string){
-    this.firestoreService.getSingleUser(idInput);
+  ngOnChanges(){
+    this.route.paramMap.subscribe(paramMap => {
+      this.userId = paramMap.get('id');
+      console.log('OnChanges triggered, got id', this.userId);
+      if (this.userId) {
+        this.getSingleUser(this.userId);
+        this.firestoreService.user.id = this.userId;
+      }
+    });
+
+  }
+
+  async getSingleUser(idInput: string){
+    await this.firestoreService.getSingleUser(idInput);
   }
 
   openAddressDialog(){
@@ -81,7 +92,19 @@ export class UserDetailComponent implements OnInit{
   }
 
   deleteSingleLicense(licenseIdInput: string) {
+    if(this.userId){
+      this.firestoreService.user.id = this.userId;
+    }
+    
     this.firestoreService.user.licenses = this.firestoreService.user.licenses.filter(license => license.licenseId !== licenseIdInput);
+   
+    
+    console.log(this.firestoreService.user.licenses);
+    console.log('User ID in firestore.user:',this.firestoreService.user.id);
+    console.log('User ID in user-detail user:',this.userId);
+    if(this.firestoreService.user.id){
+      this.firestoreService.updateUser(this.firestoreService.user.id);
+    }
   }
 
 

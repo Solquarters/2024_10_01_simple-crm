@@ -4,15 +4,17 @@
     <table>
       <tr>
         <th>Name</th>
+        <th>Company</th>
         <th>E-Mail</th>
-        <th>City</th>
+        <th>Licenses</th>
       </tr>
 
       @for (user of this.firestoreService.usersArray; track user) {
       <tr [routerLink]="['/user/' + user.id]">
           <td> {{ user.firstName }} {{ user.lastName }}</td>
+          <td> {{ user.company }}</td>
           <td> {{ user.email }}</td>
-          <td> {{ user.city }}</td>
+          <td> {{ user.licenses.length }}</td>
       </tr>
     }
 
