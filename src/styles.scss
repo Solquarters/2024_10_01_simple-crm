@@ -19,3 +19,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --mdc-linear-progress-active-indicator-color: #5f7cff;
     --mdc-linear-progress-track-color: rgba(255, 247, 250, 0.25);
 }
+
+.cdk-overlay-dark-backdrop {
+    background: rgba(0, 0, 0, 0.75) !important;
+}

@@ -49,6 +49,20 @@ button{
     flex-direction: column;
     position: relative;
     width: 100%;
+
+    >button{
+        height: 36px;
+        width: 36px;
+    }
+
+    >table{
+        width: 100%;
+        tr{
+        td:nth-child(1) {  
+             width: 140px;
+            }
+        }
+    } 
 }
 #deleteLicenseId{
     position: absolute;
@@ -61,3 +75,4 @@ button{
     display: flex;
     flex-direction: column;
 }
+

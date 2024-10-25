@@ -4,7 +4,7 @@
 <div class="inputFormFieldDivClass ">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>License name</mat-label>
-      <input [(ngModel)]="this.licenseName" [disabled]=this.firestoreService.loading  matInput placeholder="License name">
+      <input [(ngModel)]="this.licenseName" [disabled]=this.firestoreService.loading  matInput placeholder="License name" required="true">
       
       <!-- <mat-hint>Please enter a name</mat-hint> -->
     </mat-form-field>
@@ -15,13 +15,15 @@
     <mat-form-field appearance="outline" class="full-width">
         <mat-label>Expiration date</mat-label>
 
-        <input [(ngModel)]="this.expirationDate" [disabled]=this.firestoreService.loading  matInput placeholder="MM/DD/YYYY" [matDatepicker]="picker1">
+        <input [(ngModel)]="this.expirationDate" [disabled]=this.firestoreService.loading  matInput placeholder="MM/DD/YYYY" [matDatepicker]="picker1" required="true">
         <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
         
    
       </mat-form-field>
 </div>
+
+
 
 
 </mat-dialog-content>
