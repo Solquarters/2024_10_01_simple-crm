@@ -26,33 +26,31 @@ cancelLicenseDialog(){
   this.dialogRef.close();
 }
 
-// submitLicense(){
-  
-//   // Get the license name and expiration date in the desired format
-//   const licenseKey = this.licenseName;
-//   const expirationDateValue = this.expirationDate.getTime(); // Convert to timestamp for Firestore
 
-//   // Add the license to the Firestore user document
-//   this.firestoreService.user.licenses = {
-//     ...this.firestoreService.user.licenses, // Preserve existing licenses
-//     [licenseKey]: expirationDateValue // Add new license
-//   }
-
-//   this.dialogRef.close();
-// }
 submitLicense() {
   // Get the license name and expiration date in the desired format
-  const licenseKey = this.licenseName;
+  const licenseName = this.licenseName;
   const expirationDateValue = this.expirationDate.getTime(); // Convert to timestamp for Firestore
+  const licenseId = this.generateBase64Sequence(length = 16);
 
   // Create the new license object
-  const newLicense = { key: licenseKey, value: expirationDateValue };
+  const newLicense = { licenseName: licenseName, value: expirationDateValue, licenseId: licenseId};
 
   // Add the new license to the licenses array
   this.firestoreService.user.licenses.push(newLicense);
 
   // Close the dialog
   this.dialogRef.close();
+}
+
+
+
+generateBase64Sequence(length = 16) {
+  const randomBytes = new Uint8Array(Math.ceil((length * 6) / 8)); // Calculate bytes needed
+  crypto.getRandomValues(randomBytes); // Fill with random values
+
+  // Encode to base-64 and truncate to desired length
+  return btoa(String.fromCharCode(...randomBytes)).substring(0, length);
 }
 
 }

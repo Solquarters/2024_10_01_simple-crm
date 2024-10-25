@@ -80,21 +80,25 @@
         <mat-card-content>
             
             @if(Object.keys(this.firestoreService.user.licenses).length !== 0){
-                @for (license of this.firestoreService.user.licenses; track license.key) {
+                @for (license of this.firestoreService.user.licenses; track license) {
                     <mat-divider></mat-divider>
                     <div class="singleLicenseContainer">
                       <table>
                         <tr>
                           <td>License:</td>
-                          <td>{{ license.key }}</td>
+                          <td>{{ license.licenseName }}</td>
                         </tr>
                         <tr>
+                            <td>License ID:</td>
+                            <td>{{ license.licenseId }}</td>
+                          </tr>
+                        <tr>
                           <td>Expiration Date:</td>
-                          <td>{{ license.value}}</td>
+                          <td>{{ license.value| date:'mediumDate' }}</td>
                         </tr>
                       </table>
                    
-                      <button id="deleteLicenseId" (click)="deleteSingleLicense(license.key)" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+                      <button id="deleteLicenseId" (click)="deleteSingleLicense(license.licenseId)" mat-fab color="primary" aria-label="Example icon button with a delete icon">
                         <mat-icon>delete</mat-icon>
                       </button>
                       

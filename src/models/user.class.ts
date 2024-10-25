@@ -9,9 +9,9 @@ export class User {
   city: string;
   company: string;
   occupation: string;
-  licenses: { key: string; value: number }[]; ;
+  licenses: { licenseName: string; value: number; licenseId: string }[]; 
    // License X: Expiration Date
-  customData: { [key: string]: any };  // Title1: Data1, Title2: Data2
+  customData: { CustomKey: string; value: string }[];   // Title1: Data1, Title2: Data2
 
   constructor(obj?: any) {
       this.id = obj?.id || '';

@@ -79,7 +79,7 @@ export class DialogAddUserComponent {
   }
 
 
-  deleteSingleLicense(licenseName: string) {
-    this.firestoreService.user.licenses = this.firestoreService.user.licenses.filter(license => license.key !== licenseName);
+  deleteSingleLicense(licenseIdInput: string) {
+    this.firestoreService.user.licenses = this.firestoreService.user.licenses.filter(license => license.licenseId !== licenseIdInput);
   }
 }

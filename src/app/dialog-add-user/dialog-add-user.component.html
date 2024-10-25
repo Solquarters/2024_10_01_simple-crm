@@ -3,17 +3,11 @@
     <mat-progress-bar  class="progressBarClass" mode="indeterminate"></mat-progress-bar>
 
   }
- 
 </div>
-
 
 <h2 mat-dialog-title>Add User</h2>
 <mat-dialog-content>
     
-  
-  
-  
-
     <div class="inputFormFieldDivClass">
         <mat-form-field appearance="outline">
             <mat-label>First name</mat-label>
@@ -32,20 +26,17 @@
 
     <div class="inputFormFieldDivClass">
   
-    
-
+  
       <mat-form-field appearance="outline">
         <mat-label>Company</mat-label>
         <input [disabled]=this.firestoreService.loading  [(ngModel)]="this.firestoreService.user.company" matInput placeholder="Company">
-        
-        <!-- <mat-hint>Please enter a name</mat-hint> -->
+
       </mat-form-field>
   
       <mat-form-field appearance="outline">
         <mat-label>Occupation</mat-label>
         <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.occupation" matInput placeholder="Occupation">
-        
-        <!-- <mat-hint>Please enter a name</mat-hint> -->
+
       </mat-form-field>
     </div>
   
@@ -55,8 +46,7 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Email</mat-label>
         <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.email" matInput placeholder="Email">
-        
-        <!-- <mat-hint>Please enter a name</mat-hint> -->
+
       </mat-form-field>
     </div>
 
@@ -68,77 +58,55 @@
             <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.birthDate" matInput placeholder="MM/DD/YYYY" [matDatepicker]="picker1">
             <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
-            
-            <!-- <mat-hint>Please enter a date</mat-hint> -->
+
           </mat-form-field>
     </div>
-   
-    
 
 <div class="inputFormFieldDivClass ">
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Street Address</mat-label>
     <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.street" matInput placeholder="Street address">
     
-    <!-- <mat-hint>Please enter a name</mat-hint> -->
   </mat-form-field>
 </div>
 
-
   <div class="inputFormFieldDivClass">
   
-    
-
     <mat-form-field appearance="outline">
       <mat-label>Zip Code</mat-label>
       <input [disabled]=this.firestoreService.loading  [(ngModel)]="this.firestoreService.user.zipCode" matInput placeholder="Zip Code">
-      
-      <!-- <mat-hint>Please enter a name</mat-hint> -->
+
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>City</mat-label>
       <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.city" matInput placeholder="City">
-      
-      <!-- <mat-hint>Please enter a name</mat-hint> -->
+
     </mat-form-field>
   </div>
 
-
-
   <div class="inputFormFieldDivClass directionColumn" >
     
-      <!-- @if(firestoreService.user.licenses && Object.keys(firestoreService.user.licenses).length){
-        @for(license of getLicensesArray(); track license){
-          <p>
-            License: {{ license.name }} <br>
-            Expiration Date: {{ license.expiration | date:'longDate' }}
-          </p>
-        } -->
-
-        <!-- <div *ngFor="let license of getLicensesArray()">
-          <p>
-            License: {{ license.name }} <br>
-            Expiration Date: {{ license.expiration | date:'longDate' }}
-          </p>
-        </div> -->
-      <!-- } -->
       @if(Object.keys(this.firestoreService.user.licenses).length !== 0){
-        @for (license of this.firestoreService.user.licenses; track license.key) {
+        @for (license of this.firestoreService.user.licenses; track license.licenseName) {
             <mat-divider></mat-divider>
             <div class="singleLicenseContainer">
               <table>
                 <tr>
                   <td>License:</td>
-                  <td>{{ license.key }}</td>
+                  <td>{{ license.licenseName }}</td>
+                </tr>
+                <tr>
+                  <td>License ID:</td>
+                  <td>{{ license.licenseId }}</td>
                 </tr>
                 <tr>
                   <td>Expiration Date:</td>
-                  <td>{{ license.value}}</td>
+                  <td>{{ license.value| date:'mediumDate' }}</td>
                 </tr>
               </table>
            
-              <button id="deleteLicenseId" (click)="deleteSingleLicense(license.key)" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+              <button id="deleteLicenseId" (click)="deleteSingleLicense(license.licenseId)" mat-fab color="primary" aria-label="Example icon button with a delete icon">
                 <mat-icon>delete</mat-icon>
               </button>
               
@@ -146,17 +114,9 @@
             }
        }
       
-     
-     
         <button (click)="openLicenceDialog()" mat-raised-button color="accent">Add licence </button>
-       
-     
-   
   </div>
 
- 
-  
-    
 </mat-dialog-content>
 <mat-dialog-actions>
   <button (click)="cancelDialog()" mat-button >Cancel</button>
