@@ -65,7 +65,7 @@
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>Birthday</mat-label>
 
-            <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.birthDate" matInput placeholder="Birthday" [matDatepicker]="picker1">
+            <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.birthDate" matInput placeholder="MM/DD/YYYY" [matDatepicker]="picker1">
             <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
             
@@ -106,35 +106,44 @@
 
 
 
-  <div class="inputFormFieldDivClass ">
-    <section>
-      
-      
+  <div class="inputFormFieldDivClass directionColumn" >
+    
+      <!-- @if(firestoreService.user.licenses && Object.keys(firestoreService.user.licenses).length){
+        @for(license of getLicensesArray(); track license){
+          <p>
+            License: {{ license.name }} <br>
+            Expiration Date: {{ license.expiration | date:'longDate' }}
+          </p>
+        } -->
+
+        <!-- <div *ngFor="let license of getLicensesArray()">
+          <p>
+            License: {{ license.name }} <br>
+            Expiration Date: {{ license.expiration | date:'longDate' }}
+          </p>
+        </div> -->
+      <!-- } -->
+      <div *ngIf="firestoreService.user.licenses && Object.keys(firestoreService.user.licenses).length">
+        <div *ngFor="let license of getLicensesArray()">
+          <div class="singleLicenseContainer">
+            License: {{ license.name }} <br>
+            Expiration Date: {{ license.expiration | date:'longDate' }}
+            <mat-icon (click)="deleteSingleLicense(license.name)" id="deleteLicenseId">delete</mat-icon>
+          </div>
+            
+          
+        </div>
+      </div>
         
         <button (click)="openLicenceDialog()" mat-raised-button color="accent">Add licence</button>
        
      
-    </section>
+   
   </div>
 
  
   
     
-      
-      
-
-   
-      
- 
-   
-
-
-
- 
-
-    
-    
-
 </mat-dialog-content>
 <mat-dialog-actions>
   <button (click)="cancelDialog()" mat-button >Cancel</button>

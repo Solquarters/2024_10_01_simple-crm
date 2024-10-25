@@ -44,3 +44,20 @@ button{
 }
 
 
+.singleLicenseContainer{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+}
+#deleteLicenseId{
+    position: absolute;
+    right: 0;
+    top: 50%; /* Move to the midpoint */
+    transform: translateY(-50%);
+}
+
+.directionColumn{
+    display: flex;
+    flex-direction: column;
+}

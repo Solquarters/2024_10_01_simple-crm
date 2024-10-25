@@ -58,6 +58,7 @@ import { AddLicenceDialogComponent } from '../add-licence-dialog/add-licence-dia
 })
 
 export class DialogAddUserComponent {
+  Object = Object;
   // firestore: Firestore;
 
   // loading = false;
@@ -100,5 +101,19 @@ export class DialogAddUserComponent {
 
   openLicenceDialog(){
     this.dialog.open(AddLicenceDialogComponent);
+  }
+
+
+
+  getLicensesArray() {
+    // Convert licenses object into an array of objects with 'name' and 'expiration' properties
+    return Object.entries(this.firestoreService.user.licenses || {}).map(([name, expiration]) => ({
+      name: name,
+      expiration: new Date(expiration) // Convert timestamp to Date object for proper formatting
+    }));
+  }
+
+  deleteSingleLicense(licenseName: string){
+    delete this.firestoreService.user.licenses[licenseName];
   }
 }
