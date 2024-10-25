@@ -38,6 +38,9 @@
    margin:8px;
 }
 
+mat-divider{
+    margin: 0px 0px 8px 0px;
+}
 
 
 .singleLicenseContainer{
@@ -82,7 +85,7 @@ mat-card-header{
 }
 
 
-table{
+#headerTable{
     width: 100%;
     tr{
     td:nth-child(1) {  

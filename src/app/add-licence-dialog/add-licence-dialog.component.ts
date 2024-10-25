@@ -26,18 +26,32 @@ cancelLicenseDialog(){
   this.dialogRef.close();
 }
 
-submitLicense(){
+// submitLicense(){
   
+//   // Get the license name and expiration date in the desired format
+//   const licenseKey = this.licenseName;
+//   const expirationDateValue = this.expirationDate.getTime(); // Convert to timestamp for Firestore
+
+//   // Add the license to the Firestore user document
+//   this.firestoreService.user.licenses = {
+//     ...this.firestoreService.user.licenses, // Preserve existing licenses
+//     [licenseKey]: expirationDateValue // Add new license
+//   }
+
+//   this.dialogRef.close();
+// }
+submitLicense() {
   // Get the license name and expiration date in the desired format
   const licenseKey = this.licenseName;
   const expirationDateValue = this.expirationDate.getTime(); // Convert to timestamp for Firestore
 
-  // Add the license to the Firestore user document
-  this.firestoreService.user.licenses = {
-    ...this.firestoreService.user.licenses, // Preserve existing licenses
-    [licenseKey]: expirationDateValue // Add new license
-  }
+  // Create the new license object
+  const newLicense = { key: licenseKey, value: expirationDateValue };
 
+  // Add the new license to the licenses array
+  this.firestoreService.user.licenses.push(newLicense);
+
+  // Close the dialog
   this.dialogRef.close();
 }
 

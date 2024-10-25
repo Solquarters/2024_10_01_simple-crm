@@ -123,33 +123,30 @@
           </p>
         </div> -->
       <!-- } -->
-      <div *ngIf="firestoreService.user.licenses && Object.keys(firestoreService.user.licenses).length">
-        <div *ngFor="let license of getLicensesArray()">
-          <mat-divider></mat-divider>
-          <div class="singleLicenseContainer">
-            <table>
-              <tr>
-                <td>License:</td>
-                <td>{{ license.name }}</td>
-              </tr>
-              <tr>
-                <td>Expiration Date:</td>
-                <td>{{ license.expiration | date:'longDate' }}</td>
-              </tr>
-            </table>
-            <!-- <mat-icon (click)="deleteSingleLicense(license.name)" id="deleteLicenseId">delete</mat-icon> -->
-
-            <button id="deleteLicenseId" (click)="deleteSingleLicense(license.name)" mat-fab color="primary" aria-label="Example icon button with a delete icon">
-              <mat-icon>delete</mat-icon>
-            </button>
-            
-          </div>
-          
-            
-          
-        </div>
-        <mat-divider></mat-divider>
-      </div>
+      @if(Object.keys(this.firestoreService.user.licenses).length !== 0){
+        @for (license of this.firestoreService.user.licenses; track license.key) {
+            <mat-divider></mat-divider>
+            <div class="singleLicenseContainer">
+              <table>
+                <tr>
+                  <td>License:</td>
+                  <td>{{ license.key }}</td>
+                </tr>
+                <tr>
+                  <td>Expiration Date:</td>
+                  <td>{{ license.value}}</td>
+                </tr>
+              </table>
+           
+              <button id="deleteLicenseId" (click)="deleteSingleLicense(license.key)" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+                <mat-icon>delete</mat-icon>
+              </button>
+              
+            </div>
+            }
+       }
+      
+     
      
         <button (click)="openLicenceDialog()" mat-raised-button color="accent">Add licence </button>
        

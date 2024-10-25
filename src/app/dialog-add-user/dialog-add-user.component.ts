@@ -59,37 +59,12 @@ import { AddLicenceDialogComponent } from '../add-licence-dialog/add-licence-dia
 
 export class DialogAddUserComponent {
   Object = Object;
-  // firestore: Firestore;
-
-  // loading = false;
-
-  // user: User = new User();
-  // birthDate: Date | undefined;
-
-  //cinstructo input firestore: Firestore,
+ 
   constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>, public firestoreService: FirestoreService, public dialog: MatDialog,) {
-    // this.firestore = firestore;
     this.firestoreService.user = new User();
     this.firestoreService.birthDate = new Date('');
-    
   }
   
-  // saveUser() {
-  //   if (this.birthDate) {
-  //     this.user.birthDate = this.birthDate.getTime();
-  //   }
-  //   this.loading = true;
-  //   const userRef = collection(this.firestore, 'users');
-  //   addDoc(userRef, this.user.toJSON())
-  //     .then((result: any) => {
-  //       console.log('Added user to Firestore', result);
-  //       this.loading = false;
-  //       this.dialogRef.close();
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error adding user to Firestore', error);
-  //     });
-  // }
 
   saveUser(){
     this.firestoreService.saveUser(this.dialogRef);
@@ -104,16 +79,7 @@ export class DialogAddUserComponent {
   }
 
 
-
-  getLicensesArray() {
-    // Convert licenses object into an array of objects with 'name' and 'expiration' properties
-    return Object.entries(this.firestoreService.user.licenses || {}).map(([name, expiration]) => ({
-      name: name,
-      expiration: new Date(expiration) // Convert timestamp to Date object for proper formatting
-    }));
-  }
-
-  deleteSingleLicense(licenseName: string){
-    delete this.firestoreService.user.licenses[licenseName];
+  deleteSingleLicense(licenseName: string) {
+    this.firestoreService.user.licenses = this.firestoreService.user.licenses.filter(license => license.key !== licenseName);
   }
 }

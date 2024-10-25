@@ -133,6 +133,7 @@ import { FirestoreService } from '../firestore.service';
 })
 export class UserDetailComponent implements OnInit{
 
+  Object = Object;
   // user: User = new User();
   userId: string | null = '';
 
@@ -153,19 +154,9 @@ export class UserDetailComponent implements OnInit{
     });
   }
 
-
   getSingleUser(idInput: string){
     this.firestoreService.getSingleUser(idInput);
   }
-
-  // getSingleUser(idInput: string) {
-  //   const userDocRef = doc(this.firestore, `users/${idInput}`);
-  //   docData(userDocRef).subscribe((user: any) => {
-  //     this.user = new User(user);
-  //     console.log('got user:', this.user);
-  //   });
-  // }
-
 
   openAddressDialog(){
     ///Make the child dialog editAddress access the parent variable user: 
@@ -186,7 +177,6 @@ export class UserDetailComponent implements OnInit{
   openEmailDialog(){
     // this.dialog.open(DialogEditEmailComponent);
 
-
         ///Make the child dialog editAddress access the parent variable user: 
         const editEmailDialog = this.dialog.open(DialogEditEmailComponent);
 
@@ -201,18 +191,9 @@ export class UserDetailComponent implements OnInit{
 
   openCustomerDetailsDialog(){
 
-
   }
 
-  getLicensesArray() {
-    // Convert licenses object into an array of objects with 'name' and 'expiration' properties
-    return Object.entries(this.firestoreService.user.licenses || {}).map(([name, expiration]) => ({
-      name: name,
-      expiration: new Date(expiration) // Convert timestamp to Date object for proper formatting
-    }));
-  }
-
-  deleteSingleLicense(licenseName: string){
-    delete this.firestoreService.user.licenses[licenseName];
+  deleteSingleLicense(licenseName: string) {
+    this.firestoreService.user.licenses = this.firestoreService.user.licenses.filter(license => license.key !== licenseName);
   }
 }

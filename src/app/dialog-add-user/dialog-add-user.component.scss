@@ -23,13 +23,17 @@ mat-dialog-content{
     gap: 16px;
     padding: 0px;
 }
+.inputFormFieldDivClass:first-of-type{
+    padding: 8px 0px 0px 0px;
+}
+
 
 
 
 h2 {
     font: 500 20px / 32px Roboto, sans-serif;
     letter-spacing: .0125em;
-    margin: 0;
+    margin: 8px 0px 0px 0px;
 }
 
 button{
