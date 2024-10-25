@@ -110,6 +110,11 @@
               @if(Object.keys(this.firestoreService.user.licenses).length == 0){
                 <p>No licenses found</p> 
                }
+
+               <div class="addLicenseDivClass">
+                <button (click)="openLicenceDialog()" mat-raised-button color="accent">Add licence </button>
+               </div>
+               
         </mat-card-content>
 
         

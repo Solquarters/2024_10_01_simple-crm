@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogEditEmailComponent } from '../dialog-edit-email/dialog-edit-email.component';
 import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
 import { FirestoreService } from '../firestore.service';
+import { AddLicenceDialogComponent } from '../add-licence-dialog/add-licence-dialog.component';
 
 
 @Component({
@@ -73,10 +74,18 @@ export class UserDetailComponent implements OnInit{
   };
 
   openCustomerDetailsDialog(){
-
+  
+     
+    
+    
   }
 
   deleteSingleLicense(licenseIdInput: string) {
     this.firestoreService.user.licenses = this.firestoreService.user.licenses.filter(license => license.licenseId !== licenseIdInput);
+  }
+
+
+  openLicenceDialog(){
+    this.dialog.open(AddLicenceDialogComponent);
   }
 }
