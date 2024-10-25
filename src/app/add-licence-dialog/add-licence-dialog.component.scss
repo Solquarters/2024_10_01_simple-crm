@@ -1,3 +1,9 @@
-.cdk-overlay-dark-backdrop {
-    background: rgba(0, 0, 0, 0.82) !important;
+button{
+    height: 54px;
+    padding: 16px;
+}
+
+.mat-mdc-dialog-actions {
+    justify-content: center;
+    gap: 8px;
 }

@@ -9,12 +9,34 @@
         <button (click)="openEmailDialog()" mat-menu-item aria-label="Example icon button with a vertical three dot icon" >Edit</button>
       </mat-menu>
 
-    <img src="./assets/img/icons8-male-user-96 (1).png" alt="">
+      <div  id="whatIsGoingOn">
 
-    <div>
-        <h2>{{this.firestoreService.user.firstName}} {{this.firestoreService.user.lastName}}</h2>
-        {{this.firestoreService.user.email}}
+        <img src="./assets/img/icons8-male-user-96 (1).png" alt="">
+
+        <div class="minHeightClass100px">
+            <h2>{{this.firestoreService.user.firstName}} {{this.firestoreService.user.lastName}}</h2>
+            <table>
+                <tr>
+                  <td>Company:</td>
+                  <td>{{ this.firestoreService.user.company }}</td>
+                </tr>
+                <tr>
+                  <td>Occupation:</td>
+                  <td>{{ this.firestoreService.user.occupation}}</td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td>{{ this.firestoreService.user.email}}</td>
+                  </tr>
+              </table>
+            <!-- Company:{{this.firestoreService.user.company}} <br>
+           Occupation: {{this.firestoreService.user.occupation}} <br>
+            Email:{{this.firestoreService.user.email}} -->
+        </div>
+
+
     </div>
+    
 </mat-card>
 
 <mat-card class="singleInfoCardClass">
@@ -38,3 +60,51 @@
     </mat-card-content>
 
 </mat-card>
+
+
+<mat-card class="singleInfoCardClass">
+
+    <button  [matMenuTriggerFor]="customDetailsMenu" 
+        class="pos-abs-upper-right-class" mat-icon-button aria-label="Edit the licenses list">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+         
+    <mat-menu #customDetailsMenu="matMenu">
+      <button (click)="openCustomerDetailsDialog()" mat-menu-item>Edit</button>
+    </mat-menu>
+    
+        <mat-card-header >
+            <mat-card-title>Licenses</mat-card-title>
+        </mat-card-header>
+    
+        <mat-card-content>
+            <div *ngFor="let license of getLicensesArray()">
+                <mat-divider></mat-divider>
+                <div class="singleLicenseContainer">
+                  <table>
+                    <tr>
+                      <td>License:</td>
+                      <td>{{ license.name }}</td>
+                    </tr>
+                    <tr>
+                      <td>Expiration Date:</td>
+                      <td>{{ license.expiration}}</td>
+                    </tr>
+                  </table>
+                  <!-- <mat-icon (click)="deleteSingleLicense(license.name)" id="deleteLicenseId">delete</mat-icon> -->
+      
+                  <button id="deleteLicenseId" (click)="deleteSingleLicense(license.name)" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                  
+                </div>
+                
+                  
+                
+              </div>
+        </mat-card-content>
+
+
+        
+    
+    </mat-card>

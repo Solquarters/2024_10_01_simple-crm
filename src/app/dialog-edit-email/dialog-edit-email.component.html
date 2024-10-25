@@ -29,15 +29,31 @@
       </div>
   
   
-      <div class="inputFormFieldDivClass ">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Email</mat-label>
-          <input [disabled]=this.firestoreService.loading [(ngModel)]="user.email" matInput placeholder="Email">
-          
-          
-        </mat-form-field>
-      </div>
+     
+
+      <div class="inputFormFieldDivClass">
+        <mat-form-field appearance="outline">
+            <mat-label>Company</mat-label>
+            <input [disabled]=this.firestoreService.loading [(ngModel)]="user.company" matInput placeholder="Company">
+            
+          </mat-form-field>
+    
+          <mat-form-field appearance="outline">
+            <mat-label>Occupation</mat-label>
+            <input [(ngModel)]="user.occupation" matInput placeholder="Occupation">
+            
+          </mat-form-field>
+    </div>
   
+
+    <div class="inputFormFieldDivClass ">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input [disabled]=this.firestoreService.loading [(ngModel)]="user.email" matInput placeholder="Email">
+        
+        
+      </mat-form-field>
+    </div>
       <!-- <div class="inputFormFieldDivClass">
   
           <mat-form-field appearance="outline" class="full-width">

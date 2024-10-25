@@ -24,14 +24,7 @@ mat-dialog-content{
     padding: 0px;
 }
 
-.mat-mdc-dialog-actions{
-padding: 16px 24px;
-}
 
-
-.mdc-dialog__actions{
-gap: 16px;
-}
 
 h2 {
     font: 500 20px / 32px Roboto, sans-serif;
@@ -76,3 +69,15 @@ button{
     flex-direction: column;
 }
 
+
+.mat-mdc-dialog-actions {
+    justify-content: center;
+    gap: 24px;
+    padding: 16px 24px;
+}
+
+
+    
+    .mdc-dialog__actions{
+    gap: 16px;
+    }

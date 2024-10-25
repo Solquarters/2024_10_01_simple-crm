@@ -36,14 +36,14 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Company</mat-label>
-        <input [disabled]=this.firestoreService.loading  [(ngModel)]="this.firestoreService.user.zipCode" matInput placeholder="Zip Code">
+        <input [disabled]=this.firestoreService.loading  [(ngModel)]="this.firestoreService.user.company" matInput placeholder="Company">
         
         <!-- <mat-hint>Please enter a name</mat-hint> -->
       </mat-form-field>
   
       <mat-form-field appearance="outline">
         <mat-label>Occupation</mat-label>
-        <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.city" matInput placeholder="City">
+        <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.occupation" matInput placeholder="Occupation">
         
         <!-- <mat-hint>Please enter a name</mat-hint> -->
       </mat-form-field>
@@ -151,7 +151,7 @@
         <mat-divider></mat-divider>
       </div>
      
-        <button (click)="openLicenceDialog()" mat-raised-button color="accent">Add licence</button>
+        <button (click)="openLicenceDialog()" mat-raised-button color="accent">Add licence </button>
        
      
    

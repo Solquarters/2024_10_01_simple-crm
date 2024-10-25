@@ -198,4 +198,21 @@ export class UserDetailComponent implements OnInit{
         }
         
   };
+
+  openCustomerDetailsDialog(){
+
+
+  }
+
+  getLicensesArray() {
+    // Convert licenses object into an array of objects with 'name' and 'expiration' properties
+    return Object.entries(this.firestoreService.user.licenses || {}).map(([name, expiration]) => ({
+      name: name,
+      expiration: new Date(expiration) // Convert timestamp to Date object for proper formatting
+    }));
+  }
+
+  deleteSingleLicense(licenseName: string){
+    delete this.firestoreService.user.licenses[licenseName];
+  }
 }
