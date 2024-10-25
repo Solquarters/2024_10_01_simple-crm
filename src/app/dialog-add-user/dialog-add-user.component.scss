@@ -21,7 +21,7 @@ mat-dialog-content{
 .inputFormFieldDivClass{
     display: flex;
     gap: 16px;
-    padding: 8px;
+    padding: 0px;
 }
 
 .mat-mdc-dialog-actions{
@@ -38,3 +38,9 @@ h2 {
     letter-spacing: .0125em;
     margin: 0;
 }
+
+button{
+    height: 48px;
+}
+
+

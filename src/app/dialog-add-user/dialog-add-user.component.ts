@@ -45,10 +45,11 @@
 
 
 import { Component } from '@angular/core';
-import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { User } from '../../models/user.class';
 import {MatDialogRef} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { FirestoreService } from '../firestore.service';
+import { AddLicenceDialogComponent } from '../add-licence-dialog/add-licence-dialog.component';
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -65,10 +66,11 @@ export class DialogAddUserComponent {
   // birthDate: Date | undefined;
 
   //cinstructo input firestore: Firestore,
-  constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>, public firestoreService: FirestoreService) {
+  constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>, public firestoreService: FirestoreService, public dialog: MatDialog,) {
     // this.firestore = firestore;
     this.firestoreService.user = new User();
     this.firestoreService.birthDate = new Date('');
+    
   }
   
   // saveUser() {
@@ -94,5 +96,9 @@ export class DialogAddUserComponent {
 
   cancelDialog(){
     this.dialogRef.close();
+  }
+
+  openLicenceDialog(){
+    this.dialog.open(AddLicenceDialogComponent);
   }
 }

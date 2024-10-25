@@ -69,7 +69,7 @@ saveUser(dialogRefInput:any) {
   const userRef = collection(this.firestore, 'users');
   addDoc(userRef, this.user.toJSON())
     .then((result: any) => {
-      console.log('Added user to Firestore', result);
+      // console.log('Added user to Firestore', result);
       this.loading = false;
       // this.dialogRef.close();
       dialogRefInput.close();
@@ -84,7 +84,7 @@ async updateUser(dialogRefInput:any, userIdInput: string){
   const docRef = doc(this.firestore, 'users', userIdInput);
   await updateDoc(docRef, this.user.toJSON())
   .then((result: any) => {
-    console.log('Updated user, result:', result);
+    // console.log('Updated user, result:', result);
     this.loading = false;
     dialogRefInput.close();
   })
@@ -98,7 +98,7 @@ getSingleUser(idInput: string) {
   const userDocRef = doc(this.firestore, `users/${idInput}`);
   docData(userDocRef).subscribe((user: any) => {
     this.user = new User(user);
-    console.log('got user:', this.user);
+    // console.log('got user:', this.user);
   });
 }
 
@@ -109,12 +109,12 @@ getSingleUser(idInput: string) {
     // Set up the real-time listener
     //unsubscribe is inhereting a unsubscribe function to stop the listener
     this.unsubscribe = onSnapshot(usersCollection, (querySnapshot) => {
-      console.log('Received real-time update:', querySnapshot);
-      console.log('querySnapshot.docs:', querySnapshot.docs);
+      // console.log('Received real-time update:', querySnapshot);
+      // console.log('querySnapshot.docs:', querySnapshot.docs);
 
       this.usersArray = querySnapshot.docs.map(doc => {
 
-        console.log('querySnapshot.docs.map: Single doc.data()', doc.data);
+        // console.log('querySnapshot.docs.map: Single doc.data()', doc.data);
         const data = doc.data();
         data['id'] = doc.id; // Add the id to the data object
         return new User(data); // Create a new User instance
