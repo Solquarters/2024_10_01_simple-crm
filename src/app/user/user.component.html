@@ -3,13 +3,13 @@
     
     <table>
       <tr>
-        <th>Name</th>
+        <th (click)="sortUserArrayByKey('firstName')">Name ↕</th>
         <th>Company</th>
         <th>E-Mail</th>
         <th>Licenses</th>
       </tr>
 
-      @for (user of this.firestoreService.usersArray; track user) {
+      @for (user of this.localUsersArray; track user; let index = $index){
       <tr [routerLink]="['/user/' + user.id]">
           <td> {{ user.firstName }} {{ user.lastName }}</td>
           <td> {{ user.company }}</td>

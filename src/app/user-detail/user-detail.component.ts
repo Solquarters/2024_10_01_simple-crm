@@ -10,6 +10,7 @@ import { FirestoreService } from '../firestore.service';
 import { AddLicenceDialogComponent } from '../add-licence-dialog/add-licence-dialog.component';
 
 
+
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
@@ -24,12 +25,25 @@ export class UserDetailComponent implements OnInit{
   constructor(
     private route: ActivatedRoute, 
     public dialog: MatDialog,
-    public firestoreService: FirestoreService
+    public firestoreService: FirestoreService,  
+    
   ) {}
+
+  // ngOnInit(): void {
+  //   this.route.paramMap.subscribe(paramMap => {
+  //     this.userId = paramMap.get('id');
+  //     console.log('got id', this.userId);
+  //     if (this.userId) {
+  //       this.getSingleUser(this.userId);
+  //       this.firestoreService.user.id = this.userId;
+  //     }
+  //   });
+  // }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
-      this.userId = paramMap.get('id');
+      const id = paramMap.get('id');
+      this.userId = id ? id : ''; // Provide an empty string as fallback if id is null
       console.log('got id', this.userId);
       if (this.userId) {
         this.getSingleUser(this.userId);
@@ -111,5 +125,12 @@ export class UserDetailComponent implements OnInit{
 
   openLicenceDialog(){
     this.dialog.open(AddLicenceDialogComponent);
+  }
+
+  deleteUser(userIdInput:string){
+    if(this.userId){
+      this.firestoreService.deleteSingleUser(userIdInput);
+    }
+   
   }
 }

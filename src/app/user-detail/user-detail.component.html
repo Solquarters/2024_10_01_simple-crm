@@ -7,7 +7,15 @@
 
     <mat-menu #emailMenu="matMenu">
         <button (click)="openEmailDialog()" mat-menu-item aria-label="Example icon button with a vertical three dot icon" >Edit</button>
+        <button style="background-color: red;" [matMenuTriggerFor]="deleteUserMenu" mat-menu-item aria-label="Example icon button with a vertical three dot icon" >Delete Customer</button>
       </mat-menu>
+
+      <mat-menu #deleteUserMenu="matMenu">
+        
+        <button style="background-color: red;"  (click)="userId ? deleteUser(userId) : null" mat-menu-item aria-label="Example icon button with a vertical three dot icon" >Confirm Customer Deletion</button>
+      </mat-menu>
+
+      
 
       <div  id="whatIsGoingOn">
 
