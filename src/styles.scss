@@ -32,3 +32,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .redBackground{
     background-color: rgb(179, 39, 39);
 }
+
+.mat-mdc-fab.mat-primary {
+    --mdc-fab-container-color: rgb(178, 0, 0) !important;}

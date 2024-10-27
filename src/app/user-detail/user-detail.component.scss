@@ -52,6 +52,7 @@ mat-divider{
     >button{
         height: 36px;
         width: 36px;
+      
     }
 
     >table{
@@ -62,6 +63,8 @@ mat-divider{
             }
         }
     } 
+
+    
 }
 
 #deleteLicenseId{
@@ -105,4 +108,40 @@ mat-card-header{
         height: 48px;
         width: 200px;
     }
+
+    
+}
+
+// mat-mdc-menu-content{
+//     background-color: red !important;
+// }
+// :host ::ng-deep .mat-mdc-menu-content,
+// :host ::ng-deep .mat-mdc-menu-content .mat-mdc-menu-item,
+// :host ::ng-deep .mat-mdc-menu-content .mat-mdc-menu-item-text {
+//   background-color: red !important;
+// }
+
+// .licensesDeleteClass {
+//    >ng-deep .mat-mdc-menu-content{
+//     background-color: red !important;
+//    }
+        
+     
+// }
+
+// ::ng-deep .mat-mdc-menu-content{
+//     background-color: red !important;
+// }
+
+.backgroundForCustomDeletePopUpClass{
+    background-color: red;
+    width: 100%;
+    height: 100%;
+    >button{
+        text-align: center;
+    }
+   
+}
+::ng-deep .mat-mdc-menu-content{
+    padding: 0 !important;
 }

@@ -29,9 +29,7 @@
                     <td>{{ this.firestoreService.user.email}}</td>
                   </tr>
               </table>
-            <!-- Company:{{this.firestoreService.user.company}} <br>
-           Occupation: {{this.firestoreService.user.occupation}} <br>
-            Email:{{this.firestoreService.user.email}} -->
+   
         </div>
 
 
@@ -62,17 +60,8 @@
 </mat-card>
 
 
-<mat-card class="singleInfoCardClass">
+<mat-card class="singleInfoCardClass ">
 
-    <!-- <button  [matMenuTriggerFor]="customDetailsMenu" 
-        class="pos-abs-upper-right-class" mat-icon-button aria-label="Edit the licenses list">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-         
-    <mat-menu #customDetailsMenu="matMenu">
-      <button (click)="openCustomerDetailsDialog()" mat-menu-item>Edit</button>
-    </mat-menu> -->
-    
         <mat-card-header >
             <mat-card-title>Licenses</mat-card-title>
         </mat-card-header>
@@ -98,9 +87,28 @@
                         </tr>
                       </table>
                    
-                      <button id="deleteLicenseId" (click)="deleteSingleLicense(license.licenseId)" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+                      <button [matMenuTriggerFor]="deleteButtonMenu" id="deleteLicenseId"  mat-fab color="primary" aria-label="Example icon button with a delete icon">
                         <mat-icon>delete</mat-icon>
                       </button>
+
+                      
+
+    <mat-menu class="licensesDeleteClass" #deleteButtonMenu="matMenu">
+      <div class="backgroundForCustomDeletePopUpClass">
+        <button  (click)="deleteSingleLicense(license.licenseId)" 
+        mat-menu-item aria-label="Example icon button with a vertical three dot icon" >
+        Confirm to delete <br>{{license.licenseName}}<br>with ID <br>{{license.licenseId}}
+      </button>
+      </div>
+        
+    </mat-menu>
+
+
+
+
+
+
+
                       
                     </div>
                     }
