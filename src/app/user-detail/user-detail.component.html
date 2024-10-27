@@ -9,13 +9,13 @@
         <button (click)="openEmailDialog()" mat-menu-item aria-label="Example icon button with a vertical three dot icon" >Edit</button>
         
         
-        <button  [matMenuTriggerFor]="deleteUserMenu"   
+        <button  style="background-color: brown;" (click)="openDeleteUserDialog()"  
         mat-menu-item aria-label="Example icon button with a vertical three dot icon" >Delete Customer</button>
 
-        <mat-menu #deleteUserMenu="matMenu"  yPosition="below">
+        <!-- <mat-menu #deleteUserMenu="matMenu"  yPosition="below">
           <button yPosition="below" style="background-color: red;"  (click)="userId ? deleteUser(userId) : null" 
           mat-menu-item aria-label="Example icon button with a vertical three dot icon" >Confirm Deletion</button>
-        </mat-menu>
+        </mat-menu> -->
       
       </mat-menu>
 

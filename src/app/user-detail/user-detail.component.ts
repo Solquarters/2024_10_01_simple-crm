@@ -9,6 +9,7 @@ import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-a
 import { FirestoreService } from '../firestore.service';
 import { AddLicenceDialogComponent } from '../add-licence-dialog/add-licence-dialog.component';
 import { Router } from '@angular/router';
+import { RemoveUserDialogComponent } from '../remove-user-dialog/remove-user-dialog.component';
 
 
 
@@ -129,6 +130,13 @@ export class UserDetailComponent implements OnInit{
   openLicenceDialog(){
     this.dialog.open(AddLicenceDialogComponent);
   }
+
+  openDeleteUserDialog(): void {
+    this.dialog.open(RemoveUserDialogComponent, {
+      data: { childData: this.userId }, //Passing user.Id to child dialog
+    });
+  }
+  
 
   // async deleteUser(userIdInput:string){
   //   if(this.userId){
