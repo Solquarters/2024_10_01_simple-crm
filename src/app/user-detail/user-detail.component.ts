@@ -52,17 +52,17 @@ export class UserDetailComponent implements OnInit{
     });
   }
 
-  ngOnChanges(){
-    this.route.paramMap.subscribe(paramMap => {
-      this.userId = paramMap.get('id');
-      console.log('OnChanges triggered, got id', this.userId);
-      if (this.userId) {
-        this.getSingleUser(this.userId);
-        this.firestoreService.user.id = this.userId;
-      }
-    });
+  // ngOnChanges(){
+  //   this.route.paramMap.subscribe(paramMap => {
+  //     this.userId = paramMap.get('id');
+  //     console.log('OnChanges triggered, got id', this.userId);
+  //     if (this.userId) {
+  //       this.getSingleUser(this.userId);
+  //       this.firestoreService.user.id = this.userId;
+  //     }
+  //   });
 
-  }
+  // }
 
   async getSingleUser(idInput: string){
     await this.firestoreService.getSingleUser(idInput);
