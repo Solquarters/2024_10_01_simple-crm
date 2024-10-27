@@ -79,7 +79,15 @@ mat-card-header{
     height: 48px;
 }
 
-
+mat-card:first-of-type{
+    background-image: linear-gradient(to  bottom, #718db7, #64a9c3, #76c1c0);
+} 
+mat-card:nth-child(2){
+    background-image: linear-gradient(to top, #718db7, #64a9c3, #76c1c0);
+} 
+mat-card:nth-child(3){
+    background-image: linear-gradient(to bottom, #718db7, #64a9c3, #76c1c0);
+} 
 
 #whatIsGoingOn{
     display: flex;

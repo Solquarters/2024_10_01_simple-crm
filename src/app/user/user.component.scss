@@ -8,16 +8,18 @@ table{
     width: 100%;
     border-radius: 8px;
     border-collapse: collapse;
+    background-image: linear-gradient(to  bottom, #718db7, #64a9c3, #8ebdbc);
+    border-radius: 6px;
     
 
     th{
         color: rgba(0,0,0, 0.4);
         text-align: start;
         border-bottom: 1px solid rgb(0, 0, 0);
-        padding: 0px 0px 8px 0px;
+        padding: 10px 0px 8px 0px;
 
         &:first-child{
-            padding: 0px 0px 8px 8px;
+            padding: 10px 0px 8px 8px;
         }
     }
 
@@ -50,10 +52,14 @@ table{
   
    
 }
+mat-card{
+    border-radius: 6px;
+}
 
 mat-card-content{
     background-color: rgb(161, 161, 161);
-    padding: 0px 0px;
+    padding: 0px 0px !important;
+    border-radius: 6px;
   
 }
 .mat-mdc-card-content:last-child {

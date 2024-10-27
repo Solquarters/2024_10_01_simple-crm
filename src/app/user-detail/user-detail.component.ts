@@ -1,6 +1,6 @@
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user.class';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,6 +8,8 @@ import { DialogEditEmailComponent } from '../dialog-edit-email/dialog-edit-email
 import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
 import { FirestoreService } from '../firestore.service';
 import { AddLicenceDialogComponent } from '../add-licence-dialog/add-licence-dialog.component';
+import { Router } from '@angular/router';
+
 
 
 
@@ -18,7 +20,7 @@ import { AddLicenceDialogComponent } from '../add-licence-dialog/add-licence-dia
  
 })
 export class UserDetailComponent implements OnInit{
-
+ 
   Object = Object;
   userId: string | null = '';
 
@@ -26,6 +28,7 @@ export class UserDetailComponent implements OnInit{
     private route: ActivatedRoute, 
     public dialog: MatDialog,
     public firestoreService: FirestoreService,  
+    private router: Router
     
   ) {}
 
@@ -127,10 +130,23 @@ export class UserDetailComponent implements OnInit{
     this.dialog.open(AddLicenceDialogComponent);
   }
 
-  deleteUser(userIdInput:string){
-    if(this.userId){
-      this.firestoreService.deleteSingleUser(userIdInput);
-    }
+  // async deleteUser(userIdInput:string){
+  //   if(this.userId){
+  //     await this.firestoreService.deleteSingleUser(userIdInput);
+  //   }
    
+  // }
+
+
+  async deleteUser(userIdInput: string) {
+    if (this.userId) {
+      try {
+        await this.firestoreService.deleteSingleUser(userIdInput);
+        console.log(`User with ID ${userIdInput} deleted successfully.`);
+        this.router.navigate(['user']); // Redirect to the 'user' route after successful deletion
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
+    }
   }
 }
