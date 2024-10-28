@@ -2,9 +2,9 @@
 <div class="deleteUserDialogClass">
 
 
-    <h2>User: {{this.firestoreService.user.firstName}} {{this.firestoreService.user.lastName}}</h2>
+    <h1>User: {{this.firestoreService.user.firstName}} {{this.firestoreService.user.lastName}}</h1>
 
-    <button mat-menu-item (click)="deleteUser(data.childData)">
+    <button style="background-color: red;" mat-raised-button (click)="deleteUser(data.childData)">
 
 
         Confirm delete 

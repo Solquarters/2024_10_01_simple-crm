@@ -15,7 +15,7 @@ export class FirestoreService {
   user: User = new User();
   birthDate: Date | undefined;
 
-  constructor(private firestore: Firestore) {
+  constructor(public firestore: Firestore) {
     this.initializeUsersArray();
   }
 

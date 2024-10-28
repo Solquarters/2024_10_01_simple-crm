@@ -16,16 +16,23 @@ table{
         color: rgba(0,0,0, 0.4);
         text-align: start;
         border-bottom: 1px solid rgb(0, 0, 0);
-        padding: 10px 0px 8px 0px;
+        padding: 10px 0px 8px 8px;
+        cursor: pointer;
 
         &:first-child{
             padding: 10px 0px 8px 8px;
+        }
+        &:hover{
+            color: white;
+            font-weight: 500;
+            background-color: rgba(100, 100, 100, 0.341);
         }
     }
 
     td{
         border-bottom: 1px solid black;
         height: 32px;
+        padding: 0px 0px 0px 8px;
 
         &:first-child{
             padding: 0px 0px 0px 8px;
@@ -46,7 +53,7 @@ table{
         }
 
         &:hover{
-            background-color: rgb(110, 110, 110);
+            background-color: rgba(110, 110, 110, 0.487);
         }
     }
   
