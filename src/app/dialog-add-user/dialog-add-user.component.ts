@@ -11,7 +11,7 @@ import { Validators, FormControl } from '@angular/forms';
 /////BEIM ÖFFNEN VON ADD USER DIALOG NULL INJECTOR ERROR zu NGCONTROL
 ///AUSSERDEM HABE ICH BISHER IM HTML NUR FIRSTNAME LASTNAME verlinkt mit formControl="firstNameControl" und hier auch ohne eckige klammern [formControl]="firstNameControl"
 //da ein fehler ausgelöst wurde mit den klammern ... ic hweiß noch nicht wieso
-import { NgControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-dialog-add-user',
