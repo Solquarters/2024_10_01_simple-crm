@@ -4,6 +4,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { FirestoreService } from '../firestore.service';
 import { AddLicenceDialogComponent } from '../add-licence-dialog/add-licence-dialog.component';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -14,11 +15,19 @@ import { AddLicenceDialogComponent } from '../add-licence-dialog/add-licence-dia
 export class DialogAddUserComponent {
   Object = Object;
  
-  constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>, public firestoreService: FirestoreService, public dialog: MatDialog) {
+  constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>, 
+    public firestoreService: FirestoreService, 
+    public dialog: MatDialog,
+    private formbuilder: FormBuilder
+  ) {
     this.firestoreService.user = new User();
-    this.firestoreService.birthDate = new Date('');
+    this.firestoreService.birthDate = new Date('')
   }
   
+  addUserInputValidation = this.formbuilder.group({
+    firstNameTest:['', Validators.required]
+  });
+
   // onSubmit(ngForm: NgForm){
 
   // }

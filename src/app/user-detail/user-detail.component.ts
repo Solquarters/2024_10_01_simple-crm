@@ -42,11 +42,11 @@ export class UserDetailComponent implements OnInit{
     this.route.paramMap.subscribe(paramMap => {
       const id = paramMap.get('id');
       this.userId = id ? id : ''; // Provide an empty string as fallback if id is null
-      console.log('got id', this.userId);
+      // console.log('got id', this.userId);
       if (this.userId) {
         this.getSingleUser(this.userId);
         this.firestoreService.user.id = this.userId;
-        console.log('firestore user id:',this.firestoreService.user.id)
+        // console.log('firestore user id:',this.firestoreService.user.id)
       }
     });
   }

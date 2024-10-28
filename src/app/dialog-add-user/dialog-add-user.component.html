@@ -1,4 +1,5 @@
 
+
 <div class="progressBarDiv">
   @if(this.firestoreService.loading){
     <mat-progress-bar  class="progressBarClass" mode="indeterminate"></mat-progress-bar>
@@ -7,16 +8,19 @@
 </div>
 
 <h2 mat-dialog-title>Add User</h2>
-<mat-dialog-content>
+<mat-dialog-content >
     
+
     <div class="inputFormFieldDivClass">
         <mat-form-field appearance="outline">
             <mat-label>First name</mat-label>
             
-            <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.firstName" matInput placeholder="First name" required>
+            <input  [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.firstName" matInput placeholder="First name" required>
             
-           
+            <!-- <input formControlName="firstNameTest"  [disabled]=this.firestoreService.loading  matInput placeholder="First name" required> -->
           </mat-form-field>
+
+          
           
           <mat-form-field appearance="outline">
             <mat-label>Last name</mat-label>
@@ -120,7 +124,9 @@
   </div>
 
 </mat-dialog-content>
+
 <mat-dialog-actions>
   <button (click)="cancelDialog()" mat-button >Cancel</button>
   <button [disabled]=this.firestoreService.loading mat-button  cdkFocusInitial (click)="saveUser()">Save</button>
 </mat-dialog-actions>
+
