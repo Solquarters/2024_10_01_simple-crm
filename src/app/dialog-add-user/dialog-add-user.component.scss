@@ -4,31 +4,15 @@ mat-dialog-content{
     position: relative;
 }
 
-
-// .progressBarDiv{
-//     width: 100%;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-// }
-
-// .mat-mdc-progress-bar {
-//     --mdc-linear-progress-active-indicator-color: #5f7cff;
-//     --mdc-linear-progress-track-color: rgba(255, 247, 250, 0.25);
-// }
-
-
 .inputFormFieldDivClass{
     display: flex;
     gap: 16px;
     padding: 0px;
+    margin: 0px 0px 8px 0px;
 }
 .inputFormFieldDivClass:first-of-type{
     padding: 8px 0px 0px 0px;
 }
-
-
-
 
 h2 {
     font: 500 20px / 32px Roboto, sans-serif;
@@ -39,7 +23,6 @@ h2 {
 button{
     height: 48px;
 }
-
 
 .singleLicenseContainer{
     display: flex;
