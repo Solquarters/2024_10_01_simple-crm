@@ -113,7 +113,7 @@ createRandomUsers() {
   const occupations = ['Engineer', 'Designer', 'Manager', 'Analyst'];
   const licenseNames = ['License A', 'License B', 'License C', 'License D', 'License 05', 'License 06', 'License 07', 'License 08', 'License 09'];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 3; i++) {
     const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
     const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
     const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}${Math.floor(Math.random() * 100)}@example.com`;
@@ -125,7 +125,7 @@ createRandomUsers() {
     const licenseCount = Math.floor(Math.random() * 7);
     let licenses = [];
     for(let j = 0; j < licenseCount; j++ ){
-      const singleLicense = { licenseName: licenseNames[Math.floor(Math.random() * licenseNames.length)], value: new Date().getTime() + i * 365 * 24 * 60 * 60 * 1000, licenseId: this.generateBase64Sequence(length = 16) };
+      const singleLicense = { licenseName: licenseNames[Math.floor(Math.random() * licenseNames.length)], value: this.generateRandomDate(), licenseId: this.generateBase64Sequence(length = 16) };
       licenses.push(singleLicense);
     }
 
@@ -171,6 +171,13 @@ generateBase64Sequence(length = 16) {
   // Encode to base-64 and truncate to desired length
   return btoa(String.fromCharCode(...randomBytes)).substring(0, length);
 }
+
+generateRandomDate(){
+  const now = new Date();
+  const oneMonthFromNow = new Date(now.setMonth(now.getMonth() + 1)).getTime();
+  const threeYearsFromNow = new Date(now.setFullYear(now.getFullYear() + 3)).getTime();
+  return new Date(oneMonthFromNow + Math.random() * (threeYearsFromNow - oneMonthFromNow)).getTime();
+};
 
 }
 
