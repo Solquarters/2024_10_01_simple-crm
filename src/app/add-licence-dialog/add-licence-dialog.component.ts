@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
 import { FirestoreService } from '../firestore.service';
-import {MatDialogRef} from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+
 
 
 @Component({
@@ -14,32 +14,22 @@ export class AddLicenceDialogComponent {
   licenseName: string = '';
   expirationDate: Date = new Date('');
 
-  userId: string | null = '';
-
-    
-  constructor(private route: ActivatedRoute, public dialogRef: MatDialogRef<AddLicenceDialogComponent>,
-    public firestoreService: FirestoreService  
+  constructor(
+    public dialogRef: MatDialogRef<AddLicenceDialogComponent>,
+    public firestoreService: FirestoreService,
+    @Inject(MAT_DIALOG_DATA) public data: { userIdDataInput: string } 
   ){
   
   }
-  
-  // ngOnInit(): void {
-  //   this.route.paramMap.subscribe(paramMap => {
-  //     this.userId = paramMap.get('id');
-  //     console.log('Add licence dialog Oninit triggered', this.userId);
-  //     if (this.userId) {
-  //       this.firestoreService.user.id = this.userId;
-  //     }
-  //   });
-  // }
 
+  @Input() userIdDataInput!: string;
   
 cancelLicenseDialog(){
   this.dialogRef.close();
 }
 
 
-submitLicense() {
+submitLicense(parentUserId: string) {
   // Get the license name and expiration date in the desired format
   const licenseName = this.licenseName;
   const expirationDateValue = this.expirationDate.getTime(); // Convert to timestamp for Firestore
@@ -51,8 +41,12 @@ submitLicense() {
   // Add the new license to the licenses array
   this.firestoreService.user.licenses.push(newLicense);
 
-  if(this.firestoreService.user.id){
-    this.firestoreService.updateUser(this.firestoreService.user.id);
+  // console.log('Firestore user id:', this.firestoreService.user.id);
+  // console.log('This user ID:', parentUserId);
+  // console.log('data.userIdDataInput:', this.data.userIdDataInput);
+
+  if(parentUserId){
+    this.firestoreService.updateUser(parentUserId);
   }
   
 

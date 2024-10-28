@@ -17,6 +17,7 @@ export class FirestoreService {
 
   constructor(public firestore: Firestore) {
     this.initializeUsersArray();
+    
   }
 
   saveUser(dialogRefInput: any) {

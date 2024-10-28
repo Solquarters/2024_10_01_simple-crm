@@ -29,5 +29,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button (click)="cancelLicenseDialog()" mat-button >Cancel</button>
-  <button [disabled]=this.firestoreService.loading mat-button  cdkFocusInitial (click)="submitLicense()">Submit license  </button>
+  <button [disabled]=this.firestoreService.loading mat-button  cdkFocusInitial (click)="submitLicense(this.data.userIdDataInput)">Submit license  </button>
 </mat-dialog-actions>

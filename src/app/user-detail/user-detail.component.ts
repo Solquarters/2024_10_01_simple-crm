@@ -8,11 +8,7 @@ import { DialogEditEmailComponent } from '../dialog-edit-email/dialog-edit-email
 import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
 import { FirestoreService } from '../firestore.service';
 import { AddLicenceDialogComponent } from '../add-licence-dialog/add-licence-dialog.component';
-import { Router } from '@angular/router';
 import { RemoveUserDialogComponent } from '../remove-user-dialog/remove-user-dialog.component';
-
-
-
 
 @Component({
   selector: 'app-user-detail',
@@ -29,8 +25,6 @@ export class UserDetailComponent implements OnInit{
     private route: ActivatedRoute, 
     public dialog: MatDialog,
     public firestoreService: FirestoreService,  
-    private router: Router
-    
   ) {}
 
   // ngOnInit(): void {
@@ -52,21 +46,11 @@ export class UserDetailComponent implements OnInit{
       if (this.userId) {
         this.getSingleUser(this.userId);
         this.firestoreService.user.id = this.userId;
+        console.log('firestore user id:',this.firestoreService.user.id)
       }
     });
   }
 
-  // ngOnChanges(){
-  //   this.route.paramMap.subscribe(paramMap => {
-  //     this.userId = paramMap.get('id');
-  //     console.log('OnChanges triggered, got id', this.userId);
-  //     if (this.userId) {
-  //       this.getSingleUser(this.userId);
-  //       this.firestoreService.user.id = this.userId;
-  //     }
-  //   });
-
-  // }
 
   async getSingleUser(idInput: string){
     await this.firestoreService.getSingleUser(idInput);
@@ -126,9 +110,12 @@ export class UserDetailComponent implements OnInit{
     }
   }
 
-
   openLicenceDialog(){
-    this.dialog.open(AddLicenceDialogComponent);
+    // this.dialog.open(AddLicenceDialogComponent);
+
+    this.dialog.open(AddLicenceDialogComponent, {
+      data: { userIdDataInput: this.userId }, //Passing user.Id to child dialog
+    });
   }
 
   openDeleteUserDialog(): void {
@@ -137,24 +124,4 @@ export class UserDetailComponent implements OnInit{
     });
   }
   
-
-  // async deleteUser(userIdInput:string){
-  //   if(this.userId){
-  //     await this.firestoreService.deleteSingleUser(userIdInput);
-  //   }
-   
-  // }
-
-
-  async deleteUser(userIdInput: string) {
-    if (this.userId) {
-      try {
-        await this.firestoreService.deleteSingleUser(userIdInput);
-        console.log(`User with ID ${userIdInput} deleted successfully.`);
-        this.router.navigate(['user']); // Redirect to the 'user' route after successful deletion
-      } catch (error) {
-        console.error('Error deleting user:', error);
-      }
-    }
-  }
 }
