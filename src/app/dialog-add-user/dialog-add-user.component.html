@@ -17,8 +17,8 @@
             
             <!-- <input  [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.firstName" matInput placeholder="First name" required> -->
             
-            <input [formControl]="firstNameControl" [(ngModel)]="this.firestoreService.user.firstName" [disabled]=this.firestoreService.loading  matInput placeholder="First name" >
-            <mat-error *ngIf="firstNameControl.hasError('required')">
+            <input [formControl]="firstNameControl" [disabled]=this.firestoreService.loading  matInput placeholder="First name" >
+            <mat-error *ngIf="userForm.get('firstNameControl')!.hasError('required')">
               First name is required
             </mat-error>
 
@@ -32,7 +32,7 @@
             <!-- <input [(ngModel)]="this.firestoreService.user.lastName" matInput placeholder="Last name"> -->
             
 
-            <input [formControl]="lastNameControl" [(ngModel)]="this.firestoreService.user.lastName" matInput placeholder="Last name">
+            <input [formControl]="lastNameControl"  matInput placeholder="Last name">
 
             <mat-error *ngIf="lastNameControl.hasError('required')">
               Last name is required
