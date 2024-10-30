@@ -23,11 +23,14 @@ export class AddLicenceDialogComponent {
     private fb: FormBuilder, 
   ){
     this.licenseForm = this.fb.group({
-      licenseNameControl: ['', Validators.required],
+      licenseNameControl: ['', Validators.required, Validators.minLength(3)],
       expirationDateControl: ['', Validators.required],
      
     });
   }
+
+
+
 
   @Input() userIdDataInput!: string;
 

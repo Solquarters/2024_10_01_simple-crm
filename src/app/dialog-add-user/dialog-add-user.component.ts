@@ -28,12 +28,12 @@ export class DialogAddUserComponent {
     this.firestoreService.birthDate = new Date('');
 
     this.userForm = this.fb.group({
-      firstNameControl: ['', Validators.required],
-      lastNameControl: ['', Validators.required],
-      emailControl: ['', [Validators.required, Validators.email]],
-      streetControl: ['', Validators.required],
-      zipCodeControl: ['', Validators.required],
-      cityControl: ['', Validators.required],
+      firstNameControl: ['', Validators.required, Validators.minLength(3)],
+      lastNameControl: ['', Validators.required, Validators.minLength(3)],
+      emailControl: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      streetControl: ['', Validators.required, Validators.minLength(3)],
+      zipCodeControl: ['', Validators.required, Validators.pattern('^\\d{3,}$')],
+      cityControl: ['', Validators.required, Validators.minLength(3)],
     });
   }
 
