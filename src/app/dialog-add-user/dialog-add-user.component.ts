@@ -6,7 +6,7 @@ import { FirestoreService } from '../firestore.service';
 import { AddLicenceDialogComponent } from '../add-licence-dialog/add-licence-dialog.component';
 import { Validators, FormControl } from '@angular/forms';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AddLicToEmptyUserComponent } from '../add-lic-to-empty-user/add-lic-to-empty-user.component';
 
 
 @Component({
@@ -23,12 +23,9 @@ export class DialogAddUserComponent {
     public firestoreService: FirestoreService, 
     public dialog: MatDialog,
     private fb: FormBuilder,
-   
   ) {
     this.firestoreService.user = new User();
     this.firestoreService.birthDate = new Date('');
-
-
 
     this.userForm = this.fb.group({
       firstNameControl: ['', Validators.required],
@@ -39,7 +36,6 @@ export class DialogAddUserComponent {
       cityControl: ['', Validators.required],
     });
   }
-
 
 
 get firstNameControl(): FormControl {
@@ -94,7 +90,7 @@ get cityControl(): FormControl {
   }
 
   openLicenceDialog(){
-    this.dialog.open(AddLicenceDialogComponent);
+    this.dialog.open(AddLicToEmptyUserComponent);
   }
 
 

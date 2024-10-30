@@ -20,6 +20,7 @@ export class DialogEditEmailComponent {
   
   userForm: FormGroup;
 
+
   constructor(
     public dialogRef: MatDialogRef<DialogEditEmailComponent>,
     public firestoreService: FirestoreService,
@@ -30,9 +31,12 @@ export class DialogEditEmailComponent {
       firstNameControl: ['', Validators.required],
       lastNameControl: ['', Validators.required],
       emailControl: ['', [Validators.required, Validators.email]],
+     
     });
   
   }
+
+ 
 
 
   get firstNameControl(): FormControl {

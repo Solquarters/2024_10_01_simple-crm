@@ -1,25 +1,27 @@
+
+
+
+
 import { Component, Input, Inject } from '@angular/core';
 import { FirestoreService } from '../firestore.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-
 import { FormControl, Validators, FormGroup, FormBuilder  } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-licence-dialog',
-  templateUrl: './add-licence-dialog.component.html',
-  styleUrl: './add-licence-dialog.component.scss'
+  selector: 'app-add-lic-to-empty-user',
+  templateUrl: './add-lic-to-empty-user.component.html',
+  styleUrl: './add-lic-to-empty-user.component.scss'
 })
-export class AddLicenceDialogComponent {
 
+export class AddLicToEmptyUserComponent {
   licenseName: string = '';
   expirationDate: Date = new Date('');
-
   licenseForm: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<AddLicenceDialogComponent>,
+    public dialogRef: MatDialogRef<AddLicToEmptyUserComponent>,
     public firestoreService: FirestoreService,
-    @Inject(MAT_DIALOG_DATA) public data: { userIdDataInput: string },
+   
     private fb: FormBuilder, 
   ){
     this.licenseForm = this.fb.group({
@@ -28,9 +30,6 @@ export class AddLicenceDialogComponent {
      
     });
   }
-
-  @Input() userIdDataInput!: string;
-
 
   get licenseNameControl(): FormControl {
     return this.licenseForm.get('licenseNameControl') as FormControl;
@@ -45,33 +44,8 @@ cancelLicenseDialog(){
 }
 
 
-submitLicense(parentUserId: string) {
-
-  if (this.licenseForm.valid && parentUserId) {
-    // Update the user object with FormControl values
-    const formValues = this.licenseForm.value;
-   
-  // Get the license name and expiration date in the desired format
-  const licenseName = formValues.licenseName;
-  const expirationDateValue = formValues.expirationDate.getTime(); // Convert to timestamp for Firestore
-  const licenseId = this.generateBase64Sequence(length = 16);
-
- // Create the new license object
- const newLicense = { licenseName: licenseName, value: expirationDateValue, licenseId: licenseId};
-  // Add the new license to the licenses array
-  this.firestoreService.user.licenses.push(newLicense);
-
-  if(parentUserId){
-    this.firestoreService.updateUser(parentUserId);
-  }
-  
-  // Close the dialog
-  this.dialogRef.close();
-    // if(this.user.id){
-    //   await this.firestoreService.updateUser(this.user.id);
-    // }
-    // this.dialogRef.close();
-  }else if(this.licenseForm.valid && !parentUserId){
+submitLicense() {
+  if(this.licenseForm.valid){
      // Update the user object with FormControl values
      const formValues = this.licenseForm.value;
    
