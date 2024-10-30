@@ -14,7 +14,7 @@
             <mat-label>First name</mat-label>
             
             <!-- <input  [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.firstName" matInput placeholder="First name" required> -->
-            <input [formControl]="firstNameControl" [disabled]=this.firestoreService.loading  matInput placeholder="First name" >
+            <input [formControl]="firstNameControl"  matInput placeholder="First name" >
             <mat-error *ngIf="userForm.get('firstNameControl')!.hasError('required')">
               First name is required
             </mat-error>
@@ -32,13 +32,13 @@
     <div class="inputFormFieldDivClass">
       <mat-form-field appearance="outline">
         <mat-label>Company</mat-label>
-        <input [disabled]=this.firestoreService.loading  [(ngModel)]="this.firestoreService.user.company" matInput placeholder="Company">
+        <input   [(ngModel)]="this.firestoreService.user.company" matInput placeholder="Company">
 
       </mat-form-field>
   
       <mat-form-field appearance="outline">
         <mat-label>Occupation</mat-label>
-        <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.occupation" matInput placeholder="Occupation">
+        <input  [(ngModel)]="this.firestoreService.user.occupation" matInput placeholder="Occupation">
 
       </mat-form-field>
     </div>
@@ -47,7 +47,7 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Email</mat-label>
         <!-- <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.email" matInput placeholder="Email"> -->
-        <input type="email" [formControl]="emailControl" [disabled]=this.firestoreService.loading  matInput placeholder="Email">
+        <input type="email" [formControl]="emailControl"   matInput placeholder="Email">
         <mat-error *ngIf="emailControl.hasError('required')">
           Email is required
         </mat-error>
@@ -61,7 +61,7 @@
     <div class="inputFormFieldDivClass">
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>Birthday</mat-label>
-            <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.birthDate" matInput placeholder="MM/DD/YYYY" [matDatepicker]="picker1">
+            <input  [(ngModel)]="this.firestoreService.birthDate" matInput placeholder="MM/DD/YYYY" [matDatepicker]="picker1">
             <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>
@@ -71,7 +71,7 @@
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Street Address</mat-label>
     <!-- <input  [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.street" matInput placeholder="Street address"> -->
-    <input [formControl]="streetControl" [disabled]=this.firestoreService.loading  matInput placeholder="Street address">
+    <input [formControl]="streetControl"   matInput placeholder="Street address">
     <mat-error *ngIf="streetControl.hasError('required')">
       Street address is required
     </mat-error>
@@ -82,7 +82,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Zip Code</mat-label>
       <!-- <input [disabled]=this.firestoreService.loading  [(ngModel)]="this.firestoreService.user.zipCode" matInput placeholder="Zip Code"> -->
-      <input  [formControl]="zipCodeControl" [disabled]=this.firestoreService.loading   matInput placeholder="Zip Code">
+      <input  [formControl]="zipCodeControl"    matInput placeholder="Zip Code">
       <mat-error *ngIf="zipCodeControl.hasError('required')">
         Zip code is required
       </mat-error>
@@ -91,7 +91,7 @@
     <mat-form-field appearance="outline">
       <mat-label>City</mat-label>
       <!-- <input [disabled]=this.firestoreService.loading [(ngModel)]="this.firestoreService.user.city" matInput placeholder="City"> -->
-      <input   [formControl]="cityControl" [disabled]=this.firestoreService.loading matInput placeholder="City">
+      <input   [formControl]="cityControl"  matInput placeholder="City">
       <mat-error *ngIf="cityControl.hasError('required')">
         City is required
       </mat-error>
@@ -129,6 +129,6 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button (click)="cancelDialog()" mat-button >Cancel</button>
-  <button [disabled]=this.firestoreService.loading mat-button  cdkFocusInitial (click)="saveUser()">Save</button>
+  <button  mat-button  cdkFocusInitial (click)="saveUser()">Save</button>
 </mat-dialog-actions>
 

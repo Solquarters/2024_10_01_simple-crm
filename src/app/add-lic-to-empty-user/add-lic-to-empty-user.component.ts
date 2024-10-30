@@ -25,11 +25,13 @@ export class AddLicToEmptyUserComponent {
     private fb: FormBuilder, 
   ){
     this.licenseForm = this.fb.group({
-      licenseNameControl: ['', Validators.required],
+      licenseNameControl: ['', Validators.required, Validators.minLength(3)],
       expirationDateControl: ['', Validators.required],
      
     });
   }
+
+  
 
   get licenseNameControl(): FormControl {
     return this.licenseForm.get('licenseNameControl') as FormControl;

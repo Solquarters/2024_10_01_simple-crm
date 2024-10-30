@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, onSnapshot, addDoc, doc, docData, deleteDoc } from '@angular/fire/firestore';
+import { Firestore, collection, onSnapshot, addDoc, doc, docData, deleteDoc, serverTimestamp, } from '@angular/fire/firestore';
+import { query, orderBy, limit, getDocs} from 'firebase/firestore';
+
 import { User } from '../models/user.class';
 import { updateDoc } from 'firebase/firestore';
 import { BehaviorSubject } from 'rxjs';
@@ -20,19 +22,42 @@ export class FirestoreService {
     
   }
 
+  // saveUser(dialogRefInput: any) {
+  //   if (this.birthDate) {
+  //     this.user.birthDate = this.birthDate.getTime();
+  //   }
+  //   this.loading = true;
+  //   const userRef = collection(this.firestore, 'users');
+  //   addDoc(userRef, this.user.toJSON())
+  //     .then((result: any) => {
+  //       this.loading = false;
+  //       dialogRefInput.close();
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error adding user to Firestore', error);
+  //     });
+  // }
+
+  //NEW UPDATED SAVE USER WITH SERVER TIMESTAMP
   saveUser(dialogRefInput: any) {
     if (this.birthDate) {
       this.user.birthDate = this.birthDate.getTime();
     }
     this.loading = true;
+    // Setting createdServerTimestamp to Firestore's server timestamp
     const userRef = collection(this.firestore, 'users');
-    addDoc(userRef, this.user.toJSON())
-      .then((result: any) => {
+    addDoc(userRef, {
+      ...this.user.toJSON(),  // Converts User instance to JSON format
+      createdServerTimestamp: serverTimestamp()  // Sets server timestamp
+    })
+      .then(() => {
         this.loading = false;
         dialogRefInput.close();
+        console.log('User added successfully with server timestamp.');
       })
       .catch((error) => {
-        console.error('Error adding user to Firestore', error);
+        console.error('Error adding user to Firestore:', error);
+        this.loading = false;
       });
   }
 
@@ -95,7 +120,30 @@ export class FirestoreService {
   }
 
 
-
+  async deleteNewestUsers(count: number = 3): Promise<void> {
+    const usersCollection = collection(this.firestore, 'users');
+    
+    // Query to get the latest users based on the createdServerTimestamp
+    const newestUsersQuery = query(usersCollection, orderBy('createdServerTimestamp', 'desc'), limit(count));
+  
+    try {
+      const querySnapshot = await getDocs(newestUsersQuery);
+  
+      // Check if there are enough users to delete
+      if (querySnapshot.size < count) {
+        console.log("Not enough users to delete");
+        return;
+      }
+  
+      // Map over the query result to delete each document
+      const deletePromises = querySnapshot.docs.map(doc => deleteDoc(doc.ref));
+      await Promise.all(deletePromises);
+  
+      console.log(`${count} most recent users deleted successfully.`);
+    } catch (error) {
+      console.error(`Error deleting the newest ${count} users:`, error);
+    }
+  }
 
 
 }

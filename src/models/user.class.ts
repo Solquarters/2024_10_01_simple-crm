@@ -11,7 +11,8 @@ export class User {
   occupation: string;
   licenses: { licenseName: string; value: number; licenseId: string }[]; 
    // License X: Expiration Date
-  customData: { CustomKey: string; value: string }[];   // Title1: Data1, Title2: Data2
+  customData: { CustomKey: string; value: string }[];
+  createdServerTimestamp?: any;   // Title1: Data1, Title2: Data2
 
   constructor(obj?: any) {
       this.id = obj?.id || '';
@@ -26,6 +27,7 @@ export class User {
       this.occupation = obj?.occupation || '';
       this.licenses = obj?.licenses || [];
       this.customData = obj?.customData || {};
+      this.createdServerTimestamp = obj?.createdServerTimestamp || null;
   }
 
   public toJSON() {
@@ -41,7 +43,8 @@ export class User {
           company: this.company,
           occupation: this.occupation,
           licenses: this.licenses,
-          customData: this.customData
+          customData: this.customData,
+       
       };
   }
 }
