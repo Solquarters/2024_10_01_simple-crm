@@ -52,8 +52,8 @@ submitLicense(parentUserId: string) {
     const formValues = this.licenseForm.value;
    
   // Get the license name and expiration date in the desired format
-  const licenseName = formValues.licenseName;
-  const expirationDateValue = formValues.expirationDate.getTime(); // Convert to timestamp for Firestore
+  const licenseName = formValues.licenseNameControl;
+  const expirationDateValue = formValues.expirationDateControl.getTime(); // Convert to timestamp for Firestore
   const licenseId = this.generateBase64Sequence(length = 16);
 
  // Create the new license object

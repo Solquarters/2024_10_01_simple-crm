@@ -50,18 +50,18 @@ submitLicense() {
      const formValues = this.licenseForm.value;
    
      // Get the license name and expiration date in the desired format
-     const licenseName = formValues.licenseName;
-     const expirationDateValue = formValues.expirationDate.getTime(); // Convert to timestamp for Firestore
+     const licenseName = formValues.licenseNameControl;
+     const expirationDateValue = formValues.expirationDateControl.getTime(); // Convert to timestamp for Firestore
      const licenseId = this.generateBase64Sequence(length = 16);
    
     // Create the new license object
     const newLicense = { licenseName: licenseName, value: expirationDateValue, licenseId: licenseId};
      // Add the new license to the licenses array
      this.firestoreService.user.licenses.push(newLicense);
-   
+     this.dialogRef.close();
 
     // Call the saveUser function in the FirestoreService
-    this.firestoreService.saveUser(this.dialogRef);
+    // this.firestoreService.saveUser(this.dialogRef);
 
   }
   else {
