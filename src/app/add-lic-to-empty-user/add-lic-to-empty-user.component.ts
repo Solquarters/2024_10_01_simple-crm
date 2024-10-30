@@ -25,13 +25,11 @@ export class AddLicToEmptyUserComponent {
     private fb: FormBuilder, 
   ){
     this.licenseForm = this.fb.group({
-      licenseNameControl: ['', Validators.required, Validators.minLength(3)],
-      expirationDateControl: ['', Validators.required],
+      licenseNameControl: ['', [Validators.required, Validators.minLength(3)]],
+      expirationDateControl: ['', [Validators.required, this.dateInFutureValidator()] ],
      
     });
   }
-
-  
 
   get licenseNameControl(): FormControl {
     return this.licenseForm.get('licenseNameControl') as FormControl;
@@ -39,6 +37,16 @@ export class AddLicToEmptyUserComponent {
   
   get expirationDateControl(): FormControl {
     return this.licenseForm.get('expirationDateControl') as FormControl;
+  }
+
+  dateInFutureValidator() {
+    return (control: FormControl) => {
+      const inputDate = new Date(control.value);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);  // Ignore time portion for accuracy
+  
+      return inputDate >= today ? null : { dateInPast: true };
+    };
   }
   
 cancelLicenseDialog(){

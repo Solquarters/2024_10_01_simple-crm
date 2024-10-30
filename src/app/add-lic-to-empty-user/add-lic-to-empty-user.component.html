@@ -18,8 +18,14 @@
             <mat-label>Expiration date</mat-label>
     
             <input [formControl]="expirationDateControl" [(ngModel)]="this.expirationDate" [disabled]=this.firestoreService.loading  matInput placeholder="MM/DD/YYYY" [matDatepicker]="picker1" required="true">
-            <mat-error style="z-index: 5" *ngIf="expirationDateControl.invalid && (expirationDateControl.dirty || expirationDateControl.touched)">
-              Expiration date is required.
+            <mat-error style="z-index: 5" *ngIf="licenseForm.get('expirationDateControl')!.hasError('required') || expirationDateControl.touched && !expirationDateControl.dirty ">
+              Valid expiration date is required.
+            </mat-error>
+            <mat-error style="z-index: 5" *ngIf="
+            expirationDateControl.hasError('dateInPast') &&
+            (expirationDateControl.dirty)
+          ">
+              Expiration date should be in the future.
             </mat-error>
             <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
