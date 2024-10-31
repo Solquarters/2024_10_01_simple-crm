@@ -26,11 +26,13 @@ constructor(
 
 
   this.userForm = this.fb.group({
-    streetControl: ['', Validators.required],
-    zipCodeControl: ['', Validators.required],
-    cityControl: ['', Validators.required],
+    streetControl: [{ value: '', disabled: this.firestoreService.loading }, [Validators.required, Validators.minLength(3)]],
+    zipCodeControl: [{ value: '', disabled: this.firestoreService.loading }, [Validators.required, Validators.pattern('^\\d{3,}$')]],
+    cityControl: [{ value: '', disabled: this.firestoreService.loading }, [Validators.required, Validators.minLength(3)]],
   });
 }
+
+
 
 
 get streetControl(): FormControl {

@@ -28,12 +28,12 @@ export class DialogAddUserComponent {
     this.firestoreService.birthDate = new Date('');
 
     this.userForm = this.fb.group({
-      firstNameControl: ['', Validators.required, Validators.minLength(3)],
-      lastNameControl: ['', Validators.required, Validators.minLength(3)],
-      emailControl: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      streetControl: ['', Validators.required, Validators.minLength(3)],
-      zipCodeControl: ['', Validators.required, Validators.pattern('^\\d{3,}$')],
-      cityControl: ['', Validators.required, Validators.minLength(3)],
+      firstNameControl: [{ value: '', disabled: this.firestoreService.loading}, [Validators.required, Validators.minLength(3)]],
+      lastNameControl: [{ value: '', disabled: this.firestoreService.loading }, [Validators.required, Validators.minLength(3)]],
+      emailControl: [{ value: '', disabled: this.firestoreService.loading }, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      streetControl: [{ value: '', disabled: this.firestoreService.loading }, [Validators.required, Validators.minLength(3)]],
+      zipCodeControl: [{ value: '', disabled: this.firestoreService.loading }, [Validators.required, Validators.pattern('^\\d{3,}$')]],
+      cityControl: [{ value: '', disabled: this.firestoreService.loading }, [Validators.required, Validators.minLength(3)]],
     });
   }
 

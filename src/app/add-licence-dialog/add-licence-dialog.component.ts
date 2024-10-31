@@ -23,11 +23,14 @@ export class AddLicenceDialogComponent {
     private fb: FormBuilder, 
   ){
     this.licenseForm = this.fb.group({
-      licenseNameControl: ['', Validators.required],
-      expirationDateControl: ['', Validators.required],
+      licenseNameControl: [{ value: '', disabled: this.firestoreService.loading }, [Validators.required, Validators.minLength(3)]],
+      expirationDateControl: [{ value: '', disabled: this.firestoreService.loading }, [Validators.required, this.dateInFutureValidator()] ],
      
     });
   }
+
+
+ 
 
   @Input() userIdDataInput!: string;
 
@@ -38,6 +41,16 @@ export class AddLicenceDialogComponent {
   
   get expirationDateControl(): FormControl {
     return this.licenseForm.get('expirationDateControl') as FormControl;
+  }
+
+  dateInFutureValidator() {
+    return (control: FormControl) => {
+      const inputDate = new Date(control.value);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);  // Ignore time portion for accuracy
+  
+      return inputDate >= today ? null : { dateInPast: true };
+    };
   }
   
 cancelLicenseDialog(){

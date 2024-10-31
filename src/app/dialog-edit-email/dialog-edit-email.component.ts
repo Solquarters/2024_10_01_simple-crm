@@ -4,7 +4,6 @@ import { User } from '../../models/user.class';
 
 import { FirestoreService } from '../firestore.service';
 
-
 import { FormControl, Validators, FormGroup, FormBuilder  } from '@angular/forms';
 
 @Component({
@@ -15,7 +14,7 @@ import { FormControl, Validators, FormGroup, FormBuilder  } from '@angular/forms
 export class DialogEditEmailComponent {
   user: User = new User();
   birthDate: Date | undefined;
-  // loading = false;
+
 
   
   userForm: FormGroup;
@@ -28,13 +27,15 @@ export class DialogEditEmailComponent {
    
   ){
     this.userForm = this.fb.group({
-      firstNameControl: ['', Validators.required, Validators.minLength(3)],
-      lastNameControl: ['', Validators.required, Validators.minLength(3)],
-      emailControl: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-     
+      firstNameControl: [{ value: '', disabled: this.firestoreService.loading }, [Validators.required, Validators.minLength(3)]],
+      lastNameControl: [{ value: '', disabled: this.firestoreService.loading }, [Validators.required, Validators.minLength(3)]],
+      emailControl: [{ value: '', disabled: this.firestoreService.loading }, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      companyControl: [{ value: '', disabled: this.firestoreService.loading }, []],
+      occupationControl: [{ value: '', disabled: this.firestoreService.loading }, []],
     });
   
   }
+
 
 
 
@@ -49,6 +50,15 @@ export class DialogEditEmailComponent {
   get emailControl(): FormControl {
     return this.userForm.get('emailControl') as FormControl;
   }
+
+  get companyControl(): FormControl {
+    return this.userForm.get('companyControl') as FormControl;
+  }
+
+  get  occupationControl(): FormControl {
+    return this.userForm.get('occupationControl') as FormControl;
+  }
+ 
   
   cancelDialog(){
     this.dialogRef.close();
@@ -73,6 +83,8 @@ export class DialogEditEmailComponent {
       this.firestoreService.user.firstName = formValues.firstNameControl;
       this.firestoreService.user.lastName = formValues.lastNameControl;
       this.firestoreService.user.email = formValues.emailControl;
+      this.firestoreService.user.occupation = formValues.occupationControl;
+      this.firestoreService.user.company = formValues.companyControl;
       if(this.user.id){
         await this.firestoreService.updateUser(this.user.id);
       }

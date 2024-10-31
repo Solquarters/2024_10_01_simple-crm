@@ -4,7 +4,7 @@
     <div class="inputFormFieldDivClass ">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>License name</mat-label>
-          <input [formControl]="licenseNameControl" [(ngModel)]="this.licenseName" [disabled]=this.firestoreService.loading  matInput placeholder="License name" required="true">
+          <input [formControl]="licenseNameControl" [(ngModel)]="this.licenseName"   matInput placeholder="License name" required="true">
           <mat-error *ngIf="licenseForm.get('licenseNameControl')!.hasError('required')">
             License name is required.
           </mat-error>
@@ -17,7 +17,7 @@
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>Expiration date</mat-label>
     
-            <input [formControl]="expirationDateControl" [(ngModel)]="this.expirationDate" [disabled]=this.firestoreService.loading  matInput placeholder="MM/DD/YYYY" [matDatepicker]="picker1" required="true">
+            <input [formControl]="expirationDateControl" [(ngModel)]="this.expirationDate"   matInput placeholder="MM/DD/YYYY" [matDatepicker]="picker1" required="true">
             <mat-error style="z-index: 5" *ngIf="licenseForm.get('expirationDateControl')!.hasError('required') || expirationDateControl.touched && !expirationDateControl.dirty ">
               Valid expiration date is required.
             </mat-error>
@@ -40,6 +40,6 @@
     </mat-dialog-content>
     <mat-dialog-actions>
       <button (click)="cancelLicenseDialog()" mat-button >Cancel</button>
-      <button [disabled]=this.firestoreService.loading mat-button  cdkFocusInitial (click)="submitLicense()">Submit license  </button>
+      <button  mat-button  cdkFocusInitial (click)="submitLicense()">Submit license  </button>
     </mat-dialog-actions>
     

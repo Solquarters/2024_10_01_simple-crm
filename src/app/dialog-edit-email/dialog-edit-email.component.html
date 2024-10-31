@@ -19,7 +19,7 @@
               <mat-label>First name</mat-label>
               <!-- <input [disabled]=this.firestoreService.loading [(ngModel)]="user.firstName" matInput placeholder="First name"> -->
 
-              <input [formControl]="firstNameControl" [(ngModel)]="user.firstName" [disabled]=this.firestoreService.loading  matInput placeholder="First name" >
+              <input [formControl]="firstNameControl" [(ngModel)]="user.firstName"   matInput placeholder="First name" >
               <mat-error *ngIf="userForm.get('firstNameControl')!.hasError('required')">
                 First name is required
               </mat-error>
@@ -45,13 +45,13 @@
       <div class="inputFormFieldDivClass">
         <mat-form-field appearance="outline">
             <mat-label>Company</mat-label>
-            <input [disabled]=this.firestoreService.loading [(ngModel)]="user.company" matInput placeholder="Company">
+            <input [formControl]="companyControl"  [(ngModel)]="user.company" matInput placeholder="Company">
             
           </mat-form-field>
     
           <mat-form-field appearance="outline">
             <mat-label>Occupation</mat-label>
-            <input [(ngModel)]="user.occupation" matInput placeholder="Occupation">
+            <input [formControl]="occupationControl" [(ngModel)]="user.occupation" matInput placeholder="Occupation">
             
           </mat-form-field>
     </div>
@@ -62,7 +62,7 @@
         <mat-label>Email</mat-label>
         <!-- <input [disabled]=this.firestoreService.loading [(ngModel)]="user.email" matInput placeholder="Email"> -->
         
-        <input  [formControl]="emailControl" [(ngModel)]="user.email" [disabled]=this.firestoreService.loading  matInput placeholder="Email">
+        <input  [formControl]="emailControl" [(ngModel)]="user.email"   matInput placeholder="Email">
         <mat-error *ngIf="emailControl.hasError('required')">
           Email is required
         </mat-error>
@@ -92,5 +92,5 @@
   </mat-dialog-content>
   <mat-dialog-actions>
     <button (click)="cancelDialog()" mat-button >Cancel</button>
-    <button [disabled]=this.firestoreService.loading mat-button  cdkFocusInitial (click)="saveUser()">Save</button>
+    <button  mat-button  cdkFocusInitial (click)="saveUser()">Save</button>
   </mat-dialog-actions>

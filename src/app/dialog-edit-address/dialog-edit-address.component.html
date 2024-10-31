@@ -17,7 +17,7 @@
       <mat-label>Street Address</mat-label>
       <!-- <input [disabled]=this.firestoreService.loading [(ngModel)]="user.street" matInput placeholder="Street address"> -->
       
-      <input [formControl]="streetControl" [(ngModel)]="user.street" [disabled]=this.firestoreService.loading  matInput placeholder="Street address">
+      <input [formControl]="streetControl" [(ngModel)]="user.street"   matInput placeholder="Street address">
     <mat-error *ngIf="streetControl.hasError('required')">
       Street address is required
     </mat-error>
@@ -33,7 +33,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Zip Code</mat-label>
         <!-- <input [disabled]=this.firestoreService.loading [(ngModel)]="user.zipCode" matInput placeholder="Zip Code"> -->
-        <input  [formControl]="zipCodeControl" [(ngModel)]="user.zipCode" [disabled]=this.firestoreService.loading   matInput placeholder="Zip Code">
+        <input  [formControl]="zipCodeControl" [(ngModel)]="user.zipCode"    matInput placeholder="Zip Code">
         <mat-error *ngIf="zipCodeControl.hasError('required')">
           Zip code is required
         </mat-error>
@@ -43,7 +43,7 @@
       <mat-form-field appearance="outline">
         <mat-label>City</mat-label>
         <!-- <input [disabled]=this.firestoreService.loading [(ngModel)]="user.city" matInput placeholder="City"> -->
-        <input   [formControl]="cityControl" [(ngModel)]="user.city" [disabled]=this.firestoreService.loading matInput placeholder="City">
+        <input   [formControl]="cityControl" [(ngModel)]="user.city"  matInput placeholder="City">
         <mat-error *ngIf="cityControl.hasError('required')">
           City is required
         </mat-error>
@@ -57,5 +57,5 @@
 
   <mat-dialog-actions>
     <button (click)="cancelDialog()" mat-button >Cancel</button>
-    <button [disabled]=this.firestoreService.loading mat-button  cdkFocusInitial (click)="saveUser()">Save</button>
+    <button  mat-button  cdkFocusInitial (click)="saveUser()">Save</button>
   </mat-dialog-actions>
