@@ -102,11 +102,9 @@ createRandomUsers() {
     'Clark', 'Lewis', 'Lee', 'Walker', 'Hall', 'Allen', 'Young', 'King', 'Wright'
   ];
   
-  const cities = [
+  const cities = ['Marburg', 'Bad Laasphe', 'Kempten', 'Frankfurt', 'Giessen', 'Willingen', 'Bochum',
     'New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 
-    'San Antonio', 'San Diego', 'Dallas', 'San Jose', 'Austin', 'Jacksonville', 
-    'Fort Worth', 'Columbus', 'Charlotte', 'Indianapolis', 'San Francisco', 
-    'Seattle', 'Denver', 'Washington D.C.', 'Boston', 'El Paso', 'Detroit', 'Nashville'
+    'San Antonio', 'San Diego'
   ];
   
   const companies = ['TechCorp', 'SolSolutions', 'Jordan Ltd', 'Global', 'Synths4All', 'Blue&Green', 'Future Health'];

@@ -6,11 +6,12 @@ import { Subscription } from 'rxjs';
 import { User } from '../../models/user.class';
 
 interface UserNode extends d3.SimulationNodeDatum {
-  id?: string; // Make 'id' optional
+  id?: string;
   firstName: string;
   lastName: string;
   city: string;
   licenseCount: number;
+  licenseCategory: string; // New property
 }
 
 
@@ -46,13 +47,17 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
   }
 
   private processData(): UserNode[] {
-    return this.users.map(user => ({
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      city: user.city,
-      licenseCount: user.licenses ? user.licenses.length : 0
-    }));
+    return this.users.map(user => {
+      const licenseCount = user.licenses ? user.licenses.length : 0;
+      return {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        city: user.city,
+        licenseCount: licenseCount,
+        licenseCategory: this.getLicenseCategory(licenseCount) // New property
+      };
+    });
   }
 
   renderChart(): void {
@@ -183,6 +188,45 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
   }
 
 
+  //////////////////License count implementation 
+  groupByLicenseCount(): void {
+    const data: UserNode[] = this.processData();
+    const licenseCenters = this.calculateLicenseCenters(data);
   
+    this.simulation
+      .force('x', d3.forceX<UserNode>(d => licenseCenters[d.licenseCategory].x).strength(0.1))
+      .force('y', d3.forceY<UserNode>(d => licenseCenters[d.licenseCategory].y).strength(0.1))
+      .alpha(0.5)
+      .restart();
+  }
+
+  private getLicenseCategory(licenseCount: number): string {
+    if (licenseCount === 0) {
+      return 'No Licenses';
+    } else if (licenseCount <= 2) {
+      return '1-2 Licenses';
+    } else if (licenseCount <= 5) {
+      return '3-5 Licenses';
+    } else {
+      return '6+ Licenses';
+    }
+  }
+
+  private calculateLicenseCenters(data: UserNode[]): { [category: string]: { x: number; y: number } } {
+    const categories: string[] = Array.from(new Set(data.map(d => d.licenseCategory)));
+    const licenseCenters: { [category: string]: { x: number; y: number } } = {};
+    const numCategories = categories.length;
+    const angleStep = (2 * Math.PI) / numCategories;
+    const radius = this.diameter / 3;
+  
+    categories.forEach((category, index) => {
+      licenseCenters[category] = {
+        x: this.width / 2 + radius * Math.cos(index * angleStep),
+        y: this.height / 2 + radius * Math.sin(index * angleStep),
+      };
+    });
+  
+    return licenseCenters;
+  }
 }
 
