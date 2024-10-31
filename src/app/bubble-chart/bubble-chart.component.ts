@@ -77,112 +77,7 @@ private customPalette: string[] = [
   }
 
 
-// renderChart(): void {
-//   // Remove any existing SVG
-//   d3.select('#bubbleChart').remove();
 
-//   const data: UserNode[] = this.processData();
-
-//   // Set dimensions
-//   const diameter = this.diameter;
-//   const width = this.width; // Should be 1000
-//   const height = this.height;
-
-//   // Create SVG element
-//   const svg = d3.select('#chartContainer')
-//     .append('svg')
-//     .attr('id', 'bubbleChart')
-//     .attr('width', width)
-//     .attr('height', height);
-
-//   this.svg = svg;
-
-//   // Create a color scale for cities
-//   const cityNames: string[] = Array.from(new Set(data.map(d => d.city)));
-//   const color = d3.scaleOrdinal<string, string>()
-//     .domain(cityNames)
-//     .range(d3.schemeCategory10);
-
-//   // Create a scale for circle sizes based on license count
-//   const maxLicenseCount = d3.max(data, d => d.licenseCount) || 1;
-//   const radiusScale = d3.scaleLinear()
-//     .domain([0, maxLicenseCount])
-//     .range([10, 50]);
-
-//     const ticked = () => {
-//       nodes
-//         .attr('cx', (d: UserNode) => d.x!)
-//         .attr('cy', (d: UserNode) => d.y!);
-//     };
-
-//   // Create simulation
-//   const simulation = d3.forceSimulation<UserNode>(data)
-//     .force('charge', d3.forceManyBody().strength(5))
-//     .force('center', d3.forceCenter((width - 200) / 2, height / 2)) // Adjust center
-//     .force('collision', d3.forceCollide(d => radiusScale(d.licenseCount) + 2))
-//     .on('tick', ticked);
-
-//   this.simulation = simulation;
-
-//   // Create circles
-//   const nodes = svg.selectAll('circle')
-//     .data(data)
-//     .enter()
-//     .append('circle')
-//     .attr('r', d => radiusScale(d.licenseCount))
-//     .attr('fill', d => color(d.city))
-//     .on('mouseover', (event, d) => {
-//       this.showTooltip(event, d);
-//     })
-//     .on('mouseout', () => {
-//       this.hideTooltip();
-//     });
-
-  
-
-//   // Create a group for the legend
-//   const legend = svg.append('g')
-//     .attr('class', 'legend')
-//     .attr('transform', `translate(${this.width - 140}, 200)`); // Adjust as needed
-
-//   // Create legend items
-//   const legendItemHeight = 25;
-//   legend.selectAll('.legend-item')
-//     .data(cityNames)
-//     .enter()
-//     .append('g')
-//     .attr('class', 'legend-item')
-//     .attr('transform', (d, i) => `translate(0, ${i * legendItemHeight})`)
-//     .each(function(d, i) {
-//       const legendItem = d3.select(this);
-
-//       // Append colored circle
-//       legendItem.append('circle')
-//         .attr('cx', 0)
-//         .attr('cy', 0)
-//         .attr('r', 8)
-//         .style('fill', color(d));
-
-//       // Append city name
-//       legendItem.append('text')
-//         .attr('x', 15)
-//         .attr('y', 5)
-//         .text(d)
-//         .style('font-size', '14px')
-//         .style('alignment-baseline', 'middle')
-//         .style('fill', 'white');
-//     });
-
-//   // Add subpoint: "Circle size: License count"
-//   legend.append('text')
-//     .attr('x', -7)
-//     .attr('y', cityNames.length * legendItemHeight + 10)
-//     .text('◯︎ Size: License count')
-//     .style('font-size', '14px')
-//     .style('font-weight', '500')
-//     .style('fill', 'white');
-    
-// }
 renderChart(): void {
   // Remove any existing SVG
   d3.select('#bubbleChart').remove();
@@ -247,7 +142,7 @@ renderChart(): void {
   // Create a group for the legend
   const legend = svg.append('g')
     .attr('class', 'legend')
-    .attr('transform', `translate(${this.width - 180}, 150)`);
+    .attr('transform', `translate(${this.width - 160}, 150)`);
 
   // Create legend items
   const legendItemHeight = 25;
