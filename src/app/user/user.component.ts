@@ -117,12 +117,12 @@ createRandomUsers() {
     const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
     const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
     const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}${Math.floor(Math.random() * 100)}@example.com`;
-    const city = cities[i % cities.length];
+    const city = cities[Math.floor(Math.random() * cities.length)];
     const company = companies[i % companies.length];
     const occupation = occupations[i % occupations.length];
     
     // Generate random licenses
-    const licenseCount = Math.floor(Math.random() * 7);
+    const licenseCount = Math.floor(Math.random() * 10);
     let licenses = [];
     for(let j = 0; j < licenseCount; j++ ){
       const singleLicense = { licenseName: licenseNames[Math.floor(Math.random() * licenseNames.length)], value: this.generateRandomDate(), licenseId: this.generateBase64Sequence(length = 16) };

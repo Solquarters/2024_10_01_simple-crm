@@ -1,0 +1,14 @@
+.tooltip {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s;
+    color: black; /* Add this line */
+  }
+  
+  .controls {
+    margin-bottom: 10px;
+  }
+  
+  .controls button {
+    margin-right: 5px;
+  }
