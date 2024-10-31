@@ -27,17 +27,6 @@ export class UserDetailComponent implements OnInit{
     public firestoreService: FirestoreService,  
   ) {}
 
-  // ngOnInit(): void {
-  //   this.route.paramMap.subscribe(paramMap => {
-  //     this.userId = paramMap.get('id');
-  //     console.log('got id', this.userId);
-  //     if (this.userId) {
-  //       this.getSingleUser(this.userId);
-  //       this.firestoreService.user.id = this.userId;
-  //     }
-  //   });
-  // }
-
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
       const id = paramMap.get('id');
@@ -89,8 +78,6 @@ export class UserDetailComponent implements OnInit{
 
   openCustomerDetailsDialog(){
   
-     
-    
     
   }
 
@@ -102,9 +89,9 @@ export class UserDetailComponent implements OnInit{
     this.firestoreService.user.licenses = this.firestoreService.user.licenses.filter(license => license.licenseId !== licenseIdInput);
    
     
-    console.log(this.firestoreService.user.licenses);
-    console.log('User ID in firestore.user:',this.firestoreService.user.id);
-    console.log('User ID in user-detail user:',this.userId);
+    // console.log(this.firestoreService.user.licenses);
+    // console.log('User ID in firestore.user:',this.firestoreService.user.id);
+    // console.log('User ID in user-detail user:',this.userId);
     if(this.firestoreService.user.id){
       this.firestoreService.updateUser(this.firestoreService.user.id);
     }
