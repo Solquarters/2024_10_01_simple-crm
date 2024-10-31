@@ -4,11 +4,15 @@
     right: 48px;
 }
 
+
+// '#FFE1B9', '#FFCC8D', '#FDBE72', '#F9AF71', '#F59D70', '#F18C73', '#ED7C75',
+// '#E96B73', '#D36075', '#BA5374', '#A44875', '#8A3A75', '#702D76', '#5D2477'
+
 table{
     width: 100%;
     border-radius: 8px;
     border-collapse: collapse;
-    background-image: linear-gradient(to  bottom, #718db7, #64a9c3, #8ebdbc);
+    background-image: linear-gradient(to  bottom, #64357a, #7a6b59);
     border-radius: 6px;
     
 
@@ -56,7 +60,7 @@ table{
         }
 
         &:hover{
-            background-color: rgba(110, 110, 110, 0.487);
+            background-color: rgba(100, 100, 100, 0.341);
         }
     }
   
