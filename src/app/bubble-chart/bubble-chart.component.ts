@@ -33,20 +33,15 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
   private simulation: any;
   private tooltip: any;
   private width = 900;
-  private height = 700;
+  private height = 800;
   private diameter = 600;
 
-  // Define the custom color palette
-// private customPalette: string[] = [
-//   '#FFE1B9', '#FFCC8D', '#FDBE72', '#F9AF71', '#F59D70', '#F18C73', '#ED7C75',
-//   '#E96B73', '#D36075', '#BA5374', '#A44875', '#8A3A75', '#702D76', '#5D2477'
-// ];
-
+// Define the custom color palette
 private customPalette: string[] = [
   '#FFE1B9', '#FFCC8D', '#FDBE72', '#F9AF71', '#F59D70', '#F18C73', '#ED7C75',
   '#E96B73', '#D36075', '#BA5374', '#A44875', '#8A3A75', '#702D76', '#5D2477'
 ];
-
+//Alternative palette:
 // #718db7, #64a9c3, #76c1c0
 
   constructor(private firestoreService: FirestoreService) {}
@@ -117,9 +112,9 @@ renderChart(): void {
   
   // Adjust the simulation center to account for the legend
   const simulation = d3.forceSimulation<UserNode>(data)
-    .force('charge', d3.forceManyBody().strength(5))
+    .force('charge', d3.forceManyBody().strength(10))
     .force('center', d3.forceCenter((width - 200) / 2, height / 2))
-    .force('collision', d3.forceCollide(d => radiusScale(d.licenseCount) + 2))
+    .force('collision', d3.forceCollide(d => radiusScale(d.licenseCount) +1.5))
     .on('tick', ticked);
 
   this.simulation = simulation;
@@ -200,8 +195,8 @@ renderChart(): void {
       .html(`<strong>${d.firstName} ${d.lastName}</strong><br/>
              City: ${d.city}<br/>
              Licenses: ${d.licenseCount}`)
-      .style('left', (event.pageX -580) + 'px')
-      .style('top', (event.pageY - 80) + 'px')
+      .style('left', (event.pageX -960) + 'px')
+      .style('top', (event.pageY - 120) + 'px')
       .style('opacity', 1);
   }
 
@@ -216,8 +211,8 @@ renderChart(): void {
     const cityCenters = this.calculateCityCenters(data);
   
     this.simulation
-      .force('x', d3.forceX<UserNode>(d => cityCenters[d.city].x).strength(0.1))
-      .force('y', d3.forceY<UserNode>(d => cityCenters[d.city].y).strength(0.1))
+      .force('x', d3.forceX<UserNode>(d => cityCenters[d.city].x).strength(0.11))
+      .force('y', d3.forceY<UserNode>(d => cityCenters[d.city].y).strength(0.11))
       .alpha(0.5)
       .restart();
   }
@@ -254,8 +249,8 @@ renderChart(): void {
     const licenseCenters = this.calculateLicenseCenters(data);
   
     this.simulation
-      .force('x', d3.forceX<UserNode>(d => licenseCenters[d.licenseCategory].x).strength(0.1))
-      .force('y', d3.forceY<UserNode>(d => licenseCenters[d.licenseCategory].y).strength(0.1))
+      .force('x', d3.forceX<UserNode>(d => licenseCenters[d.licenseCategory].x).strength(0.11))
+      .force('y', d3.forceY<UserNode>(d => licenseCenters[d.licenseCategory].y).strength(0.11))
       .alpha(0.5)
       .restart();
   }

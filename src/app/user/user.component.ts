@@ -102,7 +102,7 @@ createRandomUsers() {
     'Clark', 'Lewis', 'Lee', 'Walker', 'Hall', 'Allen', 'Young', 'King', 'Wright'
   ];
   
-  const cities = ['Marburg', 'Bad Laasphe', 'Kempten', 'Frankfurt', 'Giessen', 'Willingen', 'Bochum',
+  const cities = ['Marburg', 'Bad Laasphe', 'Kempten', 'Frankfurt', 'Giessen', 'Willingen', 'Bochum', 'München',
     'New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 
     'San Antonio', 'San Diego'
   ];
