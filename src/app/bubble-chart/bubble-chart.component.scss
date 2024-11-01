@@ -8,6 +8,7 @@
 
 .tooltip {
     position: absolute;
+    z-index: 10;
     opacity: 0;
     transition: opacity 0.2s;
     color: black; /* Add this line */
@@ -17,6 +18,7 @@
     margin-bottom: 10px;
     position: relative;
     right: 110px;
+    z-index: 5;
   }
   
   .controls button {
@@ -41,4 +43,4 @@
       }
     }
   }
-  
+
