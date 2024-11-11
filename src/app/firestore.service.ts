@@ -6,7 +6,6 @@ import { User } from '../models/user.class';
 import { updateDoc } from 'firebase/firestore';
 import { BehaviorSubject } from 'rxjs';
 
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +18,7 @@ export class FirestoreService {
   user: User = new User();
   birthDate: Date | undefined;
 
-  constructor(public firestore: Firestore, private http: HttpClient) {
+  constructor(public firestore: Firestore) {
     this.initializeUsersArray();
     
   }
@@ -30,28 +29,6 @@ export class FirestoreService {
     }
   }
 
-  //NEW UPDATED SAVE USER WITH SERVER TIMESTAMP
-  // saveUser(dialogRefInput: any) {
-  //   if (this.birthDate) {
-  //     this.user.birthDate = this.birthDate.getTime();
-  //   }
-  //   this.loading = true;
-  //   // Setting createdServerTimestamp to Firestore's server timestamp
-  //   const userRef = collection(this.firestore, 'users');
-  //   addDoc(userRef, {
-  //     ...this.user.toJSON(),  // Converts User instance to JSON format
-  //     createdServerTimestamp: serverTimestamp()  // Sets server timestamp
-  //   })
-  //     .then(() => {
-  //       this.loading = false;
-  //       dialogRefInput.close();
-  //       console.log('User added successfully with server timestamp.');
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error adding user to Firestore:', error);
-  //       this.loading = false;
-  //     });
-  // }
   saveUser(dialogRefInput: any) {
     if (this.birthDate) {
       this.user.birthDate = this.birthDate.getTime();
