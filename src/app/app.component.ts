@@ -32,8 +32,10 @@ export class AppComponent {
 
 
 
+  openInfoDialog() {
+    this.dialog.open(InfoDialogComponent, {
+      autoFocus: false // disable autofocus
+    });
+  }
 
-  openInfoDialog(){
-    const editEmailDialog = this.dialog.open(InfoDialogComponent);
-  };
 }
