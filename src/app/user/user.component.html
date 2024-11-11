@@ -3,13 +3,8 @@
   
   <mat-card-content>
     
-    
     <table>
       <tr>
-        <!-- <th (click)="sortUserArrayByKey('firstName')">Name ↕</th>
-        <th>Company</th>
-        <th>E-Mail</th>
-        <th>Licenses</th> -->
         <th (click)="sortUserArrayByKey('firstName')">
           Name {{ currentSortKey === 'firstName' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
         </th>
@@ -33,13 +28,10 @@
       </tr>
     }
 
-      
     </table>
 
   </mat-card-content>
 </mat-card>
-
-
 
 <button (click)="openDialog()" class="add-user-button-class" mat-fab aria-label="Example icon button with a delete icon"
 matTooltip="Add user" matTooltipPosition="above">
@@ -47,8 +39,6 @@ matTooltip="Add user" matTooltipPosition="above">
   </button>
 
   <button mat-raised-button color="accent" (click)="consoleOutputUsers()" style="margin:16px">Create Random Customers</button>
-
-  
   <button mat-raised-button color="accent" (click)="this.firestoreService.deleteNewestUsers()" style="margin:16px">Delete 3 Most Recent Customers</button>
   
 

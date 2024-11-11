@@ -84,7 +84,7 @@
                 @for (license of this.firestoreService.user.licenses; track license) {
                     <mat-divider></mat-divider>
                     <div class="singleLicenseContainer">
-                      <table>
+                      <table id="licenseTableId">
                         <tr>
                           <td>License:</td>
                           <td>{{ license.licenseName }}</td>

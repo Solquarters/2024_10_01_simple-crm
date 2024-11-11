@@ -11,7 +11,7 @@ https://github.com/angular/angularfire/blob/main/docs/install-and-setup.md -->
 
 
 <mat-drawer-container class="mat-drawer-container" autosize>
-  <mat-drawer #drawer class="sidenavClass" mode="side" [opened]="true">
+  <mat-drawer #drawer class="sidenavClass" mode="over" [opened]="false">
 
     <div class="logo-container-class">
 
@@ -19,8 +19,8 @@ https://github.com/angular/angularfire/blob/main/docs/install-and-setup.md -->
     </div>
 
 <ul class="menu-items-class">
-  <li routerLink='/dashboard'><mat-icon>fact_check</mat-icon>Dashboard</li>
-  <li routerLink='/user'><mat-icon>person</mat-icon> Customer List</li>
+  <li (click)="drawer.toggle()" routerLink='/dashboard'><mat-icon>fact_check</mat-icon>Dashboard</li>
+  <li (click)="drawer.toggle()"  routerLink='/user'><mat-icon>person</mat-icon> Customer List</li>
 </ul>
 
     

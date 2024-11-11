@@ -2,14 +2,17 @@
 <h1>Customers visualized by license count and location</h1>
 <div class="mainDiv">
 
+  <button style="z-index: 1" mat-raised-button color="accent" (click)="resetGrouping()">Show legend</button>
+
+  <div #chartContainer class="chart-container"></div>
     <div class="controls">
         <button style="z-index: 1" mat-raised-button color="accent" (click)="groupByCity()">Group by City</button>
         <button style="z-index: 1" mat-raised-button color="accent" (click)="groupByLicenseCount()">Group by License Count</button>
         <button style="z-index: 1" mat-raised-button color="accent" (click)="resetGrouping()">Reset Grouping</button>
       </div>
       
-      <div id="chartContainer" style="position: relative;"></div>
-
+      <!-- <div id="chartContainer" style="position: relative;"></div> -->
+      
 </div>
 
 
