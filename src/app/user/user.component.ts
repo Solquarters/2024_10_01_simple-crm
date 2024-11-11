@@ -30,12 +30,6 @@ export class UserComponent implements OnInit, OnDestroy {
     this.users$ = this.firestoreService.users$;
   }
 
-  // ngOnInit() {
-  //   this.users$.subscribe((users) => {
-  //     this.localUsersArray = users;
-  //     this.changeDetectorRef.detectChanges();
-  //   });
-  // }
   ngOnInit() {
     // Assign subscription to usersSubscription
     this.usersSubscription = this.users$.subscribe((users) => {
