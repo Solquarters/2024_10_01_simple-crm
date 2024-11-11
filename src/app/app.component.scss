@@ -81,4 +81,22 @@ mat-toolbar-row{
     }
 }
 
+@media (max-width: 470px) {
+    .router-container-class{
+        padding: 0;
+    }
+    
+    h1{
+        text-align: center;
+        padding: 12px 0px;
+        margin: 0px 0px 0px 0px;
+    }
+       
+       
+}
 
+
+html{
+    --mat-dialog-container-small-max-width: 96vw;
+}
+  

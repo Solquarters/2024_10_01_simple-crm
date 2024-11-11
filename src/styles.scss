@@ -54,3 +54,33 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         cursor: pointer;
         transition: fill 0.2s ease-in-out;
       }
+
+
+      html{
+        ///Sidenav background color
+        --mat-sidenav-scrim-color: rgba(0, 0, 0, 0.6);
+      }
+      
+
+
+      @media (max-width: 470px) {
+       
+        
+        h1{
+            text-align: center;
+            padding: 12px 0px;
+            margin: 0px 0px 0px 0px;
+        }
+
+        .mat-h1, .mat-headline-5, .mat-typography .mat-h1, .mat-typography .mat-headline-5, .mat-typography h1 {
+            font: 400 24px / 32px Roboto, sans-serif;
+            letter-spacing: normal;
+            margin: 0 0 0px;
+        }
+        html{
+            --mat-dialog-container-small-max-width: 96vw;
+        }
+          
+           
+    }
+    

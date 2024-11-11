@@ -14,6 +14,9 @@
         <th (click)="sortUserArrayByKey('email')">
           E-Mail {{ currentSortKey === 'email' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
         </th>
+        <th (click)="sortUserArrayByKey('city')">
+          City {{ currentSortKey === 'city' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
+        </th>
         <th (click)="sortUserArrayByKey('licenses')">
           Licenses {{ currentSortKey === 'licenses' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
         </th>
@@ -24,6 +27,7 @@
           <td> {{ user.firstName }} {{ user.lastName }}</td>
           <td> {{ user.company }}</td>
           <td> {{ user.email }}</td>
+          <td> {{ user.city }}</td>
           <td> {{ user.licenses.length }}</td>
       </tr>
     }

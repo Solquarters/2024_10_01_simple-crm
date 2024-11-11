@@ -68,3 +68,9 @@ button{
     .mdc-dialog__actions{
     gap: 16px;
     }
+
+
+html{
+    --mat-dialog-container-small-max-width: 96vw;
+}
+  

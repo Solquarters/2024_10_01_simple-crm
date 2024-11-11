@@ -65,6 +65,50 @@
     font-size: 14px;
   }
 
+
+  //////////////
+  /// Legend
+  /// 
+  mat-panel-description{
+    display: flex;
+    justify-content: center;
+  }
+  .mat-expansion-panel {
+    width: 50%;
+    max-width: 400px;
+  }
+  
+  .legend-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .legend-color-box {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 1px solid #333;
+  }
+  
+  .legend-text {
+    font-size: 14px;
+    color: #ffffff;
+  }
+  
+  .legend-info {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #ffffff;
+  }
+
   @media (max-width: 500px) {
     .controls {
       >button{
@@ -73,8 +117,16 @@
       }
      
     }
+
+    .mat-expansion-panel {
+      width: 80%;
+      max-width: 400px;
+    }
   }
 
   circle {
     cursor: pointer;
   }
+
+
+  

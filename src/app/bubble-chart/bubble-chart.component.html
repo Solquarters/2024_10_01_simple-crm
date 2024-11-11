@@ -2,7 +2,24 @@
 <h1>Customers visualized by license count and location</h1>
 <div class="mainDiv">
 
-  <button style="z-index: 1" mat-raised-button color="accent" (click)="resetGrouping()">Show legend</button>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+     
+      <mat-panel-description>
+        Click to expand Legend
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="legend-container">
+      <div class="legend-item" *ngFor="let item of cityColorMap">
+        <div class="legend-color-box" [style.background-color]="item.color"></div>
+        <span class="legend-text">{{ item.city }}</span>
+      </div>
+      <div class="legend-info">
+        <p>🔘Circle size represents license count.</p>
+      </div>
+    </div>
+  </mat-expansion-panel>
+
 
   <div #chartContainer class="chart-container"></div>
     <div class="controls">

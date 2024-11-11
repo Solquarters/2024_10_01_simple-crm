@@ -95,4 +95,15 @@ mat-card-content{
     table tr th:nth-child(4) {
       display: none;
     }
+
+    .router-container-class[_ngcontent-ng-c1898578591] {
+        padding: 0;
+    }
+  }
+
+  @media (max-width: 360px) {
+    table tr td:nth-child(2),
+    table tr th:nth-child(2) {
+      display: none;
+    }
   }
