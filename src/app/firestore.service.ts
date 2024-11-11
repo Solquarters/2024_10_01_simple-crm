@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, onSnapshot, addDoc, doc, docData, deleteDoc, serverTimestamp, } from '@angular/fire/firestore';
+import { Firestore, collection, onSnapshot, addDoc, doc, docData, deleteDoc, serverTimestamp, where, } from '@angular/fire/firestore';
 import { query, orderBy, limit, getDocs} from 'firebase/firestore';
 
 import { User } from '../models/user.class';
 import { updateDoc } from 'firebase/firestore';
 import { BehaviorSubject } from 'rxjs';
+
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -17,49 +19,69 @@ export class FirestoreService {
   user: User = new User();
   birthDate: Date | undefined;
 
-  constructor(public firestore: Firestore) {
+  constructor(public firestore: Firestore, private http: HttpClient) {
     this.initializeUsersArray();
     
   }
 
+  ngOnDestroy() {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+  }
+
+  //NEW UPDATED SAVE USER WITH SERVER TIMESTAMP
   // saveUser(dialogRefInput: any) {
   //   if (this.birthDate) {
   //     this.user.birthDate = this.birthDate.getTime();
   //   }
   //   this.loading = true;
+  //   // Setting createdServerTimestamp to Firestore's server timestamp
   //   const userRef = collection(this.firestore, 'users');
-  //   addDoc(userRef, this.user.toJSON())
-  //     .then((result: any) => {
+  //   addDoc(userRef, {
+  //     ...this.user.toJSON(),  // Converts User instance to JSON format
+  //     createdServerTimestamp: serverTimestamp()  // Sets server timestamp
+  //   })
+  //     .then(() => {
   //       this.loading = false;
   //       dialogRefInput.close();
+  //       console.log('User added successfully with server timestamp.');
   //     })
   //     .catch((error) => {
-  //       console.error('Error adding user to Firestore', error);
+  //       console.error('Error adding user to Firestore:', error);
+  //       this.loading = false;
   //     });
   // }
-
-  //NEW UPDATED SAVE USER WITH SERVER TIMESTAMP
   saveUser(dialogRefInput: any) {
     if (this.birthDate) {
       this.user.birthDate = this.birthDate.getTime();
     }
     this.loading = true;
-    // Setting createdServerTimestamp to Firestore's server timestamp
     const userRef = collection(this.firestore, 'users');
     addDoc(userRef, {
-      ...this.user.toJSON(),  // Converts User instance to JSON format
-      createdServerTimestamp: serverTimestamp()  // Sets server timestamp
+      ...this.user.toJSON(),
+      createdServerTimestamp: serverTimestamp()
     })
       .then(() => {
         this.loading = false;
         dialogRefInput.close();
         console.log('User added successfully with server timestamp.');
+        // Check and add city to citycache
+        this.checkAndAddCityToCache(this.user.city)
+          .then(() => {
+            console.log('City checked and added to cache if necessary.');
+          })
+          .catch((error) => {
+            console.error('Error checking and adding city to cache:', error);
+          });
       })
       .catch((error) => {
         console.error('Error adding user to Firestore:', error);
         this.loading = false;
       });
   }
+ 
+  
 
   async updateUser(userIdInput: string) {
     this.loading = true;
@@ -109,17 +131,6 @@ export class FirestoreService {
 
 
 
-
-
-
-
-  ngOnDestroy() {
-    if (this.unsubscribe) {
-      this.unsubscribe();
-    }
-  }
-
-
   async deleteNewestUsers(count: number = 3): Promise<void> {
     const usersCollection = collection(this.firestore, 'users');
     
@@ -145,104 +156,106 @@ export class FirestoreService {
     }
   }
 
+///////CITY FETCH
 
+async checkAndAddCityToCache(cityName: string) {
+  try {
+    // First, check if the city exists in citycache
+    const cityCacheRef = collection(this.firestore, 'citycache');
+    const q = query(cityCacheRef, where('cityname', '==', cityName));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      // City not found in cache, fetch population data
+      const population = await this.getCityPopulationFromWikimedia(cityName);
+
+      // Now add the city and population to citycache
+      await addDoc(cityCacheRef, { cityname: cityName, population: population });
+      console.log(`City ${cityName} added to citycache with population ${population}.`);
+    } else {
+      // City already in cache, do nothing
+      console.log(`City ${cityName} already exists in citycache.`);
+    }
+  } catch (error) {
+    console.error(`Error in checkAndAddCityToCache for city ${cityName}:`, error);
+  }
 }
 
 
-// import { Injectable } from '@angular/core';
-// import { Firestore, collection, onSnapshot, addDoc, doc, docData } from '@angular/fire/firestore';
-// import { User } from '../models/user.class';
-// import { updateDoc } from 'firebase/firestore';
+async getCityPopulationFromWikimedia(cityName: string): Promise<number | 'unknown'> {
+  if (!cityName) {
+    console.error("No city name provided");
+    throw new Error("No city name provided");
+  }
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class FirestoreService {
+  try {
+    // Search for the city QID
+    const searchUrl = `https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(cityName)}&language=en&format=json&origin=*`;
+    const searchResponse = await fetch(searchUrl);
+    const searchData = await searchResponse.json();
 
-// ////////////////////
+    if (!searchData.search || searchData.search.length === 0) {
+      console.error("City not found");
+      // Return 'unknown' if city is not found
+      return 'unknown';
+    }
 
-// loading = false;
-// user: User = new User();
-// birthDate: Date | undefined;
+    const cityQID = searchData.search[0].id;
 
+    // Fetch entity data
+    const dataUrl = `https://www.wikidata.org/wiki/Special:EntityData/${cityQID}.json`;
+    const dataResponse = await fetch(dataUrl);
+    const data = await dataResponse.json();
 
-// ///////////////////////
+    // Get population claims
+    const populationClaims = data.entities[cityQID]?.claims?.P1082;
+    if (!populationClaims) {
+      console.error("Population data not found");
+      // Return 'unknown' if population data is not found
+      return 'unknown';
+    }
 
-//   usersArray: User[] = [];
-//   unsubscribe: any;
+    let latestPopulation: number | null = null;
+    let latestDate: Date | null = null;
 
-//   constructor(private firestore: Firestore) {
-//     this.initializeUsersArray();
-//   }
+    for (const claim of populationClaims) {
+      const popValue = claim.mainsnak.datavalue?.value;
+      const population = parseFloat(popValue.amount || popValue);
+      if (isNaN(population)) continue;
 
+      const dateClaim = claim.qualifiers?.P585?.[0]?.datavalue?.value?.time;
+      const date = dateClaim ? this.parseWikidataDate(dateClaim) : null;
 
-// saveUser(dialogRefInput:any) {
-//   if (this.birthDate) {
-//     this.user.birthDate = this.birthDate.getTime();
-//   }
-//   this.loading = true;
-//   const userRef = collection(this.firestore, 'users');
-//   addDoc(userRef, this.user.toJSON())
-//     .then((result: any) => {
-//       // console.log('Added user to Firestore', result);
-//       this.loading = false;
-//       // this.dialogRef.close();
-//       dialogRefInput.close();
-//     })
-//     .catch((error) => {
-//       console.error('Error adding user to Firestore', error);
-//     });
-// }
+      if (claim.rank === 'preferred') {
+        latestPopulation = population;
+        latestDate = date;
+        break;
+      } else if (date && (!latestDate || date > latestDate)) {
+        latestPopulation = population;
+        latestDate = date;
+      }
+    }
 
-// async updateUser(userIdInput: string){
-//   this.loading = true;
-//   const docRef = doc(this.firestore, 'users', userIdInput);
-//   await updateDoc(docRef, this.user.toJSON())
-//   .then((result: any) => {
-//     // console.log('Updated user, result:', result);
-//     this.loading = false;
-  
-//   })
-//   .catch((error) => {
-//     console.error('Error updating user to Firestore', error);
-//   });
-// }
+    if (latestPopulation !== null) {
+      return latestPopulation;
+    } else {
+      console.error("Could not determine the population data.");
+      // Return 'unknown' if population data cannot be determined
+      return 'unknown';
+    }
+  } catch (error) {
+    console.error(`Error fetching population data for ${cityName}:`, error);
+    // Return 'unknown' if any error occurs during fetch
+    return 'unknown';
+  }
+}
 
+// Helper method to parse Wikidata date format
+parseWikidataDate(dateString: string): Date | null {
+  if (!dateString) return null;
+  dateString = dateString.replace(/^\+/, '').split('T')[0];
+  return new Date(dateString);
+}
 
-// getSingleUser(idInput: string) {
-//   const userDocRef = doc(this.firestore, `users/${idInput}`);
-//   docData(userDocRef).subscribe((user: any) => {
-//     this.user = new User(user);
-//     // console.log('got user:', this.user);
-//   });
-// }
+}
 
-
-
-//   initializeUsersArray(onComplete?: () => void) {
-//     const usersCollection = collection(this.firestore, 'users');
-//     // Set up the real-time listener
-//     //unsubscribe is inhereting a unsubscribe function to stop the listener
-//     this.unsubscribe = onSnapshot(usersCollection, (querySnapshot) => {
-//       // console.log('Received real-time update:', querySnapshot);
-//       // console.log('querySnapshot.docs:', querySnapshot.docs);
-
-//       this.usersArray = querySnapshot.docs.map(doc => {
-
-//         // console.log('querySnapshot.docs.map: Single doc.data()', doc.data);
-//         const data = doc.data();
-//         data['id'] = doc.id; // Add the id to the data object
-//         return new User(data); // Create a new User instance
-//       });
-//     }, (error) => {
-//       console.error('Error fetching users:', error);
-//     });
-//   }
-
- 
-//   //unsubscribe is the function returned by Firestore's onSnapshot method, specific to Firestore's API.
-//   ngOnDestroy(){
-//       this.unsubscribe();
-//   }
-
-// }

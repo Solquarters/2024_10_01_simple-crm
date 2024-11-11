@@ -1,42 +1,69 @@
-.mainDiv{
+.mainDiv {
     width: 100%;
     min-height: 80vh;
     display: flex;
-    justify-content: center;
+    
     align-items: center;
+    flex-direction: column;
 }
 
+h1{
+    text-align: center;
+    margin: 32px 0px 48px 0px;
+}
 
-
-
- #headerTable {
-    border-collapse: collapse; // Ensures there are no gaps between borders
+#headerTable {
+    background-image: linear-gradient(to  bottom, #718db7, #64a9c3, #76c1c0);
+    border-collapse: separate; /* Allows border-radius to work */
+    border-radius: 10px; /* Rounds the table corners */
     width: 100%;
     max-width: 600px;
     border: 1px solid #ccc;
-    border-spacing: 0 10px; // Adds vertical space between rows
-  
+    border-spacing: 0; /* No space between cells */
+    cursor: pointer;
+
     td {
-      padding: 8px 10px; // Adds padding to cells for more space
-      text-align: center;
-     
-     
+        padding: 8px 10px;
+        text-align: center;
+        border-bottom: 1px solid #ccc; /* Line between rows */
     }
-  
-    tr {
-      border-bottom: 1px solid #ccc; // Adds a line between rows
-      height: 100px;
-     
-     
+
+    /* Remove border-bottom from the last row cells to keep rounded corners */
+    tr:last-child td {
+        border-bottom: none;
     }
-  
+
+    /* Ensuring rounded corners for the table */
+    tr:first-child td:first-child {
+        border-top-left-radius: 10px;
+    }
+
+    tr:first-child td:last-child {
+        border-top-right-radius: 10px;
+    }
+
+    tr:last-child td:first-child {
+        border-bottom-left-radius: 10px;
+    }
+
+    tr:last-child td:last-child {
+        border-bottom-right-radius: 10px;
+    }
+
     .first-column {
+        height: 80px;
         width: 200px;
-        
-      }
-  }
+        vertical-align: middle;
+        text-align: center;
+    }
 
+    &:hover{
+        background-image: linear-gradient(to  bottom, #556a8a, #4c7f92, #599291);
+    }
+}
 
-  .imgClass{
-    padding: 8px 0px;
-  }
+.imgClass {
+    padding: 8px 0;
+    display: block; /* Ensures the icon is centered within the text line */
+    margin: 0 auto;
+}

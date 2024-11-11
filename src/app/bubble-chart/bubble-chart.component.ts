@@ -38,21 +38,38 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
   private diameter = 600;
 
   // Define the custom color palette
+  // private customPalette: string[] = [
+  //   '#FFE1B9',
+  //   '#FFCC8D',
+  //   '#FDBE72',
+  //   '#F9AF71',
+  //   '#F59D70',
+  //   '#F18C73',
+  //   '#ED7C75',
+  //   '#E96B73',
+  //   '#D36075',
+  //   '#BA5374',
+  //   '#A44875',
+  //   '#8A3A75',
+  //   '#702D76',
+  //   '#5D2477',
+  // ];
+
   private customPalette: string[] = [
-    '#FFE1B9',
-    '#FFCC8D',
-    '#FDBE72',
-    '#F9AF71',
-    '#F59D70',
-    '#F18C73',
-    '#ED7C75',
-    '#E96B73',
-    '#D36075',
-    '#BA5374',
-    '#A44875',
-    '#8A3A75',
-    '#702D76',
-    '#5D2477',
+    '#D73027',  // Very vibrant red for high density
+    '#F46D43',
+    '#FDAE61',
+    '#FEE08B',  // Transitioning to lighter tones
+    '#D9EF8B',
+    '#A6D96A',
+    '#66BD63',  // Moving towards cooler tones
+    '#3288BD',
+    '#4575B4',  // Strong blue for medium-low density
+    '#6198CF',
+    '#7AB9E3',  // Fainter blue for low density
+    '#92CFE5',
+    '#A6DFF1',
+    '#D2ECF8',
   ];
 
   // Property to hold city names and colors for the legend
