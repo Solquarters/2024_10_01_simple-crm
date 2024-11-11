@@ -1,0 +1,23 @@
+
+<div class="mainDiv">
+
+
+    <table id="headerTable">
+        <tr>
+          <td>Customer Count:</td>
+          <td>{{localUsersArray.length}}</td>
+        </tr>
+        <tr>
+          <td>Total active licenses:</td>
+          <td>{{countTotalLicenses()}}</td>
+        </tr>
+        <tr>
+            <td>From cities:</td>
+            <td>{{ this.firestoreService.user.email}}</td>
+          </tr>
+      </table>
+
+
+
+
+</div>

@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FirestoreService } from '../firestore.service';
 import { User } from '../../models/user.class';
 import { ChangeDetectorRef } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 
 @Component({
@@ -12,11 +12,12 @@ import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.compo
   styleUrls: ['./user.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
   Object = Object;
   localUsersArray: User[] = [];
   users$: Observable<User[]>;
   randomUsers: User[] = [];
+  private usersSubscription?: Subscription;
 
   currentSortKey: keyof User | null = null;
   currentSortDirection: 'asc' | 'desc' = 'asc';
@@ -29,11 +30,25 @@ export class UserComponent implements OnInit {
     this.users$ = this.firestoreService.users$;
   }
 
+  // ngOnInit() {
+  //   this.users$.subscribe((users) => {
+  //     this.localUsersArray = users;
+  //     this.changeDetectorRef.detectChanges();
+  //   });
+  // }
   ngOnInit() {
-    this.users$.subscribe((users) => {
+    // Assign subscription to usersSubscription
+    this.usersSubscription = this.users$.subscribe((users) => {
       this.localUsersArray = users;
       this.changeDetectorRef.detectChanges();
     });
+  }
+
+  ngOnDestroy() {
+    // Unsubscribe to avoid memory leaks
+    if (this.usersSubscription) {
+      this.usersSubscription.unsubscribe();
+    }
   }
 
   openDialog() {
