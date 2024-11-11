@@ -1,0 +1,42 @@
+.mainDiv{
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+ #headerTable {
+    border-collapse: collapse; // Ensures there are no gaps between borders
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    border-spacing: 0 10px; // Adds vertical space between rows
+  
+    td {
+      padding: 8px 10px; // Adds padding to cells for more space
+      text-align: center;
+     
+     
+    }
+  
+    tr {
+      border-bottom: 1px solid #ccc; // Adds a line between rows
+      height: 100px;
+     
+     
+    }
+  
+    .first-column {
+        width: 200px;
+        
+      }
+  }
+
+
+  .imgClass{
+    padding: 8px 0px;
+  }

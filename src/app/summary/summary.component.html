@@ -4,16 +4,16 @@
 
     <table id="headerTable">
         <tr>
-          <td>Customer Count:</td>
-          <td>{{localUsersArray.length}}</td>
+          <td class="first-column">Customer Count <br><mat-icon class="imgClass">recent_actors</mat-icon></td>
+          <td >{{localUsersArray.length}}</td>
         </tr>
         <tr>
-          <td>Total active licenses:</td>
+          <td class="first-column">Total active licenses <br><mat-icon class="imgClass">my_library_books</mat-icon></td>
           <td>{{countTotalLicenses()}}</td>
         </tr>
         <tr>
-            <td>From cities:</td>
-            <td>{{ this.firestoreService.user.email}}</td>
+            <td class="first-column">From cities <br><mat-icon class="imgClass">location_city</mat-icon></td>
+            <td>{{ countUniqueCities()}}</td>
           </tr>
       </table>
 

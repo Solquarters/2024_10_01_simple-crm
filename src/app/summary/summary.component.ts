@@ -35,12 +35,24 @@ constructor(public firestoreService: FirestoreService,private changeDetectorRef:
     }
   }
 
-  countTotalLicenses(){
+  countTotalLicenses(): number {
     let totalLicenses = 0;
     for(let i = 0; i < this.localUsersArray.length-1; i++){
       totalLicenses += this.localUsersArray[i].licenses.length;
     }
     return totalLicenses;
+  }
+
+
+  //It initializes a Set called uniqueCities.
+  //It loops through each user in localUsersArray, adding each user’s city to the Set.
+  //Since Sets only store unique values, duplicate cities will not be added multiple times.
+  countUniqueCities(): number {
+    const uniqueCities = new Set<string>();
+    this.localUsersArray.forEach(user => {
+      uniqueCities.add(user.city);
+    });
+    return uniqueCities.size;
   }
 
 
