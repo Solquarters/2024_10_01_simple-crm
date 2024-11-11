@@ -1,0 +1,55 @@
+<mat-dialog-content>
+<div class="dialog-content" (click)="this.dialogRef.close();">
+    <h1>Welcome to My CRM (Customer Relationship Management) System</h1>
+  
+    <div class="feature-section">
+    <h2>Navigation</h2>
+    <ul>
+        <li>Open the side navigation to access all parts.</li>
+
+    </ul>
+</div>
+    <div class="feature-section">
+      <h2>Summary</h2>
+      <ul>
+        <li>Summarizes core data in a table.</li>
+
+      </ul>
+    </div>
+    <hr />
+  
+    <div class="feature-section">
+      <h2>Data Visualization</h2>
+      <ul>
+        <li>D3.js-based visualization of user data in relation to license count and residency population.</li>
+       <li>You can sort the data by license or city.</li>
+        <li>Hover or click on the circles to get detailed information.</li>
+            <li>Expand the legend to see customer cities and population data.</li>
+    </ul>
+    </div>
+    <hr />
+  
+    <div class="feature-section">
+      <h2>Customer List</h2>
+      <ul>
+        <li>Shows all customers in a table.</li>
+        <li>Push the <strong>+</strong> button to add a new customer.</li>
+        <li>Fill out the form and add licenses - a Base64 key is added to your license name.</li>
+        <li>Enter a valid city; the CRM fetches the current population data automatically through the WikiMedia API.</li>
+        <li>Click table rows for a detailed view where fields can be edited.</li>
+      </ul>
+    </div>
+    <hr />
+  
+    <div class="feature-section">
+    <h2>Real-Time Updates</h2>
+    <ul>
+        <li>Every change is visible in the table or the bubble chart due to firebase integration.</li>
+    </ul>
+    </div>
+
+<div class="copyrightDivClass">
+     <a href="www.roman-kabucov.de" target="_blank">© roman-kabucov.de</a>
+</div>
+  </div>
+</mat-dialog-content>

@@ -22,7 +22,11 @@ https://github.com/angular/angularfire/blob/main/docs/install-and-setup.md -->
   <li  routerLink='/'><mat-icon>home</mat-icon>Summary</li>
   <li  routerLink='/dashboard'><mat-icon>bubble_chart</mat-icon>Data Visualization</li>
   <li   routerLink='/user'><mat-icon>list</mat-icon> Customer List</li>
+ 
 </ul>
+
+
+
 
     
   </mat-drawer>
@@ -39,6 +43,9 @@ https://github.com/angular/angularfire/blob/main/docs/install-and-setup.md -->
         
         <span>Simple CRM</span>
 
+        <button (click)="openInfoDialog()" id="infoButtonId" mat-fab color="white" aria-label="Open info dialog">
+          <mat-icon>info</mat-icon>
+        </button>
 
       </mat-toolbar-row>
     

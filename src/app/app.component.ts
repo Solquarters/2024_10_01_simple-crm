@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,8 +14,26 @@ export class AppComponent {
   firestore: Firestore = inject(Firestore);
   items$: Observable<any[]>;
 
-  constructor() {
+  constructor(public dialog: MatDialog,) {
     const aCollection = collection(this.firestore, 'items')
     this.items$ = collectionData(aCollection);
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  openInfoDialog(){
+    const editEmailDialog = this.dialog.open(InfoDialogComponent);
+  };
 }

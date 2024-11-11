@@ -84,6 +84,14 @@ mat-toolbar-row{
     }
 }
 
+
+#infoButtonId{
+    position: absolute;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+}
+
 @media (max-width: 470px) {
     .router-container-class{
         padding: 0;
