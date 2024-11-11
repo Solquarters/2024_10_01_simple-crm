@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column-reverse;
+    position: relative;
 }
 
 .controls {
@@ -68,21 +69,29 @@
 
   //////////////
   /// Legend
-  /// 
-  mat-panel-description{
+  ///
+  #expansionPanelId{
+    position: relative;
+    top: -48px;
+    z-index: 10;
+  }
+  
+  .legend-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    padding: 8px;
   }
   .mat-expansion-panel {
     width: 50%;
     max-width: 400px;
   }
   
-  .legend-container {
+  mat-panel-description{
     display: flex;
-    flex-direction: column;
-    padding: 10px;
+    justify-content: center;
   }
+
+  
   
   .legend-item {
     display: flex;
@@ -121,6 +130,19 @@
     .mat-expansion-panel {
       width: 80%;
       max-width: 400px;
+    }
+
+    #expansionPanelId{
+      position: relative;
+      top: -16px;
+      z-index: 10;
+    }
+
+    .chart-container {
+      width: 100vw;
+      height: 100vw;
+      margin: 16px 0px;
+  
     }
   }
 

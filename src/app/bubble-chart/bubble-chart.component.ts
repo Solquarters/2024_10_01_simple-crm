@@ -167,7 +167,7 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
 
     this.simulation = d3
       .forceSimulation<UserNode>(data)
-      .force('charge', d3.forceManyBody().strength(10))
+      .force('charge', d3.forceManyBody().strength(0))
       .force('center', d3.forceCenter(containerWidth / 2, containerHeight / 2))
       .force(
         'collision',
@@ -275,11 +275,11 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
     this.simulation
       .force(
         'x',
-        d3.forceX<UserNode>((d) => cityCenters[d.city].x).strength(0.11)
+        d3.forceX<UserNode>((d) => cityCenters[d.city].x).strength(0.14)
       )
       .force(
         'y',
-        d3.forceY<UserNode>((d) => cityCenters[d.city].y).strength(0.11)
+        d3.forceY<UserNode>((d) => cityCenters[d.city].y).strength(0.14)
       )
       .alpha(0.5)
       .restart();
@@ -327,13 +327,13 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
         'x',
         d3
           .forceX<UserNode>((d) => licenseCenters[d.licenseCategory].x)
-          .strength(0.11)
+          .strength(0.14)
       )
       .force(
         'y',
         d3
           .forceY<UserNode>((d) => licenseCenters[d.licenseCategory].y)
-          .strength(0.11)
+          .strength(0.14)
       )
       .alpha(0.5)
       .restart();
