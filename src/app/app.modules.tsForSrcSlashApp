@@ -1,0 +1,103 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserComponent } from './user/user.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { DialogAddUserComponent } from './dialog-add-user/dialog-add-user.component';
+
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getDatabase, provideDatabase } from '@angular/fire/database';
+
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
+import {MatCardModule} from '@angular/material/card';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import {MatMenuModule} from '@angular/material/menu';
+
+import { DialogEditAddressComponent } from './dialog-edit-address/dialog-edit-address.component';
+import { DialogEditEmailComponent } from './dialog-edit-email/dialog-edit-email.component';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatSelectModule} from '@angular/material/select';
+import { AddLicenceDialogComponent } from './add-licence-dialog/add-licence-dialog.component';
+import {MatSortModule} from '@angular/material/sort';
+import { RemoveUserDialogComponent } from './remove-user-dialog/remove-user-dialog.component';
+import { NgControl } from '@angular/forms';
+import { AddLicToEmptyUserComponent } from './add-lic-to-empty-user/add-lic-to-empty-user.component';
+import { BubbleChartComponent } from './bubble-chart/bubble-chart.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http'; 
+
+
+@NgModule({
+  declarations: [
+     // Existing Components
+    AppComponent,
+    DashboardComponent,
+    UserComponent,
+    DialogAddUserComponent,
+    UserDetailComponent,
+    DialogEditAddressComponent,
+    DialogEditEmailComponent,
+    AddLicenceDialogComponent,
+    RemoveUserDialogComponent,
+    AddLicToEmptyUserComponent,
+    BubbleChartComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    FormsModule,
+    MatProgressBarModule,
+    MatCardModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatSelectModule,
+    MatSortModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    
+    
+    
+  ],
+  providers: [
+    provideAnimationsAsync(),
+    provideFirebaseApp(() => initializeApp({
+        ""projectId":"",
+      "appId":"",
+      "storageBucket":"",
+      "apiKey":"",
+      "authDomain":"",
+      "messagingSenderId":"""})),
+    provideFirestore(() => getFirestore()),
+    provideDatabase(() => getDatabase()),
+    HttpClient,
+    
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
