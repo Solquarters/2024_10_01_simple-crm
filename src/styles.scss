@@ -35,3 +35,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-mdc-fab.mat-primary {
     --mdc-fab-container-color: rgb(178, 0, 0) !important;}
+
+
+
+    .tooltip {
+        position: absolute;
+        pointer-events: none;
+        // background: #fff;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: white;
+        font-size: 14px;
+        z-index: 1000; // Ensure the tooltip appears above other elements
+      }
+
+      circle {
+        cursor: pointer;
+        transition: fill 0.2s ease-in-out;
+      }

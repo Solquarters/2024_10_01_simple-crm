@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FirestoreService } from '../firestore.service';
 import * as d3 from 'd3';
 import { Subscription } from 'rxjs';
 import { User } from '../../models/user.class';
+import { Router } from '@angular/router';
 interface UserNode extends d3.SimulationNodeDatum {
   id?: string;
   firstName: string;
@@ -14,7 +15,8 @@ interface UserNode extends d3.SimulationNodeDatum {
 @Component({
   selector: 'app-bubble-chart',
   templateUrl: './bubble-chart.component.html',
-  styleUrls: ['./bubble-chart.component.scss']
+  styleUrls: ['./bubble-chart.component.scss'],
+  // encapsulation: ViewEncapsulation.None,
 })
 export class BubbleChartComponent implements OnInit, OnDestroy {
   @ViewChild('chartContainer', { static: true }) private chartContainer!: ElementRef;
@@ -35,40 +37,9 @@ private customPalette: string[] = [
 //Alternative palette:
 // #718db7, #64a9c3, #76c1c0
 
-  constructor(private firestoreService: FirestoreService) {}
+  constructor(private firestoreService: FirestoreService, private router: Router) {}
 
-  // ngOnInit(): void {
-  //   this.subscription = this.firestoreService.users$.subscribe((users) => {
-  //     this.users = users;
-  //     this.renderChart();
-  //   });
-  // }
 
-  // ngOnDestroy(): void {
-  //   this.subscription.unsubscribe();
-  // }
-
-  // ngOnInit(): void {
-  //   // this.subscription = this.firestoreService.users$.subscribe((users) => {
-  //   //   this.users = users;
-  //   //   this.renderChart();
-  //   // });
-  //   // window.addEventListener('resize', this.handleResize.bind(this));
-  // }
-
-  // ngAfterViewInit(): void {
-  //   this.subscription = this.firestoreService.users$.subscribe((users) => {
-  //     this.users = users;
-  //     this.renderChart();
-  //   });
-  //   window.addEventListener('resize', this.handleResize.bind(this));
-  // }
-  
-  
-  // ngOnDestroy(): void {
-  //   this.subscription.unsubscribe();
-  //   window.removeEventListener('resize', this.handleResize.bind(this));
-  // }
   private resizeObserver!: ResizeObserver;
 
   ngOnInit(): void {
@@ -81,11 +52,23 @@ private customPalette: string[] = [
     this.resizeObserver.observe(this.chartContainer.nativeElement);
   }
   
+  // ngOnDestroy(): void {
+  //   this.subscription.unsubscribe();
+  //   if (this.resizeObserver) {
+  //     this.resizeObserver.unobserve(this.chartContainer.nativeElement);
+  //     this.resizeObserver.disconnect();
+  //   }
+  // }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
     if (this.resizeObserver) {
       this.resizeObserver.unobserve(this.chartContainer.nativeElement);
       this.resizeObserver.disconnect();
+    }
+    // Remove the tooltip when the component is destroyed
+    if (this.tooltip) {
+      this.tooltip.remove();
+      this.tooltip = null;
     }
   }
 
@@ -123,13 +106,7 @@ private clearExistingChart(): void {
   d3.select('#bubbleChart').remove();
 }
 
-// private setupSvg(): void {
-//   this.svg = d3.select('#chartContainer')
-//     .append('svg')
-//     .attr('id', 'bubbleChart')
-//     .attr('width', this.width)
-//     .attr('height', this.height);
-// }
+
 private setupSvg(): void {
   const containerWidth = this.chartContainer.nativeElement.offsetWidth;
   const containerHeight = this.chartContainer.nativeElement.offsetHeight;
@@ -149,20 +126,7 @@ private getCityNames(data: UserNode[]): string[] {
   return Array.from(new Set(data.map(d => d.city)));
 }
 
-// private createRadiusScale(data: UserNode[]): d3.ScaleLinear<number, number> {
-//   const maxLicenseCount = d3.max(data, d => d.licenseCount) || 1;
-//   return d3.scaleLinear()
-//     .domain([0, maxLicenseCount])
-//     .range([10, 50]);
-// }
 
-// private createRadiusScale(data: UserNode[]): d3.ScaleLinear<number, number> {
-//   const maxLicenseCount = d3.max(data, d => d.licenseCount) || 1;
-//   const containerWidth = this.chartContainer.nativeElement.offsetWidth;
-//   return d3.scaleLinear()
-//     .domain([0, maxLicenseCount])
-//     .range([5, containerWidth / 15]); // Adjust based on container size
-// }
 private createRadiusScale(data: UserNode[]): d3.ScaleLinear<number, number> {
   const maxLicenseCount = d3.max(data, d => d.licenseCount) || 1;
   const containerWidth = this.chartContainer.nativeElement.offsetWidth;
@@ -171,24 +135,7 @@ private createRadiusScale(data: UserNode[]): d3.ScaleLinear<number, number> {
     .range([5, containerWidth / 15]); // Adjust based on container size
 }
 
-// private initializeSimulation(data: UserNode[], radiusScale: d3.ScaleLinear<number, number>): void {
-//   const ticked = () => this.updateNodePositions();
-//   this.simulation = d3.forceSimulation<UserNode>(data)
-//     .force('charge', d3.forceManyBody().strength(10))
-//     .force('center', d3.forceCenter(this.width / 2, this.height / 2))
-//     .force('collision', d3.forceCollide(d => radiusScale(d.licenseCount) + 1.5))
-//     .on('tick', ticked);
-// }
-// private initializeSimulation(data: UserNode[], radiusScale: d3.ScaleLinear<number, number>): void {
-//   const containerWidth = this.chartContainer.nativeElement.offsetWidth;
-//   const containerHeight = this.chartContainer.nativeElement.offsetHeight;
-//   const ticked = () => this.updateNodePositions();
-//   this.simulation = d3.forceSimulation<UserNode>(data)
-//     .force('charge', d3.forceManyBody().strength(10))
-//     .force('center', d3.forceCenter(containerWidth / 2, containerHeight / 2))
-//     .force('collision', d3.forceCollide(d => radiusScale(d.licenseCount) + 1.5))
-//     .on('tick', ticked);
-// }
+
 private initializeSimulation(data: UserNode[], radiusScale: d3.ScaleLinear<number, number>): void {
   const containerWidth = this.chartContainer.nativeElement.offsetWidth;
   const containerHeight = this.chartContainer.nativeElement.offsetHeight;
@@ -207,33 +154,102 @@ private updateNodePositions(): void {
     .attr('cy', (d: UserNode) => d.y!);
 }
 
-private createCircles(data: UserNode[], radiusScale: d3.ScaleLinear<number, number>, color: d3.ScaleOrdinal<string, string>): void {
-  const nodes = this.svg.selectAll('circle')
+// private createCircles(data: UserNode[], radiusScale: d3.ScaleLinear<number, number>, color: d3.ScaleOrdinal<string, string>): void {
+//   const nodes = this.svg.selectAll('circle')
+//     .data(data)
+//     .enter()
+//     .append('circle')
+//     .attr('r', (d: UserNode) => radiusScale(d.licenseCount))
+//     .attr('fill', (d: UserNode) => color(d.city))
+//     .on('mouseover', (event: MouseEvent, d: UserNode) => this.showTooltip(event, d))
+//     .on('mouseout', () => this.hideTooltip())
+//     .on('click', (event: MouseEvent, d: UserNode) => this.navigateToUser(d)); // Add click listener
+// }
+
+// private createCircles(
+//   data: UserNode[],
+//   radiusScale: d3.ScaleLinear<number, number>,
+//   color: d3.ScaleOrdinal<string, string>
+// ): void {
+//   const nodes = this.svg
+//     .selectAll('circle')
+//     .data(data)
+//     .enter()
+//     .append('circle')
+//     .attr('r', (d: UserNode) => radiusScale(d.licenseCount))
+//     .attr('fill', (d: UserNode) => color(d.city))
+//     .style('cursor', 'pointer') // Add this line to set the cursor
+//     .on('mouseover', (event: MouseEvent, d: UserNode) => {
+//       this.showTooltip(event, d);
+//       // Darken the circle color on hover
+//       d3.select(event.currentTarget)
+//         .attr('fill', d3.color(color(d.city))!.darker(0.5).toString());
+//     })
+//     .on('mouseout', (event: MouseEvent, d: UserNode) => {
+//       this.hideTooltip();
+//       // Reset the circle color when not hovering
+//       d3.select(event.currentTarget).attr('fill', color(d.city));
+//     })
+//     .on('click', (event: MouseEvent, d: UserNode) => this.navigateToUser(d));
+// }
+
+private createCircles(
+  data: UserNode[],
+  radiusScale: d3.ScaleLinear<number, number>,
+  color: d3.ScaleOrdinal<string, string>
+): void {
+  const component = this; // Capture the component instance
+
+  const nodes = this.svg
+    .selectAll('circle')
     .data(data)
     .enter()
     .append('circle')
     .attr('r', (d: UserNode) => radiusScale(d.licenseCount))
     .attr('fill', (d: UserNode) => color(d.city))
-    .on('mouseover', (event: MouseEvent, d: UserNode) => this.showTooltip(event, d))
-    .on('mouseout', () => this.hideTooltip());
+    .style('cursor', 'pointer')
+    .on('mouseover', function (
+      this: SVGCircleElement,
+      event: MouseEvent,
+      d: UserNode
+    ) {
+      component.showTooltip(event, d);
+
+      // Darken the circle color on hover
+      d3.select(this)
+        .attr('fill', d3.color(color(d.city))!.darker(0.5).toString());
+    })
+    .on('mouseout', function (
+      this: SVGCircleElement,
+      event: MouseEvent,
+      d: UserNode
+    ) {
+      component.hideTooltip();
+
+      // Reset the circle color when not hovering
+      d3.select(this).attr('fill', color(d.city));
+    })
+    .on('click', (event: MouseEvent, d: UserNode) => {
+      this.hideTooltip(); // Hide the tooltip
+      this.navigateToUser(d);
+    });
+}
+
+private navigateToUser(user: UserNode): void {
+  if (user.id) {
+    this.router.navigate(['/user', user.id]);
+  } else {
+    console.error('User ID is missing. Cannot navigate to user detail page.');
+  }
 }
 
 private createLegend(color: d3.ScaleOrdinal<string, string>, cityNames: string[]): void {
-  // const containerWidth = this.chartContainer.nativeElement.offsetWidth;
-  // const legend = this.svg.append('g')
-  //   .attr('class', 'legend')
-  //   .attr('transform', `translate(${containerWidth - 160}, 150)`);
   const containerWidth = this.chartContainer.nativeElement.offsetWidth;
   const legendX = containerWidth > 500 ? containerWidth - 160 : 20; // Adjust position based on width
 
   const legend = this.svg.append('g')
     .attr('class', 'legend')
     .attr('transform', `translate(${legendX}, 20)`); // Position at top-right or top-left
-
-
-  // const legend = this.svg.append('g')
-  //   .attr('class', 'legend')
-  //   .attr('transform', `translate(${this.width - 160}, 150)`);
 
     legend.selectAll('.legend-item')
     .data(cityNames)
@@ -258,6 +274,7 @@ private createLegendItem(city: string, color: d3.ScaleOrdinal<string, string>, n
     .attr('cx', 0)
     .attr('cy', 0)
     .attr('r', 8)
+    .style('cursor', 'pointer')
     .style('fill', color(city));
 
   legendItem.append('text')
@@ -269,9 +286,38 @@ private createLegendItem(city: string, color: d3.ScaleOrdinal<string, string>, n
     .style('alignment-baseline', 'middle');
 }
 
+  // private showTooltip(event: any, d: any): void {
+  //   if (!this.tooltip) {
+  //     this.tooltip = d3.select('#chartContainer')
+  //       .append('div')
+  //       .attr('class', 'tooltip')
+  //       .style('position', 'absolute')
+  //       .style('pointer-events', 'none')
+  //       .style('background', '#fff')
+  //       .style('padding', '10px')
+  //       .style('border', '1px solid #ccc')
+  //       .style('border-radius', '4px')
+  //       .style('color', 'black'); // Ensure text color is set
+  //   }
+  
+  //   this.tooltip
+  //     .html(`<strong>${d.firstName} ${d.lastName}</strong><br/>
+  //            City: ${d.city}<br/>
+  //            Licenses: ${d.licenseCount}`)
+  //     .style('left', (event.pageX ) + 'px')
+  //     .style('top', (event.pageY ) + 'px')
+  //     .style('opacity', 1);
+  // }
+
+  // private hideTooltip(): void {
+  //   if (this.tooltip) {
+  //     this.tooltip.style('opacity', 0);
+  //   }
+  // }
   private showTooltip(event: any, d: any): void {
     if (!this.tooltip) {
-      this.tooltip = d3.select('#chartContainer')
+      this.tooltip = d3
+        .select('body') // Append tooltip to body
         .append('div')
         .attr('class', 'tooltip')
         .style('position', 'absolute')
@@ -280,18 +326,20 @@ private createLegendItem(city: string, color: d3.ScaleOrdinal<string, string>, n
         .style('padding', '10px')
         .style('border', '1px solid #ccc')
         .style('border-radius', '4px')
-        .style('color', 'black'); // Ensure text color is set
+        .style('color', 'black');
     }
   
     this.tooltip
-      .html(`<strong>${d.firstName} ${d.lastName}</strong><br/>
-             City: ${d.city}<br/>
-             Licenses: ${d.licenseCount}`)
-      .style('left', (event.pageX/2.3 ) + 'px')
-      .style('top', (event.pageY/2 ) + 'px')
+      .html(
+        `<strong>${d.firstName} ${d.lastName}</strong><br/>
+         City: ${d.city}<br/>
+         Licenses: ${d.licenseCount}`
+      )
+      .style('left', event.pageX + 10 + 'px') // Adjust position
+      .style('top', event.pageY -100 + 'px')
       .style('opacity', 1);
   }
-
+  
   private hideTooltip(): void {
     if (this.tooltip) {
       this.tooltip.style('opacity', 0);
@@ -317,22 +365,6 @@ private createLegendItem(city: string, color: d3.ScaleOrdinal<string, string>, n
       .restart();
   }
 
-  // private calculateCityCenters(data: UserNode[]): { [city: string]: { x: number; y: number } } {
-  //   const cities: string[] = Array.from(new Set(data.map(d => d.city)));
-  //   const cityCenters: { [city: string]: { x: number; y: number } } = {};
-  //   const numCities = cities.length;
-  //   const angleStep = (2 * Math.PI) / numCities;
-  //   const radius = this.diameter / 3;
-  
-  //   cities.forEach((city, index) => {
-  //     cityCenters[city] = {
-  //       x: this.width / 2 + radius * Math.cos(index * angleStep),
-  //       y: this.height / 2 + radius * Math.sin(index * angleStep),
-  //     };
-  //   });
-  
-  //   return cityCenters;
-  // }
   private calculateCityCenters(data: UserNode[]): { [city: string]: { x: number; y: number } } {
     const containerWidth = this.chartContainer.nativeElement.offsetWidth;
     const containerHeight = this.chartContainer.nativeElement.offsetHeight;
@@ -376,22 +408,6 @@ private createLegendItem(city: string, color: d3.ScaleOrdinal<string, string>, n
     }
   }
 
-  // private calculateLicenseCenters(data: UserNode[]): { [category: string]: { x: number; y: number } } {
-  //   const categories: string[] = Array.from(new Set(data.map(d => d.licenseCategory)));
-  //   const licenseCenters: { [category: string]: { x: number; y: number } } = {};
-  //   const numCategories = categories.length;
-  //   const angleStep = (2 * Math.PI) / numCategories;
-  //   const radius = this.diameter / 3;
-  
-  //   categories.forEach((category, index) => {
-  //     licenseCenters[category] = {
-  //       x: this.width / 2 + radius * Math.cos(index * angleStep),
-  //       y: this.height / 2 + radius * Math.sin(index * angleStep),
-  //     };
-  //   });
-  
-  //   return licenseCenters;
-  // }
   private calculateLicenseCenters(data: UserNode[]): { [category: string]: { x: number; y: number } } {
     const containerWidth = this.chartContainer.nativeElement.offsetWidth;
     const containerHeight = this.chartContainer.nativeElement.offsetHeight;
