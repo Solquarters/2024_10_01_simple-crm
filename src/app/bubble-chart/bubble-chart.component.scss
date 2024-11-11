@@ -5,19 +5,15 @@
     flex-direction: column-reverse;
 }
 
-
-
-  
-  .controls {
+.controls {
   display: flex;
   justify-content: center;
     z-index: 5;
   }
   
-  .controls button {
+.controls button {
     margin-right: 5px;
   }
-
 
 
   .legend {
@@ -42,22 +38,13 @@
     height: auto;
     position: relative;
   }
-  // .chart-container {
-  //   width: 90vw;          /* 90% of the viewport width */
-  //   height: 90vw;         /* Make height equal to width for a square container */
-  //   max-width: 800px;     /* Cap the maximum width */
-  //   max-height: 800px;    /* Cap the maximum height */
-  //   margin: 0 auto;
-  //   position: relative;
-  // }
-
 
   .chart-container {
     width: 90vw;
     height: 90vw;
     max-width: 800px;
     max-height: 800px;
-    // margin: 0 auto;
+
     position: relative;
     margin: 8px 0px;
   }
@@ -77,9 +64,6 @@
     color: black;
     font-size: 14px;
   }
-
-
-
 
   @media (max-width: 500px) {
     .controls {
