@@ -154,7 +154,7 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
     return d3
       .scaleLinear()
       .domain([0, maxLicenseCount])
-      .range([5, containerWidth / 15]);
+      .range([6, containerWidth / 18]);
   }
 
   private initializeSimulation(
