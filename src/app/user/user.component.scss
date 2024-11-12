@@ -2,6 +2,7 @@
     position: fixed;
     bottom: 48px;
     right: 48px;
+    z-index: 1000;
 }
 
 
@@ -96,9 +97,7 @@ mat-card-content{
       display: none;
     }
 
-    .router-container-class[_ngcontent-ng-c1898578591] {
-        padding: 0;
-    }
+   
   }
 
   @media (max-width: 360px) {

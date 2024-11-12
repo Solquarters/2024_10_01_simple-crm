@@ -7,8 +7,8 @@ import { SummaryComponent } from './summary/summary.component';
 
 const routes: Routes = [
   {path: '', component: SummaryComponent },
-  {path: 'dashboard', component: DashboardComponent },
-  {path: 'user', component: UserComponent},
+  {path: 'visualization', component: DashboardComponent },
+  {path: 'users', component: UserComponent},
   {path: 'user/:id', component: UserDetailComponent}
 ];
 

@@ -236,7 +236,7 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
     return d3
       .scaleLinear()
       .domain([0, maxLicenseCount])
-      .range([6, containerWidth / 18]);
+      .range([6, containerWidth / 19]);
   }
 
   private initializeSimulation(
@@ -446,7 +446,7 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
     } = {};
     const numCategories = categories.length;
     const angleStep = (2 * Math.PI) / numCategories;
-    const radius = Math.min(containerWidth, containerHeight) / 3;
+    const radius = Math.min(containerWidth, containerHeight) / 3.6;
 
     categories.forEach((category, index) => {
       licenseCenters[category] = {
