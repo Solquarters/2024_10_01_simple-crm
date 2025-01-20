@@ -112,7 +112,7 @@ createRandomUsers() {
   ];
   
   const cities = ['Marburg', 'Bad Laasphe', 'Kempten', 'Frankfurt', 'Giessen', 'Willingen', 'Bochum', 'München',
-    'New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 
+    'New York', 'Los Angeles', 'Chicago', 'Houston', 'Berlin', 'Tokyo', 'Philadelphia', 
     'San Antonio', 'San Diego'
   ];
   
