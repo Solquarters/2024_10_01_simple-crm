@@ -1,3 +1,7 @@
+.main-bubblechart-div-class{
+  padding: 48px 0px 0px 0px;
+}
+
 .mainDiv{
     display: flex;
     justify-content: center;
@@ -11,10 +15,7 @@
   display: flex;
   justify-content: center;
     z-index: 5;
-  }
-  
-.controls button {
-    margin-right: 5px;
+    gap: 6px;
   }
 
 
@@ -80,7 +81,7 @@
   .legend-container {
     display: flex;
     flex-direction: column;
-    padding: 8px;
+    padding: 8px 0px;
   }
   .mat-expansion-panel {
     width: 50%;
@@ -97,7 +98,7 @@
   .legend-item {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
   }
   
   .legend-color-box {
@@ -118,6 +119,18 @@
     font-size: 14px;
     color: #ffffff;
   }
+
+
+  @media (max-width: 700px) {
+    ::ng-deep .mat-expansion-panel-body{
+      padding: 0 8px 16px !important;
+  }
+
+  #expansionPanelId{
+    min-width: 400px;
+  }
+  }
+  
 
   @media (max-width: 500px) {
     .controls {
@@ -145,6 +158,11 @@
       margin: 16px 0px;
   
     }
+
+    #expansionPanelId{
+      min-width: 318px;
+    }
+    
   }
 
   circle {

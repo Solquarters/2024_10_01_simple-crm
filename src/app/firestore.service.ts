@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, onSnapshot, addDoc, doc, docData, deleteDoc, serverTimestamp, where, } from '@angular/fire/firestore';
+import { Firestore, collection, onSnapshot, addDoc, doc, docData, deleteDoc, serverTimestamp, where, writeBatch, } from '@angular/fire/firestore';
 import { query, orderBy, limit, getDocs} from 'firebase/firestore';
 
 import { User } from '../models/user.class';
 import { updateDoc } from 'firebase/firestore';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
 
 
 @Injectable({
@@ -96,11 +96,30 @@ export class FirestoreService {
   }
 
 
+  // async deleteSingleUser(userIdInput: string): Promise<void> {
+  //   try {
+  //     const userDocRef = doc(this.firestore, 'users', userIdInput);
+  //     await deleteDoc(userDocRef);
+  //     console.log(`User with ID ${userIdInput} deleted successfully.`);
+  //   } catch (error) {
+  //     console.error('Error deleting user:', error);
+  //   }
+  // }
   async deleteSingleUser(userIdInput: string): Promise<void> {
     try {
+      // Get the user's city before deletion
       const userDocRef = doc(this.firestore, 'users', userIdInput);
+      const userSnap = await docData(userDocRef).pipe(take(1)).toPromise();
+      const cityToCheck = userSnap?.['city'];
+  
+      // Delete the user
       await deleteDoc(userDocRef);
       console.log(`User with ID ${userIdInput} deleted successfully.`);
+  
+      // Only check this specific city
+      if (cityToCheck) {
+        await this.checkAndCleanupCity(cityToCheck);
+      }
     } catch (error) {
       console.error('Error deleting user:', error);
     }
@@ -108,28 +127,99 @@ export class FirestoreService {
 
 
 
+  // async deleteNewestUsers(count: number = 3): Promise<void> {
+  //   const usersCollection = collection(this.firestore, 'users');
+    
+  //   // Query to get the latest users based on the createdServerTimestamp
+  //   const newestUsersQuery = query(usersCollection, orderBy('createdServerTimestamp', 'desc'), limit(count));
+  
+  //   try {
+  //     const querySnapshot = await getDocs(newestUsersQuery);
+  
+  //     // Check if there are enough users to delete
+  //     if (querySnapshot.size < count) {
+  //       console.log("Not enough users to delete");
+  //       return;
+  //     }
+  
+  //     // Map over the query result to delete each document
+  //     const deletePromises = querySnapshot.docs.map(doc => deleteDoc(doc.ref));
+  //     await Promise.all(deletePromises);
+  
+  //     console.log(`${count} most recent users deleted successfully.`);
+  //   } catch (error) {
+  //     console.error(`Error deleting the newest ${count} users:`, error);
+  //   }
+  // }
   async deleteNewestUsers(count: number = 3): Promise<void> {
     const usersCollection = collection(this.firestore, 'users');
-    
-    // Query to get the latest users based on the createdServerTimestamp
-    const newestUsersQuery = query(usersCollection, orderBy('createdServerTimestamp', 'desc'), limit(count));
+    const newestUsersQuery = query(
+      usersCollection, 
+      orderBy('createdServerTimestamp', 'desc'), 
+      limit(count)
+    );
   
     try {
       const querySnapshot = await getDocs(newestUsersQuery);
-  
-      // Check if there are enough users to delete
       if (querySnapshot.size < count) {
         console.log("Not enough users to delete");
         return;
       }
   
-      // Map over the query result to delete each document
-      const deletePromises = querySnapshot.docs.map(doc => deleteDoc(doc.ref));
-      await Promise.all(deletePromises);
+      // Collect cities before deletion
+      const citiesToCheck = new Set<string>();
+      querySnapshot.docs.forEach(doc => {
+        const city = doc.data()['city'];
+        if (city) citiesToCheck.add(city);
+      });
+  
+      // Delete users using batch
+      const batch = writeBatch(this.firestore);
+      querySnapshot.docs.forEach(doc => {
+        batch.delete(doc.ref);
+      });
+      await batch.commit();
   
       console.log(`${count} most recent users deleted successfully.`);
+  
+      // Check each affected city
+      for (const city of citiesToCheck) {
+        await this.checkAndCleanupCity(city);
+      }
     } catch (error) {
       console.error(`Error deleting the newest ${count} users:`, error);
+    }
+  }
+
+
+
+
+  public async checkAndCleanupCity(cityName: string): Promise<void> {
+    try {
+      // Check if any users still have this city
+      const usersCollection = collection(this.firestore, 'users');
+      const cityUsersQuery = query(
+        usersCollection, 
+        where('city', '==', cityName)
+      );
+      const remainingUsersSnapshot = await getDocs(cityUsersQuery);
+  
+      // Only delete from cache if no users have this city anymore
+      if (remainingUsersSnapshot.empty) {
+        const cityCacheCollection = collection(this.firestore, 'citycache');
+        const cityCacheQuery = query(
+          cityCacheCollection, 
+          where('cityname', '==', cityName)
+        );
+        const cityCacheSnapshot = await getDocs(cityCacheQuery);
+  
+        if (!cityCacheSnapshot.empty) {
+          await deleteDoc(cityCacheSnapshot.docs[0].ref);
+          console.log(`Removed ${cityName} from citycache as it's no longer used`);
+        }
+      }
+    } catch (error) {
+      console.error(`Error checking and cleaning up city ${cityName}:`, error);
     }
   }
 

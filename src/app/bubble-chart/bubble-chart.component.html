@@ -1,41 +1,51 @@
 
-<h1>Customers visualized by license count and location</h1>
-<div class="mainDiv">
-
-  <mat-expansion-panel hideToggle id="expansionPanelId">
-    <mat-expansion-panel-header>
-     
-      <mat-panel-description>
-        Click to expand Legend
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <div class="legend-container">
-      <div class="legend-item" *ngFor="let item of cityColorMap">
-        <div class="legend-color-box" [style.background-color]="item.color"></div>
-        <span class="legend-text">{{ item.city }} - Population: {{ item.population !== 'unknown' ? (item.population | number) : 'Unknown' }}</span>
-      </div>
-      <!-- <ul class="legend">
-        <li *ngFor="let item of cityColorMap">
-          <span class="legend-color" [style.background]="item.color"></span>
-          {{ item.city }} - {{ item.population !== 'unknown' ? (item.population | number) : 'Unknown' }}
-        </li>
-      </ul> -->
-      <div class="legend-info">
-        <p>🔘Circle size represents license count.</p>
-      </div>
-    </div>
-  </mat-expansion-panel>
 
 
-  <div #chartContainer class="chart-container"></div>
-    <div class="controls">
-        <button style="z-index: 1" mat-raised-button color="accent" (click)="groupByCity()">Group by City</button>
-        <button style="z-index: 1" mat-raised-button color="accent" (click)="groupByLicenseCount()">Group by License Count</button>
-        <button style="z-index: 1" mat-raised-button color="accent" (click)="resetGrouping()">Reset Grouping</button>
+
+<div class="main-bubblechart-div-class">
+
+  <h1>Customers visualized by license count and location</h1>
+  <div class="mainDiv">
+  
+    <mat-expansion-panel hideToggle id="expansionPanelId">
+      <mat-expansion-panel-header>
+       
+        <mat-panel-description>
+          Click to expand Legend
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="legend-container">
+        <div class="legend-item" *ngFor="let item of cityColorMap">
+          <div class="legend-color-box" [style.background-color]="item.color"></div>
+          <span class="legend-text">{{ item.city }} - Population: {{ item.population !== 'unknown' ? (item.population | number) : 'Unknown' }}</span>
+        </div>
+        <!-- <ul class="legend">
+          <li *ngFor="let item of cityColorMap">
+            <span class="legend-color" [style.background]="item.color"></span>
+            {{ item.city }} - {{ item.population !== 'unknown' ? (item.population | number) : 'Unknown' }}
+          </li>
+        </ul> -->
+        <div class="legend-info">
+          <p>🔘Circle size represents license count.</p>
+        </div>
       </div>
-      
-      <!-- <div id="chartContainer" style="position: relative;"></div> -->
-      
+    </mat-expansion-panel>
+  
+  
+    <div #chartContainer class="chart-container"></div>
+      <div class="controls">
+          <button style="z-index: 1" mat-raised-button color="accent" (click)="groupByCity()">Group by City</button>
+          <button style="z-index: 1" mat-raised-button color="accent" (click)="groupByLicenseCount()">Group by License Count</button>
+          <button style="z-index: 1" mat-raised-button color="accent" (click)="resetGrouping()">Reset Grouping</button>
+        </div>
+        
+        <!-- <div id="chartContainer" style="position: relative;"></div> -->
+        
+  </div>
+  
+  
+  
+
+
 </div>
-
 

@@ -1,25 +1,35 @@
-<h1>Summary</h1>
+
+<div class="main-summary-div-class">
 
 
-<div class="mainDiv">
-    
-
-    <table id="headerTable" routerLink='/visualization'>
-        <tr>
-          <td class="first-column">User Count <br><mat-icon class="imgClass">recent_actors</mat-icon></td>
-          <td >{{localUsersArray.length}}</td>
-        </tr>
-        <tr>
-          <td class="first-column">Total active licenses <br><mat-icon class="imgClass">my_library_books</mat-icon></td>
-          <td>{{countTotalLicenses()}}</td>
-        </tr>
-        <tr>
-            <td class="first-column">From cities <br><mat-icon class="imgClass">location_city</mat-icon></td>
-            <td>{{ countUniqueCities()}}</td>
-          </tr>
-      </table>
+  <h1>Summary</h1>
 
 
-
+  <div class="mainDiv">
       
+  
+      <table id="headerTable" routerLink='/visualization'>
+          <tr>
+            <td class="first-column">User Count <br><mat-icon class="imgClass">recent_actors</mat-icon></td>
+            <td >{{localUsersArray.length}}</td>
+          </tr>
+          <tr>
+            <td class="first-column">Total active licenses <br><mat-icon class="imgClass">my_library_books</mat-icon></td>
+            <td>{{countTotalLicenses()}}</td>
+          </tr>
+          <tr>
+              <td class="first-column">From cities <br><mat-icon class="imgClass">location_city</mat-icon></td>
+              <td>{{ countUniqueCities()}}</td>
+            </tr>
+        </table>
+  
+  
+  
+        
+  </div>
+
+
 </div>
+
+
+

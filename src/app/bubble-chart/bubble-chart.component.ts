@@ -204,6 +204,7 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
   
     // Populate cityColorMap for the legend
     this.cityColorMap = this.sortedCities.map((city) => ({
+    
       city: city,
       population: cityPopulationMap.get(city) ?? 'unknown',
       color: color(city),
