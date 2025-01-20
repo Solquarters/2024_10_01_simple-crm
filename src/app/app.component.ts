@@ -30,12 +30,11 @@ export class AppComponent {
 
 
 
-
-
   openInfoDialog() {
-    this.dialog.open(InfoDialogComponent, {
-      autoFocus: false // disable autofocus
+    const dialogRef = this.dialog.open(InfoDialogComponent, {
+      autoFocus: false,
+      ariaDescribedBy: null,
+      ariaLabelledBy: null
     });
   }
-
 }

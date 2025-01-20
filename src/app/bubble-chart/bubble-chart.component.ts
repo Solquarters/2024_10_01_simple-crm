@@ -240,6 +240,24 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
       .range([6, containerWidth / 19]);
   }
 
+  // private initializeSimulation(
+  //   data: UserNode[],
+  //   radiusScale: d3.ScaleLinear<number, number>
+  // ): void {
+  //   const containerWidth = this.chartContainer.nativeElement.offsetWidth;
+  //   const containerHeight = this.chartContainer.nativeElement.offsetHeight;
+  //   const ticked = () => this.updateNodePositions();
+
+  //   this.simulation = d3
+  //     .forceSimulation<UserNode>(data)
+  //     .force('charge', d3.forceManyBody().strength(0))
+  //     .force('center', d3.forceCenter(containerWidth / 2, containerHeight / 2))
+  //     .force(
+  //       'collision',
+  //       d3.forceCollide((d) => radiusScale(d.licenseCount) + 1.5)
+  //     )
+  //     .on('tick', ticked);
+  // }
   private initializeSimulation(
     data: UserNode[],
     radiusScale: d3.ScaleLinear<number, number>
@@ -247,11 +265,15 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
     const containerWidth = this.chartContainer.nativeElement.offsetWidth;
     const containerHeight = this.chartContainer.nativeElement.offsetHeight;
     const ticked = () => this.updateNodePositions();
-
+  
+    // Adjust the center by offsetting it 64px up and right
     this.simulation = d3
       .forceSimulation<UserNode>(data)
       .force('charge', d3.forceManyBody().strength(0))
-      .force('center', d3.forceCenter(containerWidth / 2, containerHeight / 2))
+      .force('center', d3.forceCenter(
+        (containerWidth / 2) + containerWidth/25,  //adjusting force center to canvas
+        (containerHeight / 2) - containerHeight/25,//adjusting force center to canvas
+      ))
       .force(
         'collision',
         d3.forceCollide((d) => radiusScale(d.licenseCount) + 1.5)
@@ -376,11 +398,13 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
     const containerHeight = this.chartContainer.nativeElement.offsetHeight;
 
     this.simulation
-      .force('x', d3.forceX(containerWidth / 2).strength(0.05))
-      .force('y', d3.forceY(containerHeight / 2).strength(0.05))
+      .force('x', d3.forceX(containerWidth / 2 + containerWidth/50).strength(0.1))
+      .force('y', d3.forceY(containerHeight / 2 - containerHeight/50).strength(0.1))
       .alpha(0.5)
       .restart();
   }
+
+
 
   private calculateCityCenters(cities: string[]): { [city: string]: { x: number; y: number } } {
     const containerWidth = this.chartContainer.nativeElement.offsetWidth;
@@ -392,14 +416,17 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
   
     cities.forEach((city, index) => {
       cityCenters[city] = {
-        x: containerWidth / 2 + radius * Math.cos(index * angleStep),
-        y: containerHeight / 2 + radius * Math.sin(index * angleStep),
+        x: (containerWidth / 2 + containerWidth/25) + radius * Math.cos(index * angleStep),
+        y: (containerHeight / 2 - containerHeight/25)+ radius * Math.sin(index * angleStep),
       };
     });
   
     return cityCenters;
   }
 
+
+  // (containerWidth / 2) + containerWidth/25,  
+  // (containerHeight / 2) - containerHeight/25,
   // License count implementation
   groupByLicenseCount(): void {
     const data: UserNode[] = this.processData();
@@ -451,8 +478,8 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
 
     categories.forEach((category, index) => {
       licenseCenters[category] = {
-        x: containerWidth / 2 + radius * Math.cos(index * angleStep),
-        y: containerHeight / 2+ radius * Math.sin(index * angleStep),
+        x: (containerWidth / 2 + containerWidth/25) + radius * Math.cos(index * angleStep),
+        y: (containerHeight / 2 - containerHeight/25)+ radius * Math.sin(index * angleStep),
       };
     });
 

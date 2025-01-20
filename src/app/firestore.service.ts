@@ -20,8 +20,64 @@ export class FirestoreService {
 
   constructor(public firestore: Firestore) {
     this.initializeUsersArray();
+    this.syncEntireCityCache();
     
   }
+
+    // Add this new method
+    async syncEntireCityCache(): Promise<void> {
+      try {
+        // Get all current users' cities
+        const usersCollection = collection(this.firestore, 'users');
+        const usersSnapshot = await getDocs(usersCollection);
+        const activeCities = new Set<string>();
+        
+        usersSnapshot.forEach(doc => {
+          const city = doc.data()['city'];
+          if (city) activeCities.add(city);
+        });
+  
+        // Get all cities in cache
+        const cityCacheCollection = collection(this.firestore, 'citycache');
+        const cityCacheSnapshot = await getDocs(cityCacheCollection);
+        
+        // Delete cities that aren't in use
+        const batch = writeBatch(this.firestore);
+        let deletionCount = 0;
+  
+        cityCacheSnapshot.forEach(doc => {
+          const cityData = doc.data();
+          if (!activeCities.has(cityData['cityname'])) {
+            batch.delete(doc.ref);
+            deletionCount++;
+          }
+        });
+  
+        if (deletionCount > 0) {
+          await batch.commit();
+          // console.log(`Removed ${deletionCount} unused cities from citycache`);
+        }
+  
+        // Add any missing cities
+        for (const city of activeCities) {
+          const cityQuery = query(cityCacheCollection, where('cityname', '==', city));
+          const citySnapshot = await getDocs(cityQuery);
+          
+          if (citySnapshot.empty) {
+            const population = await this.getCityPopulationFromWikimedia(city);
+            await addDoc(cityCacheCollection, { 
+              cityname: city, 
+              population: population 
+            });
+            // console.log(`Added missing city ${city} to citycache`);
+          }
+        }
+  
+      } catch (error) {
+        console.error('Error syncing city cache:', error);
+      }
+    }
+  
 
   ngOnDestroy() {
     if (this.unsubscribe) {
@@ -42,11 +98,11 @@ export class FirestoreService {
       .then(() => {
         this.loading = false;
         dialogRefInput.close();
-        console.log('User added successfully with server timestamp.');
+        // console.log('User added successfully with server timestamp.');
         // Check and add city to citycache
         this.checkAndAddCityToCache(this.user.city)
           .then(() => {
-            console.log('City checked and added to cache if necessary.');
+            // console.log('City checked and added to cache if necessary.');
           })
           .catch((error) => {
             console.error('Error checking and adding city to cache:', error);
@@ -79,22 +135,39 @@ export class FirestoreService {
     });
   }
 
+  // initializeUsersArray() {
+  //   const usersCollection = collection(this.firestore, 'users');
+
+  //   this.unsubscribe = onSnapshot(usersCollection, (querySnapshot) => {
+  //     const usersArray = querySnapshot.docs.map((doc) => {
+  //       const data = doc.data();
+  //       data['id'] = doc.id; // Add the id to the data object
+  //       return new User(data);
+  //     });
+
+  //     this.usersSubject.next(usersArray); // Emit the new user data
+  //   }, (error) => {
+  //     console.error('Error fetching users:', error);
+  //   });
+  // }
   initializeUsersArray() {
     const usersCollection = collection(this.firestore, 'users');
 
     this.unsubscribe = onSnapshot(usersCollection, (querySnapshot) => {
       const usersArray = querySnapshot.docs.map((doc) => {
         const data = doc.data();
-        data['id'] = doc.id; // Add the id to the data object
+        data['id'] = doc.id;
         return new User(data);
       });
 
-      this.usersSubject.next(usersArray); // Emit the new user data
+      this.usersSubject.next(usersArray);
+      
+      // Sync citycache whenever users collection changes
+      this.syncEntireCityCache();
     }, (error) => {
       console.error('Error fetching users:', error);
     });
   }
-
 
   // async deleteSingleUser(userIdInput: string): Promise<void> {
   //   try {
@@ -114,7 +187,7 @@ export class FirestoreService {
   
       // Delete the user
       await deleteDoc(userDocRef);
-      console.log(`User with ID ${userIdInput} deleted successfully.`);
+      // console.log(`User with ID ${userIdInput} deleted successfully.`);
   
       // Only check this specific city
       if (cityToCheck) {
@@ -162,7 +235,7 @@ export class FirestoreService {
     try {
       const querySnapshot = await getDocs(newestUsersQuery);
       if (querySnapshot.size < count) {
-        console.log("Not enough users to delete");
+        // console.log("Not enough users to delete");
         return;
       }
   
@@ -180,7 +253,7 @@ export class FirestoreService {
       });
       await batch.commit();
   
-      console.log(`${count} most recent users deleted successfully.`);
+      // console.log(`${count} most recent users deleted successfully.`);
   
       // Check each affected city
       for (const city of citiesToCheck) {
@@ -215,7 +288,7 @@ export class FirestoreService {
   
         if (!cityCacheSnapshot.empty) {
           await deleteDoc(cityCacheSnapshot.docs[0].ref);
-          console.log(`Removed ${cityName} from citycache as it's no longer used`);
+          // console.log(`Removed ${cityName} from citycache as it's no longer used`);
         }
       }
     } catch (error) {
@@ -238,10 +311,10 @@ async checkAndAddCityToCache(cityName: string) {
 
       // Now add the city and population to citycache
       await addDoc(cityCacheRef, { cityname: cityName, population: population });
-      console.log(`City ${cityName} added to citycache with population ${population}.`);
+      // console.log(`City ${cityName} added to citycache with population ${population}.`);
     } else {
       // City already in cache, do nothing
-      console.log(`City ${cityName} already exists in citycache.`);
+      // console.log(`City ${cityName} already exists in citycache.`);
     }
   } catch (error) {
     console.error(`Error in checkAndAddCityToCache for city ${cityName}:`, error);

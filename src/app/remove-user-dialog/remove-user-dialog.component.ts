@@ -28,7 +28,7 @@ export class RemoveUserDialogComponent {
     if (userIdInput) {
       try {
         await this.firestoreService.deleteSingleUser(userIdInput);
-        console.log(`User with ID ${userIdInput} deleted successfully.`);
+        // console.log(`User with ID ${userIdInput} deleted successfully.`);
         this.router.navigate(['user']); // Redirect to the 'user' route after successful deletion
       } catch (error) {
         console.error('Error deleting user:', error);

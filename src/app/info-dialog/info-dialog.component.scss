@@ -1,3 +1,4 @@
+
 .dialog-content {
     // margin: 16px 0px 16px 0px;
     padding: 8px;
@@ -10,12 +11,14 @@
       font-weight: bold;
       color: #ffffff;
       margin-bottom: 1em;
+      text-align: center;
     }
   
     h2 {
       color: #ffffff;
       margin-top: 0.5em;
       margin-bottom: 0.5em;
+      padding: 0px 0px 0px 20px; 
     }
   
     p {
@@ -41,7 +44,7 @@
     .feature-section {
       margin-bottom: 1.2em;
       padding-left: 10px;
-      border-left: 6px solid #b4b4b4;
+      border-left: 3px solid #b4b4b4;
       border-radius: 10px;
       border-bottom: 1px solid #b4b4b4;
       border-top: 1px solid #b4b4b4;

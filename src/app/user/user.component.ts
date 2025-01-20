@@ -93,7 +93,7 @@ export class UserComponent implements OnInit, OnDestroy {
 consoleOutputUsers() {
   this.createRandomUsers();
   this.saveRandomUsers();
-  console.log(this.firestoreService.users$);
+  // console.log(this.firestoreService.users$);
 }
 
 createRandomUsers() {
@@ -165,7 +165,9 @@ saveRandomUsers() {
   this.randomUsers.forEach((user, index) => {
     setTimeout(() => {
       this.firestoreService.user = user;
-      this.firestoreService.saveUser({ close: () => console.log(`User ${index + 1} saved!`) });
+      this.firestoreService.saveUser({ close: () => 
+        console.log(`User ${index + 1} saved!`) 
+      });
     }, index * 500); // Adding delay between saves to avoid simultaneous writes
   });
 }
