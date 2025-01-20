@@ -166,7 +166,9 @@ saveRandomUsers() {
     setTimeout(() => {
       this.firestoreService.user = user;
       this.firestoreService.saveUser({ close: () => 
-        console.log(`User ${index + 1} saved!`) 
+        {
+          // console.log(`User ${index + 1} saved!`)
+      } 
       });
     }, index * 500); // Adding delay between saves to avoid simultaneous writes
   });

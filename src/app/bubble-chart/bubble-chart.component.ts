@@ -381,6 +381,7 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
     const cityCenters = this.calculateCityCenters(this.sortedCities);
   
     this.simulation
+      .force('center', null)  // Remove the center force
       .force(
         'x',
         d3.forceX<UserNode>((d) => cityCenters[d.city].x).strength(0.14)
@@ -416,8 +417,8 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
   
     cities.forEach((city, index) => {
       cityCenters[city] = {
-        x: (containerWidth / 2 + containerWidth/25) + radius * Math.cos(index * angleStep),
-        y: (containerHeight / 2 - containerHeight/25)+ radius * Math.sin(index * angleStep),
+        x: (containerWidth / 2 + containerWidth/50) + radius * Math.cos(index * angleStep),
+        y: (containerHeight / 2 - containerHeight/22) + radius * Math.sin(index * angleStep),
       };
     });
   
@@ -478,7 +479,7 @@ export class BubbleChartComponent implements OnInit, OnDestroy {
 
     categories.forEach((category, index) => {
       licenseCenters[category] = {
-        x: (containerWidth / 2 + containerWidth/25) + radius * Math.cos(index * angleStep),
+        x: (containerWidth / 2 + containerWidth/50) + radius * Math.cos(index * angleStep),
         y: (containerHeight / 2 - containerHeight/25)+ radius * Math.sin(index * angleStep),
       };
     });
