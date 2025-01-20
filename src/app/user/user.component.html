@@ -1,49 +1,55 @@
-<h1>Table of dummy data - feel free to add, edit and delete entries</h1>
-<mat-card appearance="outlined">
-  
-  <mat-card-content>
+<div class="main-users-div-class">
+
+  <h1>Table of dummy data - feel free to add, edit and delete entries</h1>
+  <mat-card appearance="outlined">
     
-    <table>
-      <tr>
-        <th (click)="sortUserArrayByKey('firstName')">
-          Name {{ currentSortKey === 'firstName' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
-        </th>
-        <th (click)="sortUserArrayByKey('company')">
-          Company {{ currentSortKey === 'company' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
-        </th>
-        <th (click)="sortUserArrayByKey('email')">
-          E-Mail {{ currentSortKey === 'email' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
-        </th>
-        <th (click)="sortUserArrayByKey('city')">
-          City {{ currentSortKey === 'city' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
-        </th>
-        <th (click)="sortUserArrayByKey('licenses')">
-          Licenses {{ currentSortKey === 'licenses' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
-        </th>
-      </tr>
-
-      @for (user of this.localUsersArray; track user; let index = $index){
-      <tr [routerLink]="['/user/' + user.id]">
-          <td> {{ user.firstName }} {{ user.lastName }}</td>
-          <td> {{ user.company }}</td>
-          <td> {{ user.email }}</td>
-          <td> {{ user.city }}</td>
-          <td> {{ user.licenses.length }}</td>
-      </tr>
-    }
-
-    </table>
-
-  </mat-card-content>
-</mat-card>
-
-<button (click)="openDialog()" class="add-user-button-class" mat-fab aria-label="Example icon button with a delete icon"
-matTooltip="Add user" matTooltipPosition="above">
-    <mat-icon>add</mat-icon>
-  </button>
-
-  <button mat-raised-button color="accent" (click)="consoleOutputUsers()" style="margin:16px">Create Random Customers</button>
-  <button mat-raised-button color="accent" (click)="this.firestoreService.deleteNewestUsers()" style="margin:16px">Delete 3 Most Recent Customers</button>
+    <mat-card-content>
+      
+      <table>
+        <tr>
+          <th (click)="sortUserArrayByKey('firstName')">
+            Name {{ currentSortKey === 'firstName' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
+          </th>
+          <th (click)="sortUserArrayByKey('company')">
+            Company {{ currentSortKey === 'company' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
+          </th>
+          <th (click)="sortUserArrayByKey('email')">
+            E-Mail {{ currentSortKey === 'email' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
+          </th>
+          <th (click)="sortUserArrayByKey('city')">
+            City {{ currentSortKey === 'city' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
+          </th>
+          <th (click)="sortUserArrayByKey('licenses')">
+            Licenses {{ currentSortKey === 'licenses' ? (currentSortDirection === 'asc' ? '↑' : '↓') : '↕' }}
+          </th>
+        </tr>
   
-
+        @for (user of this.localUsersArray; track user; let index = $index){
+        <tr [routerLink]="['/user/' + user.id]">
+            <td> {{ user.firstName }} {{ user.lastName }}</td>
+            <td> {{ user.company }}</td>
+            <td> {{ user.email }}</td>
+            <td> {{ user.city }}</td>
+            <td> {{ user.licenses.length }}</td>
+        </tr>
+      }
   
+      </table>
+  
+    </mat-card-content>
+  </mat-card>
+  
+  <button (click)="openDialog()" class="add-user-button-class" mat-fab aria-label="Example icon button with a delete icon"
+  matTooltip="Add user" matTooltipPosition="above">
+      <mat-icon>add</mat-icon>
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="consoleOutputUsers()" style="margin:16px">Create Random Customers</button>
+    <button mat-raised-button color="accent" (click)="this.firestoreService.deleteNewestUsers()" style="margin:16px">Delete 3 Most Recent Customers</button>
+    
+  
+    
+
+
+</div>
+
